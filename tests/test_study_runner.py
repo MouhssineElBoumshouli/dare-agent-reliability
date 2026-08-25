@@ -14,6 +14,9 @@ from dare_runtime import import_upstream  # noqa: E402
 from study_runner import (  # noqa: E402
     EXPECTED_SUBSET_SHA256,
     EXPECTED_UPSTREAM_COMMIT,
+    aggregate_token_usage,
+    calculate_api_cost,
+    fatal_error_reason,
     load_execution_config,
     load_official_example,
     load_subset,
@@ -94,6 +97,58 @@ class StudyRunnerTests(unittest.TestCase):
     def test_template_is_not_accepted_as_frozen_config(self) -> None:
         with self.assertRaisesRegex(ValueError, "provider is not frozen"):
             load_execution_config(REPO_ROOT / "configs" / "execution.example.yaml")
+
+    def test_provider_usage_cost_includes_cached_input(self) -> None:
+        usage = aggregate_token_usage(
+            [
+                {
+                    "usage": {
+                        "prompt_tokens": 1000,
+                        "completion_tokens": 200,
+                        "total_tokens": 1200,
+                        "prompt_tokens_details": {"cached_tokens": 600},
+                    }
+                }
+            ]
+        )
+        cost = calculate_api_cost(
+            usage,
+            {
+                "input_usd_per_million_tokens": 0.4,
+                "cached_input_usd_per_million_tokens": 0.1,
+                "output_usd_per_million_tokens": 1.6,
+            },
+        )
+        self.assertEqual(usage["source"], "openai_chat_completions_response_usage")
+        self.assertEqual(usage["request_count"], 1)
+        self.assertAlmostEqual(cost["total_cost_usd"], 0.00054)
+
+    def test_terminal_provider_and_sandbox_errors_stop_batch(self) -> None:
+        self.assertEqual(
+            fatal_error_reason(
+                None,
+                None,
+                {
+                    "success": False,
+                    "error": "Error code: 429; insufficient_quota",
+                    "traceback": "openai.RateLimitError",
+                },
+            ),
+            "terminal_provider_api_error",
+        )
+        self.assertEqual(
+            fatal_error_reason(
+                None,
+                None,
+                {
+                    "success": True,
+                    "messages": [
+                        {"role": "tool", "content": "HTTPConnectionPool(host='localhost', port=8080): connection refused"}
+                    ],
+                },
+            ),
+            "terminal_sandbox_infrastructure_error",
+        )
 
     def test_reference_report_matches_all_generated_files(self) -> None:
         report = json.loads(

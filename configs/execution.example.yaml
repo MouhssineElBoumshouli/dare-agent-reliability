@@ -15,6 +15,12 @@ parallel_tool_calls: provider_default
 reasoning_effort: null
 reasoning_summary: null
 provider_sdk_request_max_retries: 2
+pricing:
+  input_usd_per_million_tokens: 0.40
+  cached_input_usd_per_million_tokens: 0.10
+  output_usd_per_million_tokens: 1.60
+  source_url: "https://developers.openai.com/api/docs/models/gpt-4.1-mini"
+  accessed_date: "YYYY-MM-DD"
 sandbox_url: "http://localhost:8080/run_code"
 task_subset_sha256: "2FA2F54C22265E04F3A39F2B8CFFA3DB12B58B508F2DF0C12940780ACA03C77E"
 repeats: 5

@@ -11,8 +11,13 @@ from __future__ import annotations
 import importlib
 import sys
 import types
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+
+_OPENAI_USAGE_RECORDS: list[dict[str, Any]] = []
+_OPENAI_CAPTURE_INSTALLED = False
 
 
 class _SamplingParams:
@@ -63,6 +68,46 @@ def install_remote_only_import_shims() -> None:
             sys.modules["torch"] = module
 
 
+def install_openai_usage_capture() -> None:
+    """Capture provider-reported usage without changing upstream request semantics."""
+    global _OPENAI_CAPTURE_INSTALLED
+    if _OPENAI_CAPTURE_INSTALLED:
+        return
+
+    from openai.resources.chat.completions import Completions
+
+    original_create = Completions.create
+
+    def create_with_usage(self: Any, *args: Any, **kwargs: Any) -> Any:
+        response = original_create(self, *args, **kwargs)
+        usage = getattr(response, "usage", None)
+        if usage is not None:
+            usage_data = usage.model_dump(mode="json") if hasattr(usage, "model_dump") else dict(usage)
+            _OPENAI_USAGE_RECORDS.append(
+                {
+                    "captured_at_utc": datetime.now(timezone.utc).isoformat(),
+                    "request_id": getattr(response, "_request_id", None),
+                    "returned_model_id": getattr(response, "model", None),
+                    "provider_sdk_max_retries": getattr(
+                        getattr(self, "_client", None), "max_retries", None
+                    ),
+                    "usage": usage_data,
+                }
+            )
+        return response
+
+    Completions.create = create_with_usage
+    _OPENAI_CAPTURE_INSTALLED = True
+
+
+def reset_openai_usage_records() -> None:
+    _OPENAI_USAGE_RECORDS.clear()
+
+
+def get_openai_usage_records() -> list[dict[str, Any]]:
+    return [dict(record) for record in _OPENAI_USAGE_RECORDS]
+
+
 def import_upstream(repo_root: Path) -> tuple[Any, Any, Any]:
     """Return process_example, get_processed_data, and evaluate_prediction."""
     scripts_dir = repo_root / "vendor" / "DARE-Bench" / "scripts"
@@ -74,6 +119,7 @@ def import_upstream(repo_root: Path) -> tuple[Any, Any, Any]:
     # the actual host state instead of mistaking the narrow stub for real Torch.
     importlib.import_module("sklearn.metrics")
     install_remote_only_import_shims()
+    install_openai_usage_capture()
     scripts_text = str(scripts_dir.resolve())
     if scripts_text not in sys.path:
         sys.path.insert(0, scripts_text)

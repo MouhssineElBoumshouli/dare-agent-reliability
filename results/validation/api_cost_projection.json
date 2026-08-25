@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-25T18:12:56.418188+00:00",
+  "all_successful": true,
+  "basis": "OpenAI Chat Completions response.usage from two separated repeat_02 pilot runs",
+  "model_id": "gpt-4.1-mini-2025-04-14",
+  "planned_final_run_count": 240,
+  "runs_per_condition": 120,
+  "pricing": {
+    "input_usd_per_million_tokens": 0.4,
+    "cached_input_usd_per_million_tokens": 0.1,
+    "output_usd_per_million_tokens": 1.6,
+    "source_url": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+    "accessed_date": "2026-08-25"
+  },
+  "tracked_calibration_snapshot": "results/validation/api_cost_calibration_usage.json",
+  "tracked_calibration_snapshot_sha256": "59F20F40AAFCCAD550935B43988FC84110630406B92941C2493AD9A6965EEEC3",
+  "conditions": {
+    "turns_3": {
+      "calibration_identity": {
+        "scope": "pilot",
+        "task_id": "aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class",
+        "repeat": 2,
+        "condition": "turns_3",
+        "model_id": "gpt-4.1-mini-2025-04-14"
+      },
+      "usage_artifact": "results/pilot/openai__gpt-4.1-mini-2025-04-14/turns_3/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/repeat_02/token_usage.json",
+      "usage_artifact_sha256": "6352A21DAF2A60B84781BC410B454B2143D166B60D40381D8D68A02972667A08",
+      "provider_reported_usage": {
+        "prompt_tokens": 6949,
+        "completion_tokens": 2331,
+        "total_tokens": 9280,
+        "cached_prompt_tokens": 2944
+      },
+      "provider_request_count": 3,
+      "observed_cost_per_run_usd": 0.005626000000000001,
+      "planned_final_runs": 120,
+      "point_projection_usd": 0.67512,
+      "observed_heaviest_request_cost_usd": 0.0028840000000000007,
+      "max_turn_heaviest_request_envelope_per_run_usd": 0.008652000000000002,
+      "max_turn_heaviest_request_projection_usd": 1.0382400000000003
+    },
+    "turns_5": {
+      "calibration_identity": {
+        "scope": "pilot",
+        "task_id": "aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class",
+        "repeat": 2,
+        "condition": "turns_5",
+        "model_id": "gpt-4.1-mini-2025-04-14"
+      },
+      "usage_artifact": "results/pilot/openai__gpt-4.1-mini-2025-04-14/turns_5/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/repeat_02/token_usage.json",
+      "usage_artifact_sha256": "5ACAA4286243CFFB6731513F5C91F8B3AB75333CCD9669117063A44C13E85651",
+      "provider_reported_usage": {
+        "prompt_tokens": 12744,
+        "completion_tokens": 2399,
+        "total_tokens": 15143,
+        "cached_prompt_tokens": 8448
+      },
+      "provider_request_count": 5,
+      "observed_cost_per_run_usd": 0.0064016,
+      "planned_final_runs": 120,
+      "point_projection_usd": 0.768192,
+      "observed_heaviest_request_cost_usd": 0.0019784,
+      "max_turn_heaviest_request_envelope_per_run_usd": 0.009892,
+      "max_turn_heaviest_request_projection_usd": 1.1870399999999999
+    }
+  },
+  "point_projection_total_usd": 1.4433120000000002,
+  "max_turn_heaviest_request_envelope_total_usd": 2.22528,
+  "conservative_contingency_multiplier": 1.5,
+  "conservative_upper_estimate_usd": 3.3379200000000004,
+  "conservative_method": "For each condition, price every permitted turn as the most expensive observed request; then add a 50% cross-task contingency. This is a planning estimate, not a hard cap.",
+  "limitations": [
+    "Only one task was sampled per condition for cost calibration.",
+    "Task prompts, tool outputs, stopping behavior, and automatic prompt caching can vary.",
+    "The two earlier repeat_01 pilots did not retain provider usage and are excluded."
+  ],
+  "final_run_accounting": {
+    "provider_usage_artifact": "token_usage.json in every immutable run directory",
+    "cost_artifact": "api_cost.json in every immutable run directory",
+    "terminal_metadata_fields": [
+      "token_usage",
+      "api_cost"
+    ]
+  }
+}

@@ -1,9 +1,10 @@
-# Frozen Phase-1 execution configuration. Do not edit after the freeze commit;
-# version any consequential change as a new experiment.
+# Frozen Phase-1 execution configuration, provenance/safety revision 2.
+# The revision adds usage/cost accounting and fail-stop behavior only; the
+# scientific protocol and model configuration are unchanged from revision 1.
 schema_version: 1
 experiment_scope: final
 planned_run_count: 240
-freeze_git_ref: "phase1-execution-freeze"
+freeze_git_ref: "phase1-execution-freeze-v2"
 
 provider: openai
 model_id: "gpt-4.1-mini-2025-04-14"
@@ -20,6 +21,12 @@ tool_choice: provider_default_auto
 parallel_tool_calls: provider_default
 provider_sdk: "openai==1.86.0"
 provider_sdk_request_max_retries: 2
+pricing:
+  input_usd_per_million_tokens: 0.40
+  cached_input_usd_per_million_tokens: 0.10
+  output_usd_per_million_tokens: 1.60
+  source_url: "https://developers.openai.com/api/docs/models/gpt-4.1-mini"
+  accessed_date: "2026-08-25"
 
 tool_mode: function_call
 append_tool_output: true
@@ -47,3 +54,4 @@ conditions:
 pilot_validation_report: "results/validation/pilot_validation.json"
 model_access_report: "results/validation/model_access.json"
 environment_manifest: "results/environment/environment.json"
+api_cost_projection_report: "results/validation/api_cost_projection.json"

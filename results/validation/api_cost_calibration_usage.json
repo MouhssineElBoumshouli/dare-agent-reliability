@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-25T18:12:14.136834+00:00",
+  "purpose": "provider_reported_api_cost_calibration_only_not_benchmark_results",
+  "model_id": "gpt-4.1-mini-2025-04-14",
+  "task_id": "aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class",
+  "repeat": 2,
+  "conditions": {
+    "turns_3": {
+      "source_artifact": "results/pilot/openai__gpt-4.1-mini-2025-04-14/turns_3/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/repeat_02/token_usage.json",
+      "source_artifact_sha256": "6352A21DAF2A60B84781BC410B454B2143D166B60D40381D8D68A02972667A08",
+      "token_usage": {
+        "source": "openai_chat_completions_response_usage",
+        "request_count": 3,
+        "totals": {
+          "prompt_tokens": 6949,
+          "completion_tokens": 2331,
+          "total_tokens": 9280,
+          "cached_prompt_tokens": 2944
+        },
+        "requests": [
+          {
+            "captured_at_utc": "2026-08-25T18:02:58.495516+00:00",
+            "request_id": "req_bdfd3829e002485b83191df2868045e9",
+            "returned_model_id": "gpt-4.1-mini-2025-04-14",
+            "usage": {
+              "completion_tokens": 1586,
+              "prompt_tokens": 866,
+              "total_tokens": 2452,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+              }
+            }
+          },
+          {
+            "captured_at_utc": "2026-08-25T18:03:03.266564+00:00",
+            "request_id": "req_0e550859a3b743e690609bd686f1787d",
+            "returned_model_id": "gpt-4.1-mini-2025-04-14",
+            "usage": {
+              "completion_tokens": 125,
+              "prompt_tokens": 2941,
+              "total_tokens": 3066,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+              }
+            }
+          },
+          {
+            "captured_at_utc": "2026-08-25T18:03:16.657199+00:00",
+            "request_id": "req_dca0a87472e441f69d7ace4db9594f1e",
+            "returned_model_id": "gpt-4.1-mini-2025-04-14",
+            "usage": {
+              "completion_tokens": 620,
+              "prompt_tokens": 3142,
+              "total_tokens": 3762,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 2944
+              }
+            }
+          }
+        ]
+      }
+    },
+    "turns_5": {
+      "source_artifact": "results/pilot/openai__gpt-4.1-mini-2025-04-14/turns_5/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/repeat_02/token_usage.json",
+      "source_artifact_sha256": "5ACAA4286243CFFB6731513F5C91F8B3AB75333CCD9669117063A44C13E85651",
+      "token_usage": {
+        "source": "openai_chat_completions_response_usage",
+        "request_count": 5,
+        "totals": {
+          "prompt_tokens": 12744,
+          "completion_tokens": 2399,
+          "total_tokens": 15143,
+          "cached_prompt_tokens": 8448
+        },
+        "requests": [
+          {
+            "captured_at_utc": "2026-08-25T18:03:41.615174+00:00",
+            "request_id": "req_94a5f8c3a45442f68bd1221795132447",
+            "returned_model_id": "gpt-4.1-mini-2025-04-14",
+            "usage": {
+              "completion_tokens": 1020,
+              "prompt_tokens": 866,
+              "total_tokens": 1886,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+              }
+            }
+          },
+          {
+            "captured_at_utc": "2026-08-25T18:03:51.802775+00:00",
+            "request_id": "req_b2eb1110dd3542edab5eec58f8182178",
+            "returned_model_id": "gpt-4.1-mini-2025-04-14",
+            "usage": {
+              "completion_tokens": 636,
+              "prompt_tokens": 1988,
+              "total_tokens": 2624,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+              }
+            }
+          },
+          {
+            "captured_at_utc": "2026-08-25T18:03:54.896974+00:00",
+            "request_id": "req_e0dded3d56304037845b61642617d6c8",
+            "returned_model_id": "gpt-4.1-mini-2025-04-14",
+            "usage": {
+              "completion_tokens": 76,
+              "prompt_tokens": 2955,
+              "total_tokens": 3031,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 1920
+              }
+            }
+          },
+          {
+            "captured_at_utc": "2026-08-25T18:04:04.379689+00:00",
+            "request_id": "req_f107979ee611492db2e8c3e5b1679d58",
+            "returned_model_id": "gpt-4.1-mini-2025-04-14",
+            "usage": {
+              "completion_tokens": 615,
+              "prompt_tokens": 3104,
+              "total_tokens": 3719,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 2944
+              }
+            }
+          },
+          {
+            "captured_at_utc": "2026-08-25T18:07:20.025688+00:00",
+            "request_id": "req_875c1f494e5141d5bdb55bf151331342",
+            "returned_model_id": "gpt-4.1-mini-2025-04-14",
+            "usage": {
+              "completion_tokens": 52,
+              "prompt_tokens": 3831,
+              "total_tokens": 3883,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 3584
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

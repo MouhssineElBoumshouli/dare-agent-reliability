@@ -18,10 +18,11 @@ from pathlib import Path
 from typing import Any, Iterable, TextIO
 
 import yaml
+import requests
 from dotenv import load_dotenv
 from omegaconf import OmegaConf
 
-from dare_runtime import import_upstream
+from dare_runtime import get_openai_usage_records, import_upstream, reset_openai_usage_records
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +33,123 @@ UPSTREAM_ROOT = REPO_ROOT / "vendor" / "DARE-Bench"
 EXPECTED_UPSTREAM_COMMIT = "01447145304c67b861a004ada6d86f29640de61a"
 EXPECTED_SUBSET_SHA256 = "2FA2F54C22265E04F3A39F2B8CFFA3DB12B58B508F2DF0C12940780ACA03C77E"
 TERMINAL_METADATA = "metadata.json"
+
+
+def aggregate_token_usage(records: list[dict[str, Any]]) -> dict[str, Any]:
+    totals = {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "cached_prompt_tokens": 0,
+    }
+    for record in records:
+        usage = record.get("usage") or {}
+        totals["prompt_tokens"] += int(usage.get("prompt_tokens") or 0)
+        totals["completion_tokens"] += int(usage.get("completion_tokens") or 0)
+        totals["total_tokens"] += int(usage.get("total_tokens") or 0)
+        details = usage.get("prompt_tokens_details") or {}
+        totals["cached_prompt_tokens"] += int(details.get("cached_tokens") or 0)
+    return {
+        "source": "openai_chat_completions_response_usage",
+        "request_count": len(records),
+        "totals": totals,
+        "requests": records,
+    }
+
+
+def calculate_api_cost(token_usage: dict[str, Any], pricing: dict[str, Any]) -> dict[str, Any]:
+    totals = token_usage["totals"]
+    prompt_tokens = int(totals["prompt_tokens"])
+    cached_tokens = int(totals["cached_prompt_tokens"])
+    completion_tokens = int(totals["completion_tokens"])
+    if cached_tokens > prompt_tokens:
+        raise ValueError("Cached prompt tokens cannot exceed total prompt tokens")
+    uncached_tokens = prompt_tokens - cached_tokens
+    input_rate = float(pricing["input_usd_per_million_tokens"])
+    cached_rate = float(pricing["cached_input_usd_per_million_tokens"])
+    output_rate = float(pricing["output_usd_per_million_tokens"])
+    input_cost = uncached_tokens * input_rate / 1_000_000
+    cached_cost = cached_tokens * cached_rate / 1_000_000
+    output_cost = completion_tokens * output_rate / 1_000_000
+    return {
+        "currency": "USD",
+        "source": "provider_reported_token_usage_x_frozen_public_list_price",
+        "uncached_input_tokens": uncached_tokens,
+        "cached_input_tokens": cached_tokens,
+        "output_tokens": completion_tokens,
+        "uncached_input_cost_usd": input_cost,
+        "cached_input_cost_usd": cached_cost,
+        "output_cost_usd": output_cost,
+        "total_cost_usd": input_cost + cached_cost + output_cost,
+        "pricing": pricing,
+    }
+
+
+def fatal_error_reason(
+    runner_error: dict[str, str] | None,
+    evaluation_exception: dict[str, str] | None,
+    upstream_result: dict[str, Any] | None,
+) -> str | None:
+    """Identify terminal provider/infrastructure faults that must stop a batch."""
+    if runner_error is not None:
+        return f"runner_infrastructure_error:{runner_error.get('type', 'unknown')}"
+    if evaluation_exception is not None:
+        return f"official_evaluator_error:{evaluation_exception.get('type', 'unknown')}"
+    if not isinstance(upstream_result, dict):
+        return None
+
+    message_evidence = json.dumps(upstream_result.get("messages", []), ensure_ascii=False).lower()
+    sandbox_markers = (
+        "httpconnectionpool(host='localhost', port=8080)",
+        "failed to establish a new connection",
+        "connection refused",
+        "max retries exceeded with url: /run_code",
+    )
+    if any(marker in message_evidence for marker in sandbox_markers):
+        return "terminal_sandbox_infrastructure_error"
+
+    if upstream_result.get("success") is not False:
+        return None
+
+    evidence = "\n".join(
+        str(upstream_result.get(key, "")) for key in ("error", "traceback")
+    ).lower()
+    provider_markers = (
+        "insufficient_quota",
+        "billing_hard_limit",
+        "billing",
+        "ratelimiterror",
+        "rate limit",
+        "authenticationerror",
+        "permissiondeniederror",
+        "apiconnectionerror",
+        "apitimeouterror",
+        "internalservererror",
+        "openai.api",
+        "status code 429",
+        "error code: 429",
+    )
+    if any(marker in evidence for marker in provider_markers):
+        return "terminal_provider_api_error"
+    return None
+
+
+def check_sandbox_ready(endpoint: str) -> None:
+    """Fail before allocating a run identity if the shared sandbox is unavailable."""
+    payload = {
+        "code": "print('study-preflight-ok')",
+        "language": "python",
+        "files": {},
+        "fetch_files": [],
+        "compile_timeout": 10,
+        "run_timeout": 10,
+    }
+    response = requests.post(endpoint, json=payload, timeout=20)
+    response.raise_for_status()
+    body = response.json()
+    result = body.get("run_result") or {}
+    if result.get("status") != "Finished" or result.get("stdout", "").strip() != "study-preflight-ok":
+        raise RuntimeError(f"Sandbox preflight returned an invalid contract response: {result}")
 
 
 class Tee(TextIO):
@@ -119,7 +237,15 @@ def load_execution_config(path: Path) -> dict[str, Any]:
         raise ValueError("Execution config must be a YAML mapping")
     reject_embedded_secrets(data)
 
-    required = ["schema_version", "provider", "model_id", "model_snapshot", "conditions", "repeats"]
+    required = [
+        "schema_version",
+        "provider",
+        "model_id",
+        "model_snapshot",
+        "conditions",
+        "repeats",
+        "pricing",
+    ]
     missing = [key for key in required if key not in data]
     if missing:
         raise ValueError(f"Execution config missing required keys: {missing}")
@@ -128,6 +254,16 @@ def load_execution_config(path: Path) -> dict[str, Any]:
             raise ValueError(f"Execution config {key} is not frozen")
     if int(data["repeats"]) != 5:
         raise ValueError("Frozen protocol requires exactly 5 repeats")
+    pricing = data["pricing"]
+    required_rates = (
+        "input_usd_per_million_tokens",
+        "cached_input_usd_per_million_tokens",
+        "output_usd_per_million_tokens",
+    )
+    if not isinstance(pricing, dict) or any(key not in pricing for key in required_rates):
+        raise ValueError("Execution config must freeze all API pricing rates")
+    if any(float(pricing[key]) < 0 for key in required_rates):
+        raise ValueError("Execution config API pricing rates cannot be negative")
     return data
 
 
@@ -176,6 +312,7 @@ def verify_final_execution_gate(config: dict[str, Any], config_path: Path) -> No
         "results/validation/sandbox_contract.json": "all_successful",
         "results/validation/pilot_validation.json": "gate_passed",
         "results/validation/model_access.json": "model_access",
+        "results/validation/api_cost_projection.json": "all_successful",
     }
     for relative, success_key in required_reports.items():
         path = REPO_ROOT / relative
@@ -399,13 +536,13 @@ def execute_identity(
     scope: str,
     execution_config_path: Path,
     resume: bool,
-) -> str:
+) -> tuple[str, str | None]:
     task_id = task["file_path"]
     destination = run_path(scope, execution, condition_id, task_id, repeat)
     if destination.exists():
         if resume:
             print(f"SKIP existing immutable identity: {destination.relative_to(REPO_ROOT)}")
-            return "skipped_existing"
+            return "skipped_existing", None
         raise FileExistsError(f"Run identity already exists and will not be overwritten: {destination}")
 
     destination.mkdir(parents=True, exist_ok=False)
@@ -440,6 +577,7 @@ def execute_identity(
     upstream_result: dict[str, Any] | None = None
     runner_error: dict[str, str] | None = None
     upstream_dir: Path | None = None
+    reset_openai_usage_records()
 
     with runner_log.open("w", encoding="utf-8") as log_handle:
         tee_out = Tee(sys.stdout, log_handle)
@@ -457,6 +595,12 @@ def execute_identity(
                 "traceback": traceback.format_exc(),
             }
             write_json(destination / "runner_error.json", runner_error)
+
+    usage_records = get_openai_usage_records()
+    token_usage = aggregate_token_usage(usage_records)
+    write_json(destination / "token_usage.json", token_usage)
+    api_cost = calculate_api_cost(token_usage, execution["pricing"])
+    write_json(destination / "api_cost.json", api_cost)
 
     prediction_path = destination / "prediction.csv"
     raw_log_path: Path | None = None
@@ -496,6 +640,9 @@ def execute_identity(
         status = "infrastructure_error"
     elif evaluation_exception is not None:
         status = "evaluation_error"
+    stop_reason = fatal_error_reason(runner_error, evaluation_exception, upstream_result)
+    if stop_reason is not None:
+        status = "infrastructure_error"
 
     metadata = {
         **started,
@@ -515,9 +662,13 @@ def execute_identity(
         "tool_call_count": count_tool_calls(
             upstream_result.get("messages") if isinstance(upstream_result, dict) else None
         ),
-        "token_usage": None,
-        "token_usage_note": "Unavailable from the pinned upstream remote-model client",
-        "failure_category": "infrastructure_error" if runner_error is not None else None,
+        "token_usage": token_usage,
+        "token_usage_note": "Provider-reported OpenAI Chat Completions response.usage captured per request",
+        "token_usage_path": "token_usage.json",
+        "api_cost": api_cost,
+        "api_cost_path": "api_cost.json",
+        "batch_stop_reason": stop_reason,
+        "failure_category": "infrastructure_error" if stop_reason is not None else None,
         "failure_evidence_path": (
             "runner_error.json" if runner_error is not None else ("run.log" if not upstream_success and raw_log_path else None)
         ),
@@ -559,7 +710,7 @@ def execute_identity(
         f"{status.upper()} {condition_id} {task_id} repeat={repeat} "
         f"official_score={metadata['official_score']} runtime={wall_seconds:.1f}s"
     )
-    return status
+    return status, stop_reason
 
 
 def parse_args() -> argparse.Namespace:
@@ -601,7 +752,17 @@ def main() -> int:
     process_example, get_processed_data, evaluate_prediction = import_upstream(REPO_ROOT)
     outcomes: dict[str, int] = {}
     for task, condition_id, repeat in work:
-        outcome = execute_identity(
+        try:
+            check_sandbox_ready(str(execution.get("sandbox_url", "http://localhost:8080/run_code")))
+        except Exception as exc:
+            print(
+                f"STOP before allocating the next run identity: sandbox preflight failed: "
+                f"{type(exc).__name__}: {exc}",
+                file=sys.stderr,
+            )
+            outcomes["batch_stopped_infrastructure_preflight"] = 1
+            break
+        outcome, stop_reason = execute_identity(
             process_example,
             get_processed_data,
             evaluate_prediction,
@@ -615,8 +776,20 @@ def main() -> int:
             args.resume,
         )
         outcomes[outcome] = outcomes.get(outcome, 0) + 1
+        if stop_reason is not None:
+            print(
+                f"STOP after preserving terminal metadata for the current immutable identity: {stop_reason}",
+                file=sys.stderr,
+            )
+            outcomes["batch_stopped_terminal_error"] = 1
+            break
     print(f"Batch outcomes: {json.dumps(outcomes, sort_keys=True)}")
-    return 0 if not any(key == "infrastructure_error" for key in outcomes) else 1
+    stop_keys = {
+        "infrastructure_error",
+        "batch_stopped_infrastructure_preflight",
+        "batch_stopped_terminal_error",
+    }
+    return 0 if not any(key in stop_keys for key in outcomes) else 1
 
 
 if __name__ == "__main__":

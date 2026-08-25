@@ -138,6 +138,7 @@ def main() -> int:
                     "runtime_seconds": metadata.get("runtime_seconds"),
                     "tool_calls": metadata.get("tool_call_count"),
                     "token_usage": metadata.get("token_usage"),
+                    "api_cost_usd": (metadata.get("api_cost") or {}).get("total_cost_usd"),
                     "prediction_sha256": prediction_hash,
                     "prediction_path": (
                         prediction.relative_to(REPO_ROOT).as_posix() if prediction.is_file() else None

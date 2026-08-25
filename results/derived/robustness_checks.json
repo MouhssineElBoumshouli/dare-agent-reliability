@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "source_artifact_sha256": {
+    "runs.csv": "EA32E76BF3E886D82E031853DD096A5FA9985442A19ED4BF21C081EAB595BDD9",
+    "task_reliability.csv": "039C73E6A585C7065073322F3B27FFDF7D15F60B152F545F44130076F48033B5",
+    "condition_summary.csv": "7C701055326638BFE8D2AECBB39A0E2898F2EE3FCC5CAF490DCEBD8E71F59497",
+    "paired_condition_comparison.csv": "73A2B24FBE86AB428A8F513A8D5541E30E8C390ACAAE0034D9422F37BC409982",
+    "failure_mode_summary.csv": "BBD28C7A4E26F3DB230F3FACE1F8DC747B5E0F4DFF8962C077EAFA8469664E0B",
+    "failure_analysis_summary.json": "5EA7C14D07987386CEDAE863B87F7302C12468A5DA4A56DA05EE90D4D5A07142",
+    "raw_run_integrity.json": "B94CC34B4086198E6F1DE6FC50106E30CF5E520A960C5BE12E9C0B887C5A37AC",
+    "summary.json": "6FDB62D9355B574B79CDF670BE6FF66A3E7C264122DDE257E8751C52B9B31C5A"
+  },
+  "bootstrap": {
+    "unit": "task",
+    "samples": 10000,
+    "seed": 20260825,
+    "interval": "percentile_95"
+  },
+  "confirmed_percentages": {
+    "turns_3": {
+      "overall": {
+        "run_success_rate": 0.3416666666666667,
+        "always_pass_task_rate": 0.2083333333333333,
+        "flaky_task_rate": 0.2916666666666667,
+        "never_pass_task_rate": 0.5,
+        "mean_pairwise_disagreement": 0.15
+      },
+      "classification": {
+        "run_success_rate": 0.4,
+        "always_pass_task_rate": 0.25,
+        "flaky_task_rate": 0.3333333333333333,
+        "never_pass_task_rate": 0.4166666666666667,
+        "mean_pairwise_disagreement": 0.1666666666666666
+      },
+      "regression": {
+        "run_success_rate": 0.2833333333333333,
+        "always_pass_task_rate": 0.1666666666666666,
+        "flaky_task_rate": 0.25,
+        "never_pass_task_rate": 0.5833333333333334,
+        "mean_pairwise_disagreement": 0.1333333333333333
+      }
+    },
+    "turns_5": {
+      "overall": {
+        "run_success_rate": 0.5,
+        "always_pass_task_rate": 0.2916666666666667,
+        "flaky_task_rate": 0.4166666666666667,
+        "never_pass_task_rate": 0.2916666666666667,
+        "mean_pairwise_disagreement": 0.2166666666666666
+      },
+      "classification": {
+        "run_success_rate": 0.6166666666666667,
+        "always_pass_task_rate": 0.3333333333333333,
+        "flaky_task_rate": 0.5,
+        "never_pass_task_rate": 0.1666666666666666,
+        "mean_pairwise_disagreement": 0.2333333333333333
+      },
+      "regression": {
+        "run_success_rate": 0.3833333333333333,
+        "always_pass_task_rate": 0.25,
+        "flaky_task_rate": 0.3333333333333333,
+        "never_pass_task_rate": 0.4166666666666667,
+        "mean_pairwise_disagreement": 0.1999999999999999
+      }
+    }
+  },
+  "paired_turns_5_minus_turns_3": {
+    "classification": {
+      "n_paired_tasks": 12,
+      "mean_task_success_rate_difference": 0.2166666666666666,
+      "median_task_success_rate_difference": 0.0,
+      "ci95_low": 0.0333333333333333,
+      "ci95_high": 0.4166666666666667,
+      "tasks_improved": 5,
+      "tasks_declined": 1,
+      "tasks_tied": 6
+    },
+    "overall": {
+      "n_paired_tasks": 24,
+      "mean_task_success_rate_difference": 0.1583333333333333,
+      "median_task_success_rate_difference": 0.0,
+      "ci95_low": 0.05,
+      "ci95_high": 0.2749999999999999,
+      "tasks_improved": 9,
+      "tasks_declined": 2,
+      "tasks_tied": 13
+    },
+    "regression": {
+      "n_paired_tasks": 12,
+      "mean_task_success_rate_difference": 0.1,
+      "median_task_success_rate_difference": 0.0,
+      "ci95_low": 4.625929269271485e-18,
+      "ci95_high": 0.2166666666666666,
+      "tasks_improved": 4,
+      "tasks_declined": 1,
+      "tasks_tied": 7
+    }
+  },
+  "task_movements": {
+    "improved": [
+      {
+        "task_id": "jiaoyouzhang_stock-pledge-defaults-prediction_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.8,
+        "difference": 0.8
+      },
+      {
+        "task_id": "sahideseker_fraud-detection-in-transactions-dataset_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.8,
+        "difference": 0.8
+      },
+      {
+        "task_id": "csourire_datos-morfolgicos-de-100-especies-de-hongos_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.4,
+        "turns_5_success_rate": 1.0,
+        "difference": 0.6
+      },
+      {
+        "task_id": "anirudhsub_twizzlerdata_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.4,
+        "difference": 0.4
+      },
+      {
+        "task_id": "cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.4,
+        "difference": 0.4
+      },
+      {
+        "task_id": "electromarine_steam-alternator-generator-log-2005-synthetic_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.4,
+        "difference": 0.4
+      },
+      {
+        "task_id": "rohansardar_linear-regression-synthetic-data_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.6,
+        "turns_5_success_rate": 1.0,
+        "difference": 0.4
+      },
+      {
+        "task_id": "ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.2,
+        "turns_5_success_rate": 0.4,
+        "difference": 0.2
+      },
+      {
+        "task_id": "muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.8,
+        "turns_5_success_rate": 1.0,
+        "difference": 0.19999999999999996
+      }
+    ],
+    "declined": [
+      {
+        "task_id": "madhuraatmarambhagat_crop-recommendation-dataset_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 1.0,
+        "turns_5_success_rate": 0.8,
+        "difference": -0.19999999999999996
+      },
+      {
+        "task_id": "digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.6,
+        "turns_5_success_rate": 0.4,
+        "difference": -0.19999999999999996
+      }
+    ],
+    "tied": [
+      {
+        "task_id": "aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "prekshad2166_food-expiry-tracker_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.4,
+        "turns_5_success_rate": 0.4,
+        "difference": 0.0
+      },
+      {
+        "task_id": "samikshadalvi_pcos-diagnosis-dataset_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 1.0,
+        "turns_5_success_rate": 1.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "shankar3234_ping-pong-game-playing-dataset_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 0.2,
+        "turns_5_success_rate": 0.2,
+        "difference": 0.0
+      },
+      {
+        "task_id": "willianoliveiragibin_europe-mothers_class",
+        "task_type": "classification",
+        "turns_3_success_rate": 1.0,
+        "turns_5_success_rate": 1.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "adilshamim8_predict-calorie-expenditure_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 1.0,
+        "turns_5_success_rate": 1.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "brsahan_extensive-used-car-price-for-predictive-modeling_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 1.0,
+        "turns_5_success_rate": 1.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "jacopoferretti_wages-and-education-of-young-males-dataset_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "nicolsvrancovich_el-ateneo-marketplace-books_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "sautkin_cleaned-supercon-from-nims-rdf-1-2_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.0,
+        "difference": 0.0
+      },
+      {
+        "task_id": "shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg",
+        "task_type": "regression",
+        "turns_3_success_rate": 0.0,
+        "turns_5_success_rate": 0.0,
+        "difference": 0.0
+      }
+    ]
+  },
+  "improvement_concentration": {
+    "classification": 13,
+    "regression": 6,
+    "total": 19,
+    "classification_share": 0.6842105263157895
+  },
+  "interpretation_guardrails": [
+    "Task-level movements are descriptive; individual tasks are not representative examples.",
+    "Bootstrap intervals resample tasks and are not formal significance tests.",
+    "Classification and regression each contain 12 fixed tasks, so stratum comparisons are imprecise."
+  ]
+}

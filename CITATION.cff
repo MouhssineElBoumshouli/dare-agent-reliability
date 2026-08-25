@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this study, please cite both this repository and the original DARE-Bench paper."
-title: "DARE-Bench Agent Reliability Study"
+title: "Beyond Average Score: Repeatability of LLM Data-Science Agents on DARE-Bench"
 type: software
 authors:
   - family-names: "El Boumshouli"

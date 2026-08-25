@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "generator": "src/generate_figures.py",
+  "matplotlib_version": "3.10.5",
+  "input_directory": "results/derived",
+  "source_sha256": {
+    "runs.csv": "EA32E76BF3E886D82E031853DD096A5FA9985442A19ED4BF21C081EAB595BDD9",
+    "task_reliability.csv": "039C73E6A585C7065073322F3B27FFDF7D15F60B152F545F44130076F48033B5",
+    "condition_summary.csv": "7C701055326638BFE8D2AECBB39A0E2898F2EE3FCC5CAF490DCEBD8E71F59497",
+    "paired_condition_comparison.csv": "73A2B24FBE86AB428A8F513A8D5541E30E8C390ACAAE0034D9422F37BC409982",
+    "failure_mode_summary.csv": "BBD28C7A4E26F3DB230F3FACE1F8DC747B5E0F4DFF8962C077EAFA8469664E0B",
+    "failure_analysis_summary.json": "5EA7C14D07987386CEDAE863B87F7302C12468A5DA4A56DA05EE90D4D5A07142",
+    "raw_run_integrity.json": "B94CC34B4086198E6F1DE6FC50106E30CF5E520A960C5BE12E9C0B887C5A37AC",
+    "summary.json": "6FDB62D9355B574B79CDF670BE6FF66A3E7C264122DDE257E8751C52B9B31C5A"
+  },
+  "figures": [
+    {
+      "id": "figure_01_success_rate_ci",
+      "description": "Exact-match success with task-bootstrap 95% confidence intervals",
+      "files": {
+        "png": "results/figures/figure_01_success_rate_ci.png",
+        "pdf": "results/figures/figure_01_success_rate_ci.pdf"
+      }
+    },
+    {
+      "id": "figure_02_task_type_success",
+      "description": "Classification and regression success by condition",
+      "files": {
+        "png": "results/figures/figure_02_task_type_success.png",
+        "pdf": "results/figures/figure_02_task_type_success.pdf"
+      }
+    },
+    {
+      "id": "figure_03_reliability_composition",
+      "description": "Always-pass, flaky, and never-pass task composition",
+      "files": {
+        "png": "results/figures/figure_03_reliability_composition.png",
+        "pdf": "results/figures/figure_03_reliability_composition.pdf"
+      }
+    },
+    {
+      "id": "figure_04_pairwise_disagreement",
+      "description": "Pairwise disagreement with task-bootstrap 95% confidence intervals",
+      "files": {
+        "png": "results/figures/figure_04_pairwise_disagreement.png",
+        "pdf": "results/figures/figure_04_pairwise_disagreement.pdf"
+      }
+    },
+    {
+      "id": "figure_05_task_movements",
+      "description": "Paired movement of all 24 tasks",
+      "files": {
+        "png": "results/figures/figure_05_task_movements.png",
+        "pdf": "results/figures/figure_05_task_movements.pdf"
+      }
+    },
+    {
+      "id": "figure_06_failure_categories",
+      "description": "Mechanically supported failure categories",
+      "files": {
+        "png": "results/figures/figure_06_failure_categories.png",
+        "pdf": "results/figures/figure_06_failure_categories.pdf"
+      }
+    },
+    {
+      "id": "figure_07_main_result",
+      "description": "Success and variability on a shared percentage scale",
+      "files": {
+        "png": "results/figures/figure_07_main_result.png",
+        "pdf": "results/figures/figure_07_main_result.pdf"
+      }
+    }
+  ]
+}

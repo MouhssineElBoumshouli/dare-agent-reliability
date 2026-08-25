@@ -17,6 +17,10 @@ workspace/
 results/raw/*
 !results/raw/.gitkeep
 
+# Debugging pilots are evidence-preserving but are not final experimental runs.
+results/pilot/*
+!results/pilot/.gitkeep
+
 # OS/editor
 .DS_Store
 Thumbs.db

@@ -1,0 +1,1821 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-25T13:58:41.346903+00:00",
+  "subset_path": "configs/task_subset.json",
+  "subset_sha256": "2FA2F54C22265E04F3A39F2B8CFFA3DB12B58B508F2DF0C12940780ACA03C77E",
+  "eval_root": "workspace/eval_subset",
+  "task_count": 24,
+  "valid_task_count": 24,
+  "invalid_task_count": 0,
+  "task_type_counts": {
+    "classification": 12,
+    "regression": 12
+  },
+  "all_valid": true,
+  "tasks": [
+    {
+      "task_id": "aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "sqlite",
+      "target": [
+        "State"
+      ],
+      "selected_features": [
+        "Season",
+        "Production",
+        "Fertilizer",
+        "Yield",
+        "Area"
+      ],
+      "needed_files_v1": [
+        "train_v1.sqlite",
+        "val_v1.sqlite",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/source/train_v1.sqlite",
+          "exists": true,
+          "bytes": 1851392,
+          "sha256": "A96A76EB3C5C5A00C8BD988BE2E350AB5A6240CE9DCC46CE09D327FAB9480394",
+          "tables": [
+            "table_1",
+            "table_2",
+            "table_3"
+          ],
+          "columns": [
+            "Annual_Rainfall",
+            "Area",
+            "Crop_Year",
+            "Fertilizer",
+            "Pesticide",
+            "Production",
+            "Season",
+            "State",
+            "Yield",
+            "row_id"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/source/train_v1_no_err.sqlite",
+          "exists": true,
+          "bytes": 1208320,
+          "sha256": "547B883204037FC90CE6C71C681A8E8BBD0076399928F1F8A67CDEC4AF316BCB",
+          "tables": [
+            "train_set"
+          ],
+          "columns": [
+            "Annual_Rainfall",
+            "Area",
+            "Crop_Year",
+            "Fertilizer",
+            "Pesticide",
+            "Production",
+            "Season",
+            "State",
+            "Yield"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/source/val_v1.sqlite",
+          "exists": true,
+          "bytes": 126976,
+          "sha256": "2ADFE316F8C4D08303D6C3F4FADF8A8CB1DC3D43E22B438A45538DF7D75E2D9B",
+          "tables": [
+            "val_set"
+          ],
+          "columns": [
+            "Annual_Rainfall",
+            "Area",
+            "Crop_Year",
+            "Fertilizer",
+            "Pesticide",
+            "Production",
+            "Season",
+            "Yield",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "anirudhsub_twizzlerdata_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "sqlite",
+      "target": [
+        "Gender"
+      ],
+      "selected_features": [
+        "Race",
+        "WorkHoursPerWeek",
+        "TwizzlerFrequency",
+        "SleepHours"
+      ],
+      "needed_files_v1": [
+        "train_v1.sqlite",
+        "val_v1.sqlite",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/anirudhsub_twizzlerdata_class/source/train_v1.sqlite",
+          "exists": true,
+          "bytes": 16384,
+          "sha256": "2DCBAB5F7F4ADE48B41C2A2FCC111CE93859DFFCAED63F7DD94974D1C72A9B0E",
+          "tables": [
+            "table_1",
+            "table_2",
+            "table_3"
+          ],
+          "columns": [
+            "Education",
+            "Gender",
+            "Race",
+            "SleepHours",
+            "TwizzlerFrequency",
+            "TwizzlerRating",
+            "WorkHoursPerWeek",
+            "row_id"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/anirudhsub_twizzlerdata_class/source/train_v1_no_err.sqlite",
+          "exists": true,
+          "bytes": 8192,
+          "sha256": "4E94C8145BFF5B6C1E6EF079CBF716B57B019302A78F847D9C7D277605F21008",
+          "tables": [
+            "train_set"
+          ],
+          "columns": [
+            "Education",
+            "Gender",
+            "Race",
+            "SleepHours",
+            "TwizzlerFrequency",
+            "TwizzlerRating",
+            "WorkHoursPerWeek"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/anirudhsub_twizzlerdata_class/source/val_v1.sqlite",
+          "exists": true,
+          "bytes": 8192,
+          "sha256": "4C892D186F0DEE19D7994A2090500693CAC65E038B97626BA42F1172C0405033",
+          "tables": [
+            "val_set"
+          ],
+          "columns": [
+            "Education",
+            "Race",
+            "SleepHours",
+            "TwizzlerFrequency",
+            "TwizzlerRating",
+            "WorkHoursPerWeek",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "csourire_datos-morfolgicos-de-100-especies-de-hongos_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "csv",
+      "target": [
+        "Psilocibina",
+        "Toxicidad",
+        "Especie"
+      ],
+      "selected_features": [
+        "color_green_mean",
+        "texture_correlation",
+        "texture_homogeneity",
+        "shape_circularity",
+        "color_red_std",
+        "texture_energy",
+        "color_green_std",
+        "shape_area"
+      ],
+      "needed_files_v1": [
+        "train_v1.csv",
+        "val_v1.csv",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/csourire_datos-morfolgicos-de-100-especies-de-hongos_class/source/train_v1.csv",
+          "exists": true,
+          "bytes": 14246609,
+          "sha256": "D00A418CB84103F3D33172A56F61F57432F3DA034662B9364976F0743B2052B0",
+          "columns": [
+            "Especie",
+            "Psilocibina",
+            "Toxicidad",
+            "color_blue_mean",
+            "color_blue_std",
+            "color_green_mean",
+            "color_green_std",
+            "color_red_mean",
+            "color_red_std",
+            "shape_area",
+            "shape_circularity",
+            "shape_perimeter",
+            "texture_contrast",
+            "texture_correlation",
+            "texture_energy",
+            "texture_homogeneity"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/csourire_datos-morfolgicos-de-100-especies-de-hongos_class/source/train_v1_no_err.csv",
+          "exists": true,
+          "bytes": 13110113,
+          "sha256": "4E5F0C967FF4A12C0429B3F078E81B69ED263C7C1C8B1174823B4B6EFDFDC40F",
+          "columns": [
+            "Especie",
+            "Psilocibina",
+            "Toxicidad",
+            "color_blue_mean",
+            "color_blue_std",
+            "color_green_mean",
+            "color_green_std",
+            "color_red_mean",
+            "color_red_std",
+            "shape_area",
+            "shape_circularity",
+            "shape_perimeter",
+            "texture_contrast",
+            "texture_correlation",
+            "texture_energy",
+            "texture_homogeneity"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/csourire_datos-morfolgicos-de-100-especies-de-hongos_class/source/val_v1.csv",
+          "exists": true,
+          "bytes": 4967170,
+          "sha256": "47B4523514B172566D1C5267B9D8D58251F64162844F264FDB05F5196AB2B998",
+          "columns": [
+            "color_blue_mean",
+            "color_blue_std",
+            "color_green_mean",
+            "color_green_std",
+            "color_red_mean",
+            "color_red_std",
+            "row_id",
+            "shape_area",
+            "shape_circularity",
+            "shape_perimeter",
+            "texture_contrast",
+            "texture_correlation",
+            "texture_energy",
+            "texture_homogeneity"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "jiaoyouzhang_stock-pledge-defaults-prediction_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "IsDefault"
+      ],
+      "selected_features": [
+        "Current ratio",
+        "Pledge ratio of limited sale shares",
+        "P/B ratio",
+        "Annual turnover rate",
+        "Pledge ratio of unlimited shares",
+        "Z-SCORE",
+        "Cash ratio",
+        "Stock Volatility"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/jiaoyouzhang_stock-pledge-defaults-prediction_class/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 114076,
+          "sha256": "30FB4D3B8516A15C7DA22C6B8A064577AC7FFBE2AB435FFB937850F7C60ED9D4",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/jiaoyouzhang_stock-pledge-defaults-prediction_class/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 109326,
+          "sha256": "DFBCC870539F1305063297976EC953D41AD0E4642EF038AAE282BE9BC00F97DE",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/jiaoyouzhang_stock-pledge-defaults-prediction_class/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 55590,
+          "sha256": "E2594136FCFF14D89E45C8D0E99EF9E28ADF2EEDE1C615A2D6E26C213CFCB48A",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "madhuraatmarambhagat_crop-recommendation-dataset_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "csv",
+      "target": [
+        "label"
+      ],
+      "selected_features": [
+        "K",
+        "humidity",
+        "P",
+        "temperature",
+        "ph"
+      ],
+      "needed_files_v1": [
+        "train_v1.csv",
+        "val_v1.csv",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/madhuraatmarambhagat_crop-recommendation-dataset_class/source/train_v1.csv",
+          "exists": true,
+          "bytes": 117065,
+          "sha256": "2DD4083CAC94854C4DE3AA6B8E336CDCCE3B3018868CE1CA42765721401FAD6B",
+          "columns": [
+            "K",
+            "N",
+            "P",
+            "humidity",
+            "label",
+            "ph",
+            "rainfall",
+            "temperature"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/madhuraatmarambhagat_crop-recommendation-dataset_class/source/train_v1_no_err.csv",
+          "exists": true,
+          "bytes": 104930,
+          "sha256": "8AF5FB03A571696E34A557FCAA66D77105ECC23615EB1456079A672092DBB127",
+          "columns": [
+            "K",
+            "N",
+            "P",
+            "humidity",
+            "label",
+            "ph",
+            "rainfall",
+            "temperature"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/madhuraatmarambhagat_crop-recommendation-dataset_class/source/val_v1.csv",
+          "exists": true,
+          "bytes": 42194,
+          "sha256": "B2120CD3AA9B744A8F0B03A0D387BAEFA0269C520EDFB4898E649948FEE89FB2",
+          "columns": [
+            "K",
+            "N",
+            "P",
+            "humidity",
+            "ph",
+            "rainfall",
+            "row_id",
+            "temperature"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "preferred_taste"
+      ],
+      "selected_features": [
+        "climate_zone",
+        "exercise_habits",
+        "age"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 78124,
+          "sha256": "A5FAB491E20429028EEF996A80AD454C13CF3CC39E883FABAD22025FFFF2621A",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 18736,
+          "sha256": "DA74CF5E92FE5C8235C5BBDA05109FF21284B9D528EB7166A55941A1C1C24B0B",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 26059,
+          "sha256": "58CC1CA61C0F992949BD402F675A315CA27FC01741886A83DEF3330434547EB2",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "csv",
+      "target": [
+        "Condition"
+      ],
+      "selected_features": [
+        "Thickness_Loss_mm",
+        "Max_Pressure_Bar",
+        "Temperature_C",
+        "Grade",
+        "Strength_MPa",
+        "Corrosion_Impact_Percent",
+        "Time_Years",
+        "Material_Loss_Percent"
+      ],
+      "needed_files_v1": [
+        "train_v1.csv",
+        "val_v1.csv",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class/source/train_v1.csv",
+          "exists": true,
+          "bytes": 58973,
+          "sha256": "E5D53AE76D3AFDD64CFB623862F7CD26D729A61EE05A262048F6E8E3A82B467F",
+          "columns": [
+            "Condition",
+            "Corrosion_Impact_Percent",
+            "Diameter_mm",
+            "Grade",
+            "Material",
+            "Material_Loss_Percent",
+            "Max_Pressure_Bar",
+            "Pipe_Size_mm",
+            "Strength_MPa",
+            "Temperature_C",
+            "Thickness_Loss_mm",
+            "Thickness_mm",
+            "Time_Years"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class/source/train_v1_no_err.csv",
+          "exists": true,
+          "bytes": 48981,
+          "sha256": "7D420E3B8870B18D1490D4F28902F7A73E222E6A127A7EC81E79B54A77036226",
+          "columns": [
+            "Condition",
+            "Corrosion_Impact_Percent",
+            "Diameter_mm",
+            "Grade",
+            "Material",
+            "Material_Loss_Percent",
+            "Max_Pressure_Bar",
+            "Pipe_Size_mm",
+            "Strength_MPa",
+            "Temperature_C",
+            "Thickness_Loss_mm",
+            "Thickness_mm",
+            "Time_Years"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class/source/val_v1.csv",
+          "exists": true,
+          "bytes": 19634,
+          "sha256": "04AE69385AE0797DA3AB68C412EC5F613DF5650A22F81BB0F5DB5A45773B0791",
+          "columns": [
+            "Corrosion_Impact_Percent",
+            "Diameter_mm",
+            "Grade",
+            "Material",
+            "Material_Loss_Percent",
+            "Max_Pressure_Bar",
+            "Pipe_Size_mm",
+            "Strength_MPa",
+            "Temperature_C",
+            "Thickness_Loss_mm",
+            "Thickness_mm",
+            "Time_Years",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "prekshad2166_food-expiry-tracker_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "sqlite",
+      "target": [
+        "used_before_expiry"
+      ],
+      "selected_features": [
+        "days_until_expiry",
+        "quantity"
+      ],
+      "needed_files_v1": [
+        "train_v1.sqlite",
+        "val_v1.sqlite",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/prekshad2166_food-expiry-tracker_class/source/train_v1.sqlite",
+          "exists": true,
+          "bytes": 32768,
+          "sha256": "CB74EBF30576506C6A26F92DEF64AB513FA70B9279D288A19B8AAF134C04E0EA",
+          "tables": [
+            "table_1",
+            "table_2"
+          ],
+          "columns": [
+            "days_until_expiry",
+            "quantity",
+            "row_id",
+            "used_before_expiry"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/prekshad2166_food-expiry-tracker_class/source/train_v1_no_err.sqlite",
+          "exists": true,
+          "bytes": 20480,
+          "sha256": "482582035EA763090B0E17FF22D6705228EED7755D3F00C5E0B4844DA3C1BFE5",
+          "tables": [
+            "train_set"
+          ],
+          "columns": [
+            "days_until_expiry",
+            "quantity",
+            "used_before_expiry"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/prekshad2166_food-expiry-tracker_class/source/val_v1.sqlite",
+          "exists": true,
+          "bytes": 8192,
+          "sha256": "4C1F092112FC5DA9F59F74A8470877552667F709121DCC519D9E0407ABE5CA4A",
+          "tables": [
+            "val_set"
+          ],
+          "columns": [
+            "days_until_expiry",
+            "quantity",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "sahideseker_fraud-detection-in-transactions-dataset_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "label"
+      ],
+      "selected_features": [
+        "device_type",
+        "amount"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/sahideseker_fraud-detection-in-transactions-dataset_class/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 12925,
+          "sha256": "3CAA126EACE363A0FEA6F83BB678335889DDB49C5BBC140B300611AD9B53DCB2",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/sahideseker_fraud-detection-in-transactions-dataset_class/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 8417,
+          "sha256": "1CEAD72F775A21B0F4AF9F186C5D5E9EF4F7FC756EB7602AA9AB671337C2BBB8",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/sahideseker_fraud-detection-in-transactions-dataset_class/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 5317,
+          "sha256": "36C038AEF9429512F931ECB5BF576CDEAE9A0240EFB4F78119D703498F53801F",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "samikshadalvi_pcos-diagnosis-dataset_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "PCOS_Diagnosis"
+      ],
+      "selected_features": [
+        "Testosterone_Level(ng/dL)",
+        "BMI",
+        "Antral_Follicle_Count"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/samikshadalvi_pcos-diagnosis-dataset_class/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 11428,
+          "sha256": "F5C8DCCAE1AA08A3ABE788EBDC786604FA81F7D7173EC210C7AE5E25BF508159",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/samikshadalvi_pcos-diagnosis-dataset_class/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 10173,
+          "sha256": "58D0FFC4D8603D6A1C97F4843C20154E4573C0D3FFE287BD6363F740D4E2C32E",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/samikshadalvi_pcos-diagnosis-dataset_class/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 5381,
+          "sha256": "99036352A143F50C5B8A950C6E1F2FE4786EA011C6BD59A46D233F10F2701FAA",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "shankar3234_ping-pong-game-playing-dataset_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "sqlite",
+      "target": [
+        "action"
+      ],
+      "selected_features": [
+        "ball_dx",
+        "paddle_y",
+        "ball_y"
+      ],
+      "needed_files_v1": [
+        "train_v1.sqlite",
+        "val_v1.sqlite",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/shankar3234_ping-pong-game-playing-dataset_class/source/train_v1.sqlite",
+          "exists": true,
+          "bytes": 20619264,
+          "sha256": "0C01F3E03B158125EA6EC4A6F9EC3FE50D5CC7265DD03B558D527F6973544560",
+          "tables": [
+            "table_1",
+            "table_2",
+            "table_3"
+          ],
+          "columns": [
+            "action",
+            "ball_dx",
+            "ball_dy",
+            "ball_x",
+            "ball_y",
+            "paddle_y",
+            "row_id"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/shankar3234_ping-pong-game-playing-dataset_class/source/train_v1_no_err.sqlite",
+          "exists": true,
+          "bytes": 7651328,
+          "sha256": "44C904F977CC9609632A42ED28FD3AC3F6CD2DD04F9FFBB25A330EC770DD1D9B",
+          "tables": [
+            "train_set"
+          ],
+          "columns": [
+            "action",
+            "ball_dx",
+            "ball_dy",
+            "ball_x",
+            "ball_y",
+            "paddle_y"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/shankar3234_ping-pong-game-playing-dataset_class/source/val_v1.sqlite",
+          "exists": true,
+          "bytes": 925696,
+          "sha256": "13975505B10CD8C21E77E58AF25BBCDA93CD3F721FF7280458222CC0C4ABB841",
+          "tables": [
+            "val_set"
+          ],
+          "columns": [
+            "ball_dx",
+            "ball_dy",
+            "ball_x",
+            "ball_y",
+            "paddle_y",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "willianoliveiragibin_europe-mothers_class",
+      "declared_task_type": "classification",
+      "metadata_task_type": "classification",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "country"
+      ],
+      "selected_features": [
+        "Year"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/willianoliveiragibin_europe-mothers_class/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 34333,
+          "sha256": "9DFA0BBC749408114A2F4C1049034CBFC8DE86351B458B93897D1733203E4643",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/willianoliveiragibin_europe-mothers_class/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 29317,
+          "sha256": "56A58CA54B24162B5B23D4F75F10A9465BD9FD6CF9A0CA3709F1B74A83091DEF",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/willianoliveiragibin_europe-mothers_class/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 38587,
+          "sha256": "B2049BFABD6B05D1EF7B0F6006BB691F5C7A921DF48F5EBFCEE399ECD81BFE57",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "adilshamim8_predict-calorie-expenditure_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "csv",
+      "target": [
+        "Calories"
+      ],
+      "selected_features": [
+        "Weight",
+        "Height",
+        "Body_Temp",
+        "Sex",
+        "Age"
+      ],
+      "needed_files_v1": [
+        "train_v1.csv",
+        "val_v1.csv",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/adilshamim8_predict-calorie-expenditure_reg/source/train_v1.csv",
+          "exists": true,
+          "bytes": 33848461,
+          "sha256": "202641D1379653173F8BAB904AD6624DD644E0A7C5825A60A5FBB3166788044F",
+          "columns": [
+            "Age",
+            "Body_Temp",
+            "Calories",
+            "Duration",
+            "Heart_Rate",
+            "Height",
+            "Sex",
+            "Weight"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/adilshamim8_predict-calorie-expenditure_reg/source/train_v1_no_err.csv",
+          "exists": true,
+          "bytes": 27967281,
+          "sha256": "368B4EB766EF8883F54B5FB75AED8952D73790D6F497E73C88BD7F8C1C543D2F",
+          "columns": [
+            "Age",
+            "Body_Temp",
+            "Calories",
+            "Duration",
+            "Heart_Rate",
+            "Height",
+            "Sex",
+            "Weight"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/adilshamim8_predict-calorie-expenditure_reg/source/val_v1.csv",
+          "exists": true,
+          "bytes": 3146348,
+          "sha256": "569438B4B5D3A55AD905347F61A987930C850BE6FC31C8A0116C4DB50C8CF68F",
+          "columns": [
+            "Age",
+            "Body_Temp",
+            "Duration",
+            "Heart_Rate",
+            "Height",
+            "Sex",
+            "Weight",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "sqlite",
+      "target": [
+        "Selling_Price"
+      ],
+      "selected_features": [
+        "Fuel_Type",
+        "Seller_Type",
+        "Present_Price",
+        "Year",
+        "Transmission"
+      ],
+      "needed_files_v1": [
+        "train_v1.sqlite",
+        "val_v1.sqlite",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg/source/train_v1.sqlite",
+          "exists": true,
+          "bytes": 45056,
+          "sha256": "B8B5A580AB52F1194B1630C6B11E22088CD8099DDC53D6DAA4DC8DB55B96B031",
+          "tables": [
+            "table_1",
+            "table_2",
+            "table_3"
+          ],
+          "columns": [
+            "Fuel_Type",
+            "Kms_Driven",
+            "Owner",
+            "Present_Price",
+            "Seller_Type",
+            "Selling_Price",
+            "Transmission",
+            "Year",
+            "row_id"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg/source/train_v1_no_err.sqlite",
+          "exists": true,
+          "bytes": 24576,
+          "sha256": "2676B9DEF2EA1F2A87DE8D31DAE619109F77E8BCFAE9FE59D255B84FE1478DE6",
+          "tables": [
+            "train_set"
+          ],
+          "columns": [
+            "Fuel_Type",
+            "Kms_Driven",
+            "Owner",
+            "Present_Price",
+            "Seller_Type",
+            "Selling_Price",
+            "Transmission",
+            "Year"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg/source/val_v1.sqlite",
+          "exists": true,
+          "bytes": 8192,
+          "sha256": "123F9264684DEAD651A984F4ECDCB315F5A7C4195653A70FD5EC905484EFDB8E",
+          "tables": [
+            "val_set"
+          ],
+          "columns": [
+            "Fuel_Type",
+            "Kms_Driven",
+            "Owner",
+            "Present_Price",
+            "Seller_Type",
+            "Transmission",
+            "Year",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "GLD"
+      ],
+      "selected_features": [
+        "EUR/USD",
+        "SLV",
+        "SPX"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 67090,
+          "sha256": "20149DE1D92BDED7084E777099616CC8B0562CEDF78D7E81735D9BE316A6FA6C",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 63813,
+          "sha256": "6B1C907523248D25F214824AE7FCADF1CBB71E05A0156325EDC9427724CAE07B",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 10809,
+          "sha256": "F870EBC7769C4C62DF54FBE6A4E78229A5785D6D97D830FB643DDD012CABE5A7",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "brsahan_extensive-used-car-price-for-predictive-modeling_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "csv",
+      "target": [
+        "Selling_Price"
+      ],
+      "selected_features": [
+        "Fuel_Type",
+        "Present_Price",
+        "Transmission",
+        "Year",
+        "Owner"
+      ],
+      "needed_files_v1": [
+        "train_v1.csv",
+        "val_v1.csv",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/brsahan_extensive-used-car-price-for-predictive-modeling_reg/source/train_v1.csv",
+          "exists": true,
+          "bytes": 14979,
+          "sha256": "8785F0AA64207183D91A98BBD6B362CB2892E111631F82B45A0D8FFAF792D82B",
+          "columns": [
+            "Fuel_Type",
+            "Kms_Driven",
+            "Owner",
+            "Present_Price",
+            "Seller_Type",
+            "Selling_Price",
+            "Transmission",
+            "Year"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/brsahan_extensive-used-car-price-for-predictive-modeling_reg/source/train_v1_no_err.csv",
+          "exists": true,
+          "bytes": 12553,
+          "sha256": "37333153B5CC322553336AFB7E4710B4995BE19E99DAB7E54B2A05F877707DF2",
+          "columns": [
+            "Fuel_Type",
+            "Kms_Driven",
+            "Owner",
+            "Present_Price",
+            "Seller_Type",
+            "Selling_Price",
+            "Transmission",
+            "Year"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/brsahan_extensive-used-car-price-for-predictive-modeling_reg/source/val_v1.csv",
+          "exists": true,
+          "bytes": 1464,
+          "sha256": "766AEF2CC515F1216FB621C1E5926E60D7E3A77CB40CEF3F5F1D110C39B49274",
+          "columns": [
+            "Fuel_Type",
+            "Kms_Driven",
+            "Owner",
+            "Present_Price",
+            "Seller_Type",
+            "Transmission",
+            "Year",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "sqlite",
+      "target": [
+        "views",
+        "comments",
+        "likes"
+      ],
+      "selected_features": [
+        "bitrate",
+        "frame rate",
+        "duration",
+        "frame rate(est.)",
+        "codec",
+        "width"
+      ],
+      "needed_files_v1": [
+        "train_v1.sqlite",
+        "val_v1.sqlite",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg/source/train_v1.sqlite",
+          "exists": true,
+          "bytes": 1064960,
+          "sha256": "C4E2DC381AAA26065AF5F5E7A2F6EDC61B99C30A1AAB67F9D2096904E55678A3",
+          "tables": [
+            "table_1",
+            "table_2",
+            "table_3"
+          ],
+          "columns": [
+            "bitrate",
+            "bitrate(video)",
+            "category",
+            "codec",
+            "comments",
+            "duration",
+            "frame rate",
+            "frame rate(est.)",
+            "height",
+            "likes",
+            "row_id",
+            "views",
+            "width"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg/source/train_v1_no_err.sqlite",
+          "exists": true,
+          "bytes": 634880,
+          "sha256": "02A5A06165195F148A2553E2433016764097D428A93D68756EDDEAE0979D9A34",
+          "tables": [
+            "train_set"
+          ],
+          "columns": [
+            "bitrate",
+            "bitrate(video)",
+            "category",
+            "codec",
+            "comments",
+            "duration",
+            "frame rate",
+            "frame rate(est.)",
+            "height",
+            "likes",
+            "views",
+            "width"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg/source/val_v1.sqlite",
+          "exists": true,
+          "bytes": 266240,
+          "sha256": "F9D8F8BBFDF224FD52A5DCDA38BA9667A863F8F137BFFF35A4482EF822375BA7",
+          "tables": [
+            "val_set"
+          ],
+          "columns": [
+            "bitrate",
+            "bitrate(video)",
+            "category",
+            "codec",
+            "duration",
+            "frame rate",
+            "frame rate(est.)",
+            "height",
+            "row_id",
+            "width"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "MedianSalesPriceofHousesSold"
+      ],
+      "selected_features": [
+        "OccupiedHousingUnits",
+        "HomeownershipRate",
+        "EconomicPolicyUncertaintyIndex",
+        "VacantforOtherReasons",
+        "NewOneFamilyHousesSold",
+        "UnemploymentRate",
+        "RenterOccupiedHousingUnits",
+        "VacantHousingUnits_NotYetOccupied",
+        "TotalHousingUnits",
+        "VacantHousingUnits_1",
+        "TotalShipmentsofNewHomes"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 45600,
+          "sha256": "20A53460739D52EC6AAA1EFD39B43E6A3C64D866DAAE49A66E77C0974D059752",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 42855,
+          "sha256": "507EBE65F020613D719153B32CAA4D2F6C35BB99870C15C189F9D6D11C362406",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 17400,
+          "sha256": "166DD7263EB64B1B687A5520060AB448618D5A342F9FC4DF21DC31E9E274DE4D",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "electromarine_steam-alternator-generator-log-2005-synthetic_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "sqlite",
+      "target": [
+        "W"
+      ],
+      "selected_features": [
+        "GenBearing_DE_Temp",
+        "Pf",
+        "AltBearing_DE_Temp",
+        "GenBearing_NDE_Temp",
+        "V",
+        "Mech_Load"
+      ],
+      "needed_files_v1": [
+        "train_v1.sqlite",
+        "val_v1.sqlite",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/electromarine_steam-alternator-generator-log-2005-synthetic_reg/source/train_v1.sqlite",
+          "exists": true,
+          "bytes": 704512,
+          "sha256": "40F7C305E6955A5B50A93A2345114DE2A84FFA8708C430339332D7C798F5ED80",
+          "tables": [
+            "table_1",
+            "table_2",
+            "table_3"
+          ],
+          "columns": [
+            "AltBearing_DE_Temp",
+            "AltBearing_NDE_Temp",
+            "Amp",
+            "GenBearing_DE_Temp",
+            "GenBearing_NDE_Temp",
+            "Hz",
+            "Mech_Load",
+            "Pf",
+            "V",
+            "W",
+            "row_id"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/electromarine_steam-alternator-generator-log-2005-synthetic_reg/source/train_v1_no_err.sqlite",
+          "exists": true,
+          "bytes": 495616,
+          "sha256": "B5F6A1E7F6A80FF29005CEABF16A26B1C1D74AEB82461A5544D41EA2A87AF92F",
+          "tables": [
+            "train_set"
+          ],
+          "columns": [
+            "AltBearing_DE_Temp",
+            "AltBearing_NDE_Temp",
+            "Amp",
+            "GenBearing_DE_Temp",
+            "GenBearing_NDE_Temp",
+            "Hz",
+            "Mech_Load",
+            "Pf",
+            "V",
+            "W"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/electromarine_steam-alternator-generator-log-2005-synthetic_reg/source/val_v1.sqlite",
+          "exists": true,
+          "bytes": 200704,
+          "sha256": "9B13EF6D6653BF98B2B36D8925FDAB71572D060BD18A92B60D3FFA268AD781FE",
+          "tables": [
+            "val_set"
+          ],
+          "columns": [
+            "AltBearing_DE_Temp",
+            "AltBearing_NDE_Temp",
+            "Amp",
+            "GenBearing_DE_Temp",
+            "GenBearing_NDE_Temp",
+            "Hz",
+            "Mech_Load",
+            "Pf",
+            "V",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "jacopoferretti_wages-and-education-of-young-males-dataset_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "wage"
+      ],
+      "selected_features": [
+        "school",
+        "maried",
+        "year",
+        "health",
+        "industry",
+        "occupation"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/jacopoferretti_wages-and-education-of-young-males-dataset_reg/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 130397,
+          "sha256": "783EA39FDA78E235B6C101EFD0E977B44556DDD388C3E0EF95A29622DE03F042",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/jacopoferretti_wages-and-education-of-young-males-dataset_reg/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 52855,
+          "sha256": "9C78A6C0497E5D4343B4B6F236A307DCF3D49546669A0F64C388B75FE6ABDDBB",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/jacopoferretti_wages-and-education-of-young-males-dataset_reg/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 10737,
+          "sha256": "36078CF1A790FE10AED7FE9E5F2C0F8C1610B75E2193CAB7188DD2D17DC3A266",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "nicolsvrancovich_el-ateneo-marketplace-books_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "csv",
+      "target": [
+        "precio"
+      ],
+      "selected_features": [
+        "idioma",
+        "categoria",
+        "nro_paginas"
+      ],
+      "needed_files_v1": [
+        "train_v1.csv",
+        "val_v1.csv",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/nicolsvrancovich_el-ateneo-marketplace-books_reg/source/train_v1.csv",
+          "exists": true,
+          "bytes": 863400,
+          "sha256": "9F1E06815345EA095162A3269297E1F085A4DB37A171A1608B721172B80197AD",
+          "columns": [
+            "categoria",
+            "encuadernacion",
+            "idioma",
+            "nro_paginas",
+            "precio"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/nicolsvrancovich_el-ateneo-marketplace-books_reg/source/train_v1_no_err.csv",
+          "exists": true,
+          "bytes": 767947,
+          "sha256": "2331C2DE2673476A36F07A27B3EF8190B1D4C48000C7D5A368F757B3C986B413",
+          "columns": [
+            "categoria",
+            "encuadernacion",
+            "idioma",
+            "nro_paginas",
+            "precio"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/nicolsvrancovich_el-ateneo-marketplace-books_reg/source/val_v1.csv",
+          "exists": true,
+          "bytes": 83425,
+          "sha256": "AFBA831EDEBC72309D91E1D367B652C03EB53B3E9AF2E28B04A268F2A04472FD",
+          "columns": [
+            "categoria",
+            "encuadernacion",
+            "idioma",
+            "nro_paginas",
+            "row_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "rohansardar_linear-regression-synthetic-data_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "y"
+      ],
+      "selected_features": [
+        "x"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/rohansardar_linear-regression-synthetic-data_reg/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 5151,
+          "sha256": "7ACDCD1EDC31647F8AD5E12CF66D662A8F7942AB97F877BEFC4EA60C5114ECE3",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/rohansardar_linear-regression-synthetic-data_reg/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 4957,
+          "sha256": "30638B42C6626A4967CD3D9261B5C69A72DED41231127F09B5F9C26BDC7CD3E7",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/rohansardar_linear-regression-synthetic-data_reg/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 2293,
+          "sha256": "61806695DB917EC9BC4A54C9863D6F60C5C178EF2D081DCE460D782317D08BDB",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "sautkin_cleaned-supercon-from-nims-rdf-1-2_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "parquet",
+      "target": [
+        "critical_temp_K"
+      ],
+      "selected_features": [
+        "dtcdp_KGPa",
+        "tcn_value",
+        "moment_value",
+        "resistivity_roomtemp_uOhmcm",
+        "phc2zero_value",
+        "rh300",
+        "energy_gap_meV",
+        "t2_value",
+        "pcohere_value",
+        "resistivity_normal_uOhmcm",
+        "dhc2dt_TK",
+        "density_gcm3"
+      ],
+      "needed_files_v1": [
+        "train_v1.parquet",
+        "val_v1.parquet",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/sautkin_cleaned-supercon-from-nims-rdf-1-2_reg/source/train_v1.parquet",
+          "exists": true,
+          "bytes": 522289,
+          "sha256": "6C788D6A8FAB4B53B3BAA94D43EEF3574A08E9812A7AE65152F173032D112ACB",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/sautkin_cleaned-supercon-from-nims-rdf-1-2_reg/source/train_v1_no_err.parquet",
+          "exists": true,
+          "bytes": 304923,
+          "sha256": "169C44F45BFCDF882D53486D18575D00EB1CED2411162D22BFD6229CD2F57B7E",
+          "parquet_magic_valid": true,
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/sautkin_cleaned-supercon-from-nims-rdf-1-2_reg/source/val_v1.parquet",
+          "exists": true,
+          "bytes": 65560,
+          "sha256": "9D9E9D28985F0663963EE5ABF2552EB04BFBB053C4950BB38F7CA218D0DBBC94",
+          "parquet_magic_valid": true,
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "task_id": "shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg",
+      "declared_task_type": "regression",
+      "metadata_task_type": "regression",
+      "question_v1_present": true,
+      "source_directory_exists": true,
+      "verify_directory_exists": true,
+      "all_metadata_exists": true,
+      "metadata_txt_exists": true,
+      "metadata_error": null,
+      "save_file_type": "sqlite",
+      "target": [
+        "target_price_benchmark",
+        "target_price_market"
+      ],
+      "selected_features": [
+        "pipe_length_m",
+        "supplier_id"
+      ],
+      "needed_files_v1": [
+        "train_v1.sqlite",
+        "val_v1.sqlite",
+        "metadata.txt"
+      ],
+      "data_files": {
+        "train_v1": {
+          "path": "workspace/eval_subset/databases/shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg/source/train_v1.sqlite",
+          "exists": true,
+          "bytes": 12288,
+          "sha256": "6C4C61302366B28F3E995EDA592CEE5869F2F23BC58E18D5ADA97812CE30D30D",
+          "tables": [
+            "table_1",
+            "table_2"
+          ],
+          "columns": [
+            "pipe_length_m",
+            "row_id",
+            "supplier_id",
+            "target_price_benchmark",
+            "target_price_market"
+          ],
+          "valid": true
+        },
+        "train_v1_no_err": {
+          "path": "workspace/eval_subset/databases/shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg/source/train_v1_no_err.sqlite",
+          "exists": true,
+          "bytes": 16384,
+          "sha256": "3A8706D155F9C95FC2544A3A9B882F106E4C8E1A617EE3A0ADB9B7BAE60C2F74",
+          "tables": [
+            "train_set"
+          ],
+          "columns": [
+            "pipe_length_m",
+            "supplier_id",
+            "target_price_benchmark",
+            "target_price_market"
+          ],
+          "valid": true
+        },
+        "val_v1": {
+          "path": "workspace/eval_subset/databases/shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg/source/val_v1.sqlite",
+          "exists": true,
+          "bytes": 8192,
+          "sha256": "595C5B3970ED244220CE38F36F6FC2A6F242DDE099E7F6D01B7C9450FD2B0F7A",
+          "tables": [
+            "val_set"
+          ],
+          "columns": [
+            "pipe_length_m",
+            "row_id",
+            "supplier_id"
+          ],
+          "valid": true
+        }
+      },
+      "valid": true,
+      "errors": []
+    }
+  ]
+}

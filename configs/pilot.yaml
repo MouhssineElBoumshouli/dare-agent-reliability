@@ -1,0 +1,26 @@
+# Pre-final pilot configuration. This file does not authorize or identify any
+# final experimental run. Final configuration is frozen only after the pilot.
+schema_version: 1
+provider: openai
+model_id: "gpt-4.1-mini-2025-04-14"
+model_snapshot: "gpt-4.1-mini-2025-04-14"
+temperature: 0.001
+top_p: 0.8
+top_k: 20
+max_tokens: 16384
+max_think_tokens: 0
+api_mode: chat_completions
+tool_choice: provider_default_auto
+reasoning_effort: null
+reasoning_summary: null
+provider_sdk_request_max_retries: 2
+sandbox_url: "http://localhost:8080/run_code"
+task_subset_sha256: "2FA2F54C22265E04F3A39F2B8CFFA3DB12B58B508F2DF0C12940780ACA03C77E"
+repeats: 5
+conditions:
+  turns_3:
+    max_turn: 3
+    executor_timeout_seconds: 200
+  turns_5:
+    max_turn: 5
+    executor_timeout_seconds: 200

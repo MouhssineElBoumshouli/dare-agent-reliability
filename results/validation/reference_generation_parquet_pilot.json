@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-25T14:16:36.601918+00:00",
+  "subset_path": "configs/task_subset.json",
+  "subset_sha256": "2FA2F54C22265E04F3A39F2B8CFFA3DB12B58B508F2DF0C12940780ACA03C77E",
+  "dare_bench_commit": "01447145304c67b861a004ada6d86f29640de61a",
+  "sandbox_url": "http://localhost:8080/run_code",
+  "sandbox_image": "dare-bench/sandbox-fusion:server-20250609-pyarrow20",
+  "sandbox_image_digest": "sha256:fb4d7c91fa957391b331b4bc29377ddd2d04395fcb56e86db992e5b3519cb0fb",
+  "executor_timeout_seconds": 200,
+  "task_count": 1,
+  "success_count": 1,
+  "failure_count": 0,
+  "all_successful": true,
+  "tasks": [
+    {
+      "task_id": "jiaoyouzhang_stock-pledge-defaults-prediction_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/jiaoyouzhang_stock-pledge-defaults-prediction_class/verify/simulated_pred_local.csv",
+      "target": [
+        "IsDefault"
+      ],
+      "prediction_count": 433,
+      "unique_row_id_count": 433,
+      "prediction_sha256": "7773C6241976FB7242C680BC4570BA751677CCCF97525D664589AB6311F9AD06",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "IsDefault": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/jiaoyouzhang_stock-pledge-defaults-prediction_class/reference_solution.py",
+      "reference_code_sha256": "C7442339A7F74D30EEC18E5775A793F81FEE5F724CB61CEF51695105CBFA6EB7",
+      "runtime_seconds": 1.040892
+    }
+  ]
+}

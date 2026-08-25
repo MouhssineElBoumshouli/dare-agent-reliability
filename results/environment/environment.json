@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "captured_at_utc": "2026-08-25T14:31:08.605068+00:00",
+  "timezone": "Morocco Summer Time",
+  "os": {
+    "platform": "Windows-11-10.0.22631-SP0",
+    "system": "Windows",
+    "release": "11",
+    "version": "10.0.22631",
+    "machine": "AMD64"
+  },
+  "hardware": {
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics",
+    "logical_cpu_count": 12,
+    "total_memory_bytes": 16473231360,
+    "disk_total_bytes": 511188135936,
+    "disk_free_bytes": 13555490816
+  },
+  "study_python": {
+    "executable": "C:\\Users\\Mouhssine\\Documents\\dare-agent-reliability\\.venv\\Scripts\\python.exe",
+    "version": "3.12.3",
+    "implementation": "CPython",
+    "packages": {
+      "numpy": "2.5.2",
+      "pandas": "3.0.5",
+      "scikit-learn": "1.9.0",
+      "scipy": "1.18.1",
+      "PyYAML": "6.0.3",
+      "requests": "2.34.2",
+      "hydra-core": "1.3.2",
+      "omegaconf": "2.3.0",
+      "openai": "1.86.0",
+      "python-dotenv": "1.1.0",
+      "tenacity": "9.1.2",
+      "tqdm": "4.67.1"
+    }
+  },
+  "git": {
+    "study_commit": "22a7a8f4989ee6b1f17412a2be3e9ad57205ff1a",
+    "study_dirty": true,
+    "study_status_porcelain": [
+      "M .gitignore",
+      "?? configs/execution.example.yaml",
+      "?? docker/",
+      "?? requirements-agent.txt",
+      "?? results/environment/",
+      "?? results/pilot/",
+      "?? results/validation/",
+      "?? src/capture_environment.py",
+      "?? src/dare_runtime.py",
+      "?? src/generate_references.py",
+      "?? src/study_runner.py",
+      "?? src/validate_tasks.py",
+      "?? tests/"
+    ],
+    "dare_bench_commit": "01447145304c67b861a004ada6d86f29640de61a",
+    "dare_bench_dirty": false
+  },
+  "frozen_subset": {
+    "path": "configs/task_subset.json",
+    "sha256": "2FA2F54C22265E04F3A39F2B8CFFA3DB12B58B508F2DF0C12940780ACA03C77E"
+  },
+  "docker": {
+    "client_version": "29.7.2",
+    "client_api_version": "1.55",
+    "context": "desktop-linux",
+    "server_version": "29.7.2",
+    "server_api_version": "1.55",
+    "docker_desktop_version": "Docker Desktop 4.86.0 (236216)",
+    "kernel_version": "6.18.33.2-microsoft-standard-WSL2",
+    "architecture": "amd64",
+    "cpus": 12,
+    "memory_bytes": 7976140800,
+    "storage_driver": "overlayfs"
+  },
+  "sandbox": {
+    "container": "dare-sandbox-fusion",
+    "image_tag": "dare-bench/sandbox-fusion:server-20250609-pyarrow20",
+    "image_id": "sha256:fb4d7c91fa957391b331b4bc29377ddd2d04395fcb56e86db992e5b3519cb0fb",
+    "repo_digests": [
+      "dare-bench/sandbox-fusion@sha256:fb4d7c91fa957391b331b4bc29377ddd2d04395fcb56e86db992e5b3519cb0fb"
+    ],
+    "base_image": "volcengine/sandbox-fusion:server-20250609",
+    "base_digest": "sha256:dd7ff53d16132a8acad6d5da7f15154bb4a331381567a4cb21b3e97ce581f5f9",
+    "endpoint": "http://localhost:8080/run_code",
+    "packages": {
+      "python": "3.10.18",
+      "pandas": "2.2.0",
+      "numpy": "1.26.3",
+      "scikit_learn": "1.4.0",
+      "pyarrow": "20.0.0"
+    }
+  }
+}

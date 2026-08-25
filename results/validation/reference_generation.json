@@ -1,0 +1,675 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-25T14:17:29.045299+00:00",
+  "subset_path": "configs/task_subset.json",
+  "subset_sha256": "2FA2F54C22265E04F3A39F2B8CFFA3DB12B58B508F2DF0C12940780ACA03C77E",
+  "dare_bench_commit": "01447145304c67b861a004ada6d86f29640de61a",
+  "sandbox_url": "http://localhost:8080/run_code",
+  "sandbox_image": "dare-bench/sandbox-fusion:server-20250609-pyarrow20",
+  "sandbox_image_digest": "sha256:fb4d7c91fa957391b331b4bc29377ddd2d04395fcb56e86db992e5b3519cb0fb",
+  "executor_timeout_seconds": 200,
+  "task_count": 24,
+  "success_count": 24,
+  "failure_count": 0,
+  "all_successful": true,
+  "tasks": [
+    {
+      "task_id": "aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/verify/simulated_pred_local.csv",
+      "target": [
+        "State"
+      ],
+      "prediction_count": 1969,
+      "unique_row_id_count": 1969,
+      "prediction_sha256": "8DA76C0341D0563B44109B3235A0E9683A2570DB595CBA70C35C368A5E03450B",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "State": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/reference_solution.py",
+      "reference_code_sha256": "A4664ABA1D6003644A9547A4AA0405EBF6479392546B9A80948DF333E8424674",
+      "runtime_seconds": 9.841482
+    },
+    {
+      "task_id": "anirudhsub_twizzlerdata_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/anirudhsub_twizzlerdata_class/verify/simulated_pred_local.csv",
+      "target": [
+        "Gender"
+      ],
+      "prediction_count": 11,
+      "unique_row_id_count": 11,
+      "prediction_sha256": "761639EBD29DEA24415D34FF9A045607B158CD230702C2D9DCB5D107999AEF2F",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "Gender": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/anirudhsub_twizzlerdata_class/reference_solution.py",
+      "reference_code_sha256": "05C48569B7DEA208347DC88726893E228213117098961619042A035FDF4016A8",
+      "runtime_seconds": 0.865224
+    },
+    {
+      "task_id": "csourire_datos-morfolgicos-de-100-especies-de-hongos_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/csourire_datos-morfolgicos-de-100-especies-de-hongos_class/verify/simulated_pred_local.csv",
+      "target": [
+        "Psilocibina",
+        "Toxicidad",
+        "Especie"
+      ],
+      "prediction_count": 23215,
+      "unique_row_id_count": 23215,
+      "prediction_sha256": "45A5F919D77FE950C162E9DED6AB95BF9E732375542F55EC073C2ACDCF0CD0C2",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "Psilocibina": 1.0,
+          "Toxicidad": 1.0,
+          "Especie": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/csourire_datos-morfolgicos-de-100-especies-de-hongos_class/reference_solution.py",
+      "reference_code_sha256": "A6E97291DAD7E18116F3E15B31FA81D43CEDC215D9C9BD2BDB77AB14CA200914",
+      "runtime_seconds": 8.312824
+    },
+    {
+      "task_id": "jiaoyouzhang_stock-pledge-defaults-prediction_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/jiaoyouzhang_stock-pledge-defaults-prediction_class/verify/simulated_pred_local.csv",
+      "target": [
+        "IsDefault"
+      ],
+      "prediction_count": 433,
+      "unique_row_id_count": 433,
+      "prediction_sha256": "7773C6241976FB7242C680BC4570BA751677CCCF97525D664589AB6311F9AD06",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "IsDefault": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/jiaoyouzhang_stock-pledge-defaults-prediction_class/reference_solution.py",
+      "reference_code_sha256": "C7442339A7F74D30EEC18E5775A793F81FEE5F724CB61CEF51695105CBFA6EB7",
+      "runtime_seconds": 0.842392
+    },
+    {
+      "task_id": "madhuraatmarambhagat_crop-recommendation-dataset_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/madhuraatmarambhagat_crop-recommendation-dataset_class/verify/simulated_pred_local.csv",
+      "target": [
+        "label"
+      ],
+      "prediction_count": 660,
+      "unique_row_id_count": 660,
+      "prediction_sha256": "CF60CAA0B034CA2739242C74145CCA0D662E7A28F803112C2F296E39911E5BF5",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "label": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/madhuraatmarambhagat_crop-recommendation-dataset_class/reference_solution.py",
+      "reference_code_sha256": "E0F90FE3638128E09ECB7123C1EE55C0F63690138D194B59F2DE4E301268D359",
+      "runtime_seconds": 0.9208
+    },
+    {
+      "task_id": "milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class/verify/simulated_pred_local.csv",
+      "target": [
+        "preferred_taste"
+      ],
+      "prediction_count": 3000,
+      "unique_row_id_count": 3000,
+      "prediction_sha256": "C6885E186CB33B8EDE67148F1068FB9DF1D8F21F399141B73D7C0B5633BACE88",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "preferred_taste": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class/reference_solution.py",
+      "reference_code_sha256": "75162EA5D737F8A3BC01AE7D2189FB33FD0F20EDC9119A866F5642FC5CEA5563",
+      "runtime_seconds": 0.857817
+    },
+    {
+      "task_id": "muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class/verify/simulated_pred_local.csv",
+      "target": [
+        "Condition"
+      ],
+      "prediction_count": 300,
+      "unique_row_id_count": 300,
+      "prediction_sha256": "380C4DB4EA5502E3D8432F747A5A94713720E024E7B367FF0F0F780C5471E872",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "Condition": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class/reference_solution.py",
+      "reference_code_sha256": "FD3A058CF17CCC97BC0D6C0C4EBFDB1EEF4D36E74BF6B468E0DCC8A32B5A64BC",
+      "runtime_seconds": 0.814537
+    },
+    {
+      "task_id": "prekshad2166_food-expiry-tracker_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/prekshad2166_food-expiry-tracker_class/verify/simulated_pred_local.csv",
+      "target": [
+        "used_before_expiry"
+      ],
+      "prediction_count": 100,
+      "unique_row_id_count": 100,
+      "prediction_sha256": "69FC5EB8AC4318DA0803215D65F3AAC79A087AEAE1D99B1D67A9FD7EB4876D04",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "used_before_expiry": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/prekshad2166_food-expiry-tracker_class/reference_solution.py",
+      "reference_code_sha256": "9A1E2FA237971288F0F60BBF791C217BC1273ADE1BF57FB294AB9A0D2A863322",
+      "runtime_seconds": 0.777149
+    },
+    {
+      "task_id": "sahideseker_fraud-detection-in-transactions-dataset_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/sahideseker_fraud-detection-in-transactions-dataset_class/verify/simulated_pred_local.csv",
+      "target": [
+        "label"
+      ],
+      "prediction_count": 200,
+      "unique_row_id_count": 200,
+      "prediction_sha256": "67498EEC9759465443963BA904A5CB8371DFA3FDBE596CA238C8FB7252588172",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "label": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/sahideseker_fraud-detection-in-transactions-dataset_class/reference_solution.py",
+      "reference_code_sha256": "BFA5C4CE4CC2F123E4EF71159C89A6A9CFA896A59906570AED826AE97DC2DE73",
+      "runtime_seconds": 0.867785
+    },
+    {
+      "task_id": "samikshadalvi_pcos-diagnosis-dataset_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/samikshadalvi_pcos-diagnosis-dataset_class/verify/simulated_pred_local.csv",
+      "target": [
+        "PCOS_Diagnosis"
+      ],
+      "prediction_count": 100,
+      "unique_row_id_count": 100,
+      "prediction_sha256": "DC2812F94C0765568AD9960B36D0896E64C2D11742EFD0732E8AD77E7316FFB8",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "PCOS_Diagnosis": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/samikshadalvi_pcos-diagnosis-dataset_class/reference_solution.py",
+      "reference_code_sha256": "678DDA2B0960ECE22E8E58CED46199E39443224A46FA76815BBB922D3616DA57",
+      "runtime_seconds": 0.788771
+    },
+    {
+      "task_id": "shankar3234_ping-pong-game-playing-dataset_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/shankar3234_ping-pong-game-playing-dataset_class/verify/simulated_pred_local.csv",
+      "target": [
+        "action"
+      ],
+      "prediction_count": 41106,
+      "unique_row_id_count": 41106,
+      "prediction_sha256": "E7B63DF5136C636E9885831AB8EDDDDCA281916D6997CAFD6B047B7B2EE78B29",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "action": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/shankar3234_ping-pong-game-playing-dataset_class/reference_solution.py",
+      "reference_code_sha256": "A2997B671E3DA08ED3FCC62C709AA2650AA4E3050253A2435DA2335635C13063",
+      "runtime_seconds": 1.839747
+    },
+    {
+      "task_id": "willianoliveiragibin_europe-mothers_class",
+      "task_type": "classification",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/willianoliveiragibin_europe-mothers_class/verify/simulated_pred_local.csv",
+      "target": [
+        "country"
+      ],
+      "prediction_count": 5617,
+      "unique_row_id_count": 5617,
+      "prediction_sha256": "B6EE00BF98778B8036B9BA84C04FC72111867140841C561A2ACDC658FAE6F91D",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "country": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/willianoliveiragibin_europe-mothers_class/reference_solution.py",
+      "reference_code_sha256": "C8C9B6CC4C8BD7D78ED6A13E0F8141445849C967839D13EDCC4089C5F107CF7F",
+      "runtime_seconds": 0.99932
+    },
+    {
+      "task_id": "adilshamim8_predict-calorie-expenditure_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/adilshamim8_predict-calorie-expenditure_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "Calories"
+      ],
+      "prediction_count": 75000,
+      "unique_row_id_count": 75000,
+      "prediction_sha256": "4A6738EA4DE8389D2044A287DE627B55FE987EBCF2EAD623BF824A65D6633983",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "Calories": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/adilshamim8_predict-calorie-expenditure_reg/reference_solution.py",
+      "reference_code_sha256": "1467E91E635AA5D404EECC096ED5FA257C5992AF237D36ECB6202A2485EEE1A2",
+      "runtime_seconds": 2.815388
+    },
+    {
+      "task_id": "ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "Selling_Price"
+      ],
+      "prediction_count": 31,
+      "unique_row_id_count": 31,
+      "prediction_sha256": "C7CADC7968E3D0879A59B7E00D6AF3F5FD4DB87CB162203631462E76394B7D0C",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "Selling_Price": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg/reference_solution.py",
+      "reference_code_sha256": "1D4EF3CA1B2EAC728A128779F607C8E8943932D4BFE32F85664CB42ABF7D1CCE",
+      "runtime_seconds": 0.799874
+    },
+    {
+      "task_id": "ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "GLD"
+      ],
+      "prediction_count": 229,
+      "unique_row_id_count": 229,
+      "prediction_sha256": "7F303ABD829A569473E4019639D1C088530465718A22AFC8373BF6DE5C87EDDA",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "GLD": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg/reference_solution.py",
+      "reference_code_sha256": "51EC96B430589DCE52A4AE12D23E93F01FEF62AA67FEFEB55C270FE8B980F5CD",
+      "runtime_seconds": 0.826263
+    },
+    {
+      "task_id": "brsahan_extensive-used-car-price-for-predictive-modeling_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/brsahan_extensive-used-car-price-for-predictive-modeling_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "Selling_Price"
+      ],
+      "prediction_count": 31,
+      "unique_row_id_count": 31,
+      "prediction_sha256": "A88F00C1A20854AD905A0A80A623F9126965A4902EE1E1830B002C1D488777FB",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "Selling_Price": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/brsahan_extensive-used-car-price-for-predictive-modeling_reg/reference_solution.py",
+      "reference_code_sha256": "7D67DAAAEB6330D285FDB443AFE556EE531736A51063F22B0993798021D6B624",
+      "runtime_seconds": 0.890555
+    },
+    {
+      "task_id": "cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "views",
+        "comments",
+        "likes"
+      ],
+      "prediction_count": 5277,
+      "unique_row_id_count": 5277,
+      "prediction_sha256": "37B59D945900BCE88E414682A942D7EEB39F64912A07E4661ECD44E06BC8A596",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "views": 1.0,
+          "comments": 1.0,
+          "likes": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg/reference_solution.py",
+      "reference_code_sha256": "44B1868DC8EDAA45985D0CFEEB09468447F7FE10B800981A251D0BCB4DD5DB52",
+      "runtime_seconds": 0.904164
+    },
+    {
+      "task_id": "digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "MedianSalesPriceofHousesSold"
+      ],
+      "prediction_count": 43,
+      "unique_row_id_count": 43,
+      "prediction_sha256": "18DD6A7F01A320DB446BAC7BCD93ED620AB00C9A770E9B4554335F7C4AEDAC69",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "MedianSalesPriceofHousesSold": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg/reference_solution.py",
+      "reference_code_sha256": "9F7CA8364E2007264AE4C4547ACBB58D8930673C16DD5C396E6A78B662A1D10D",
+      "runtime_seconds": 0.799877
+    },
+    {
+      "task_id": "electromarine_steam-alternator-generator-log-2005-synthetic_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/electromarine_steam-alternator-generator-log-2005-synthetic_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "W"
+      ],
+      "prediction_count": 2449,
+      "unique_row_id_count": 2449,
+      "prediction_sha256": "C6A3972C483718043BCD89DCB42A4338BE848E03997DB69ABA3682A247E6ED39",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "W": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/electromarine_steam-alternator-generator-log-2005-synthetic_reg/reference_solution.py",
+      "reference_code_sha256": "CDA11DBE191F18CE49E53E93C6E2D565B851F4A3C5B912B6462328B215D97A19",
+      "runtime_seconds": 0.826869
+    },
+    {
+      "task_id": "jacopoferretti_wages-and-education-of-young-males-dataset_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/jacopoferretti_wages-and-education-of-young-males-dataset_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "wage"
+      ],
+      "prediction_count": 436,
+      "unique_row_id_count": 436,
+      "prediction_sha256": "D855EF1DC252D462E02916A7C95E631FA18CD5C0E7204144B9CDD927CDC3AA1E",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "wage": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/jacopoferretti_wages-and-education-of-young-males-dataset_reg/reference_solution.py",
+      "reference_code_sha256": "B3BF77318B7F9253B3D8A9FDF028781951C8D47111ACB1123934B721A8658460",
+      "runtime_seconds": 0.828529
+    },
+    {
+      "task_id": "nicolsvrancovich_el-ateneo-marketplace-books_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/nicolsvrancovich_el-ateneo-marketplace-books_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "precio"
+      ],
+      "prediction_count": 1565,
+      "unique_row_id_count": 1565,
+      "prediction_sha256": "2F97FB05E1376592FD182C61EA8C3B77EB30A33EDAFFE44425B23F35E5DD7CEB",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "precio": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/nicolsvrancovich_el-ateneo-marketplace-books_reg/reference_solution.py",
+      "reference_code_sha256": "F472C767DA0BC854497F09E6FDA5AE5CC5DE2C40907B11EFDCC007F4A32286C5",
+      "runtime_seconds": 5.306761
+    },
+    {
+      "task_id": "rohansardar_linear-regression-synthetic-data_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/rohansardar_linear-regression-synthetic-data_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "y"
+      ],
+      "prediction_count": 46,
+      "unique_row_id_count": 46,
+      "prediction_sha256": "D006A1153D5D2D9D5E6AC91536135CC6BD15608437B61B6035AFF417A1545D2E",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "y": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/rohansardar_linear-regression-synthetic-data_reg/reference_solution.py",
+      "reference_code_sha256": "062CC90E37B6729FB5BE96B996E40F2CFF5A23E03A7EDAC7A9F675744A598B60",
+      "runtime_seconds": 0.812601
+    },
+    {
+      "task_id": "sautkin_cleaned-supercon-from-nims-rdf-1-2_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/sautkin_cleaned-supercon-from-nims-rdf-1-2_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "critical_temp_K"
+      ],
+      "prediction_count": 2671,
+      "unique_row_id_count": 2671,
+      "prediction_sha256": "3FD90E2EF3349AEC22C2AD80B60DA90F084CA73582C04DD3402BA3B11DDEE0AD",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "critical_temp_K": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/sautkin_cleaned-supercon-from-nims-rdf-1-2_reg/reference_solution.py",
+      "reference_code_sha256": "125A19402A32BFA6A0C2631D856C2C9B69D8E9DB52F504347A8E2248F61B4187",
+      "runtime_seconds": 0.944285
+    },
+    {
+      "task_id": "shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg",
+      "task_type": "regression",
+      "status": "success",
+      "reference_path": "workspace/eval_subset/databases/shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg/verify/simulated_pred_local.csv",
+      "target": [
+        "target_price_benchmark",
+        "target_price_market"
+      ],
+      "prediction_count": 60,
+      "unique_row_id_count": 60,
+      "prediction_sha256": "9364F6671358B640C6411B2F89215E618543A9C17B2E9D26D3209475C8231CCB",
+      "official_self_score": 1.0,
+      "official_self_evaluation": {
+        "prediction_exist": 1.0,
+        "final_score": 1.0,
+        "per_target_scores": {
+          "target_price_benchmark": 1.0,
+          "target_price_market": 1.0
+        },
+        "id_columns": [
+          "row_id"
+        ]
+      },
+      "generated": true,
+      "reference_code_path": "workspace/reference_solutions/all/shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg/reference_solution.py",
+      "reference_code_sha256": "261020627D00E16F6535B51E0C1B0A9AB36B9D5F26820F98C2B86D7D36E0751F",
+      "runtime_seconds": 0.832701
+    }
+  ]
+}

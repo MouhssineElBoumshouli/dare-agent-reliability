@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this study, please cite both this repository and the original DARE-Bench paper."
+title: "DARE-Bench Agent Reliability Study"
+type: software
+authors:
+  - family-names: "El Boumshouli"
+    given-names: "Mouhssine"
+version: 0.1.0
+date-released: 2026-08-25
+references:
+  - type: conference-paper
+    title: "DARE-Bench: Evaluating Modeling and Instruction Fidelity of LLMs in Data Science"
+    authors:
+      - family-names: "Shu"
+        given-names: "Fan"
+      - family-names: "Wang"
+        given-names: "Yite"
+      - family-names: "Wu"
+        given-names: "Ruofan"
+      - family-names: "Liu"
+        given-names: "Boyi"
+      - family-names: "Yao"
+        given-names: "Zhewei"
+      - family-names: "He"
+        given-names: "Yuxiong"
+      - family-names: "Yan"
+        given-names: "Feng"
+    year: 2026
+    conference:
+      name: "International Conference on Learning Representations"

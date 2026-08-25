@@ -1,0 +1,33 @@
+study:
+  name: dare-agent-reliability
+  title: "Beyond Average Score: Repeatability of LLM Data-Science Agents on DARE-Bench"
+  upstream_repo: "Snowflake-Labs/dare-bench"
+  upstream_commit: "01447145304c67b861a004ada6d86f29640de61a"
+
+benchmark:
+  question_version: "v1"
+  problem_types:
+    - classification
+    - regression
+  tasks_per_type: 12
+  task_selection_seed: 20260825
+  repeats: 5
+
+conditions:
+  - id: turns_3
+    max_turn: 3
+    executor_timeout_seconds: 200
+  - id: turns_5
+    max_turn: 5
+    executor_timeout_seconds: 200
+
+model:
+  provider: "TBD"
+  model: "TBD"
+  snapshot: "TBD"
+  decoding: "lowest-randomness setting supported by provider"
+
+analysis:
+  success_threshold: 1.0
+  bootstrap_seed: 20260825
+  bootstrap_samples: 10000

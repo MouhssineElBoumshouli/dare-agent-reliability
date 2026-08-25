@@ -1,0 +1,24 @@
+# secrets
+.env
+.env.*
+*.key
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Upstream benchmark clone + generated working data
+vendor/
+workspace/
+
+# Raw model outputs can be large; keep metadata/derived results in git by default.
+results/raw/*
+!results/raw/.gitkeep
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

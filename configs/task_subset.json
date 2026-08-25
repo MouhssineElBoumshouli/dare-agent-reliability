@@ -1,0 +1,506 @@
+[
+  {
+    "file_path": "aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training database file named `train_v1.sqlite`, which contains multiple tables that share a common key column `row_id`. You must join all of these tables on that `row_id` column to reconstruct the full training dataset. You are also provided with a metadata file `metadata.txt` describing the original dataset and each of its columns. Your task is to train a classification model using this data to predict the target column `State` for the validation set located at `val_v1.sqlite`. Unless otherwise stated, use default parameters for all preprocessing and model training steps.\n\nFirst, join all tables in the training database using the `row_id` column to reconstruct the full training dataset. Then filter this dataset by enforcing the expected ranges defined as follows: Total production in tonnes must lie between 0 and 6326000000, Amount of rainfall received in that year must be between 301.0 and 6553.0, Cultivation area in hectares must fall between 0.0 and 50808100.0, Amount of fertilizer applied to the land during the cultivation period must be between 0.0 and 15750511.0, Amount of fertilizer applied to the land during the cultivation period must be between 54.0 and 4835406877.0, The productivity of the crop must range from 0.0 to 21105.0, Season during which the crop was grown must be one of the values “Whole Year”, “Kharif”, “Rabi”, “Autumn”, “Summer”, or “Winter”, and Year in which the crop was sown or harvested must fall between 1997 and 2020. Retain any row with missing values in these columns, and exclude only those rows that contain known non-missing values outside the specified ranges.\n\nNext, select for model training the following five features in the exact order listed: Season during which the crop was grown, Total production in tonnes, Amount of fertilizer applied to the land during the cultivation period, The productivity of the crop, and Cultivation area in hectares. Treat the features Total production in tonnes, Amount of fertilizer applied to the land during the cultivation period, The productivity of the crop, and Cultivation area in hectares as numeric features in the order specified, and treat the feature Season during which the crop was grown as a categorical feature in the order specified. For missing values, impute the mean for the numeric features and use the most frequent category for the categorical feature. Then apply a standard scaler to the numeric features and perform one-hot encoding on the categorical feature with handle_unknown set to ignore and sparse_output set to False.\n\nTrain a single model using the MLPClassifier implementation from the scikit-learn package with random_state set to 21, and then generate predictions on the validation dataset. Finally, save the predictions to a CSV file at `prediction.csv`, including the `row_id` column from the original `val_v1.sqlite` and the corresponding predicted values aligned with each `row_id` so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.sqlite` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.sqlite` to generate a prediction for `State` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.sqlite` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-07-15T19:18:30.000Z",
+    "needed_files_v1": [
+      "train_v1.sqlite",
+      "val_v1.sqlite",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.sqlite",
+      "val_v2.sqlite",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "anirudhsub_twizzlerdata_class",
+    "question_v1": "Please complete the following task without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training SQLite file named `train_v1.sqlite`, which contains multiple tables that all share a common key column `row_id` and must be joined on `row_id` to reconstruct the full training dataset. You also have a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your goal is to perform classification to predict the target column `Gender` for the validation set located in `val_v1.sqlite`. Unless stated otherwise, use default parameters for all steps, including model training and preprocessing.\n\nFirst, join all tables in the training database on `row_id` to reconstruct the full training dataset. Next, filter the dataset using the expected ranges defined in the metadata: ensure that the Twizzler rating is between 0 and 10; that the average number of hours the participant sleeps every night is between 3.0 and 10.0; that the frequency of Twizzler consumption is one of “<1 per year”, “1 per year”, “1 per month”, “>1 per day”, “1 per week”, or “>1 per week”; that the highest level of education completed is one of “<HS”, “Bachelor”, “HS”, “Masters”, or “PhD”; that the average number of hours the participant works every week is between 0 and 60; and that the race of the participant is one of “White”, “East Asian”, “Indian”, “Middle Eastern”, “Hispanic”, or “Southeast Asian”. Exclude only those rows where a known (non-missing) value violates these ranges; if a value is missing, retain the row. After filtering, select only the following features for model training, in that order: the race of the participant, the average number of hours the participant works every week, how often the participant eats Twizzlers, and the average number of hours the participant sleeps every night. Within these features, treat the average number of hours the participant works every week and the average number of hours the participant sleeps every night as numeric features, in that specified order. Treat the race of the participant and how often the participant eats Twizzlers as categorical features, in that listed order. Handle missing values by imputing the mean for numeric features and using “most_frequent” for categorical features. Preprocess the data by applying a standard scaler to numeric features and one-hot encoding to categorical features with unknown categories ignored and sparse output disabled. Train a single model using scikit-learn’s MLPClassifier with random_state set to 84. Finally, make predictions on the validation set and save the results to a csv file at `prediction.csv`. The output file must contain the column row_id (as provided in `val_v1.sqlite`) and the corresponding predictions, with each prediction aligned to its row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.sqlite` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.sqlite` to generate a prediction for `Gender` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.sqlite` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-06-13T22:01:17.000Z",
+    "needed_files_v1": [
+      "train_v1.sqlite",
+      "val_v1.sqlite",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.sqlite",
+      "val_v2.sqlite",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "csourire_datos-morfolgicos-de-100-especies-de-hongos_class",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training CSV file named `train_v1.csv` which contains a single table. You are also provided with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your task is to perform classification using this data and predict the target columns `Psilocibina`, `Toxicidad`, `Especie` for the validation set located at `val_v1.csv`. Unless stated otherwise, use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training file `train_v1.csv` directly, treating only empty strings (\"\") as missing values. Next, filter the training dataset using the expected value ranges defined for each variable while retaining any rows that have missing values in the relevant columns. Specifically, exclude any row where a known (non-missing) value falls outside of its expected range, but keep rows where the value is missing. The expected ranges are as follows: the measure of local intensity variation must be between 4.0 and 2957.0, the standard deviation of the red channel between 8.0 and 110.0, the degree of uniformity in texture between 0.0 and 1.0, the measure relating area and perimeter to estimate circularity between 0.0 and 1.0, the average green channel intensity between 9.0 and 244.0, the average red channel intensity between 11.0 and 243.0, the standard deviation of the green channel between 13.0 and 109.0, the statistical relationship between neighboring pixel values between 0.0 and 1.0, the average blue channel intensity between 0.0 and 241.0, the sum of squares of the co-occurrence matrix indicating uniformity between 0.0 and 1.0, the segmented mushroom area in pixels between 733.0 and 249001.0, the standard deviation of the blue channel between 0.0 and 114.0, and the contour length in pixels between 115.0 and 11689.0. Retain any row with missing values for these variables.\n\nSelect only the following features for training the model, preserving the given order: first the average green channel intensity, then the statistical relationship between neighboring pixel values, next the degree of uniformity in image texture, then the measure that relates area and perimeter to estimate circular shape, followed by the standard deviation of the red channel, the sum of squares of the co-occurrence matrix indicating uniformity, the standard deviation of the green channel, and finally the area of the segmented mushroom in pixels. Use these features in the specified order.\n\nUse these same features as numeric features in the following order: first the average green channel intensity, then the statistical relationship between neighboring pixel values, next the degree of uniformity in image texture, then the measure that relates area and perimeter to estimate circular shape, followed by the standard deviation of the red channel, the sum of squares of the co-occurrence matrix indicating uniformity, the standard deviation of the green channel, and finally the area of the segmented mushroom in pixels. There are no categorical features to include.\n\nHandle missing values by imputing the mean for numeric features and using \"most_frequent\" for categorical ones. Preprocess the data by applying a standard scaler to numeric features and a one-hot encoder to categorical features with handle_unknown set to ignore and sparse_output set to False. Train a single model using LogisticRegression from scikit-learn with random_state set to 17. Finally, make predictions on the validation set loaded from `val_v1.csv` and save the results to `prediction.csv`. The output file must contain the column row_id (as provided in the original `val_v1.csv`) and the corresponding predictions aligned with each row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.csv` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.csv` to generate a prediction for `Psilocibina`, `Toxicidad`, `Especie` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.csv` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 0.9411764705882353,
+    "lastUpdated": "2025-05-30T01:37:34.733Z",
+    "needed_files_v1": [
+      "train_v1.csv",
+      "val_v1.csv",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.csv",
+      "val_v2.csv",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "jiaoyouzhang_stock-pledge-defaults-prediction_class",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training Parquet file named `train_v1.parquet`, which contains a single table, and a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your goal is to perform classification using this data and predict the target column `IsDefault` for the validation set located at `val_v1.parquet`. Unless stated otherwise, use default parameters for all steps, including model training and preprocessing.\n\nFirst, load the file `train_v1.parquet`. Then filter the training dataset according to the expected ranges for each financial indicator, while preserving any rows with missing values in those columns. Specifically, retain only those rows whose known values fall within the following intervals: return on equity between –7.0 and 2.0; asset-liability ratio between 0.0 and 2.0; share pledge ratio of controlling shareholders between 0.0 and 1.0; return on assets between –1.0 and 1.0; pledge ratio of restricted shares between 0.0 and 1.0; Altman Z-score between –36.0 and 351.0; price-to-book ratio between –389.0 and 1330.0; pledge ratio of unrestricted shares between 0.0 and 1.0; current liquidity ratio between 0.0 and 1.0; stock volatility between 0.0 and 350.0; one-year stock price change between –1.0 and 9.0; cash ratio between 0.0 and 41.0; and annual turnover rate between 0.0 and 52.0. Exclude only those rows whose values are known and fall outside these ranges.\n\nNext, select only the following features for model training, in the order listed: current liquidity ratio, pledge ratio of restricted shares, price-to-book ratio, annual turnover rate, pledge ratio of unrestricted shares, Altman Z-score, cash ratio, and stock volatility. Treat these eight variables as numeric features in the specified order. There are no categorical features. Handle missing values by imputing the mean for numeric features and using the most frequent category for any categorical features. Preprocess the data by applying a standard scaler to numeric features and one-hot encoding to categorical features with unknown categories ignored and sparse output disabled.\n\nTrain a single model using the LinearSVC implementation from scikit-learn with random_state set to 88. Finally, apply the trained model to the data in `val_v1.parquet` and save the results to a CSV file at `prediction.csv`. The output file must contain the column row_id as provided in the original `val_v1.parquet` and the corresponding predictions aligned with each row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.parquet` to generate a prediction for `IsDefault` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-02-22T15:16:56.000Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "madhuraatmarambhagat_crop-recommendation-dataset_class",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You have access to a training CSV file named `train_v1.csv`, which contains a single table, and a metadata file named `metadata.txt` that describes the original dataset and each of its columns. Your objective is to perform classification using this data to predict the target column `label` for the validation set located at `val_v1.csv`. Unless stated otherwise, use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training file directly, treating only empty strings as missing values. Next, filter the training dataset by applying the expected value ranges defined in terms of average relative humidity in % (14.0 to 100.0), nitrogen content in the soil in mg/kg (0 to 140), rainfall in mm (20.0 to 299.0), soil pH value (3.0 to 10.0), average temperature in °C (8.0 to 44.0), phosphorus content in the soil in mg/kg (5 to 145), and potassium content in the soil in mg/kg (5 to 205). Retain any rows that have missing values in these columns, and exclude only those rows for which a known non-missing value falls outside the specified range.\n\nThen select only the following features for training the model in the order specified: potassium content in the soil in mg/kg, average relative humidity in %, phosphorus content in the soil in mg/kg, average temperature in °C, and soil pH value. Treat these same five features in the exact listed order as numeric features. There are no categorical features to include. When handling missing values, impute numeric features using most_frequent and impute categorical features using “most_frequent.”\n\nFor preprocessing, apply a standard scaler to the numeric features, and apply one-hot encoding to the categorical features with handle_unknown set to ignore and sparse_output set to False. Train a single model using scikit-learn’s LinearSVC with random_state set to 67. Finally, generate predictions on the validation set and save the results to a CSV file at `prediction.csv`. This output file must contain the column row_id as provided in the original `val_v1.csv` and the corresponding predictions, ensuring each prediction is aligned with its row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.csv` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.csv` to generate a prediction for `label` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.csv` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-05-08T17:02:09.397Z",
+    "needed_files_v1": [
+      "train_v1.csv",
+      "val_v1.csv",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.csv",
+      "val_v2.csv",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "milapgohil_flavorsense-tastes-predicted-by-life-and-climate_class",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training Parquet file named `train_v1.parquet`, which contains a single table, and a metadata file `metadata.txt` that describes the dataset and each of its columns. Your objective is to perform classification to predict the target column `preferred_taste` for the validation set located at `val_v1.parquet`. Unless stated otherwise, use default parameters for all steps including model training and preprocessing.\n\nBegin by loading the training file directly. Next, filter the training data according to the expected ranges for historical cuisine exposure, exercise habits, age, and climate zone while retaining any rows with missing values in these columns. Specifically, require that historical cuisine exposure be one of Asian, Mixed, or Mediterranean; exercise habits be one of Heavy, Moderate, or Light; age be between 18.0 and 69.0; and climate zone be one of Temperate, Cold, Dry, or Tropical. Do not exclude rows where any of these values are missing; only exclude rows where a known value falls outside these ranges. Then select only the columns representing climate zone, exercise habits, and age for model training.\n\nTreat age, which can influence metabolism, taste sensitivity, and food preferences, as the numeric feature, preserving its position in the specified feature list. Treat climate zone, which influences traditional diets and where spicy food is more common in hot and humid climates, and exercise habits, where active individuals may prefer salty or spicy flavors due to sodium loss from sweating or increased metabolic demand, as categorical features, preserving their positions in the specified list. Handle missing values by imputing the median for the numeric feature and using the most frequent category for the categorical features. Apply standard scaling to the numeric feature and one-hot encoding to the categorical features with unknown categories ignored and sparse output disabled.\n\nTrain a single DecisionTreeClassifier using the scikit-learn package with random_state set to 33. Finally, apply the trained model to the validation set in `val_v1.parquet` and save the results to a file named `prediction.csv`. Ensure that this output file contains the original row_id column from `val_v1.parquet` and the corresponding predictions for `preferred_taste`, aligning each prediction with its row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.parquet` to generate a prediction for `preferred_taste` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-06-16T06:25:53.117Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "muhammadwaqas023_pipeline-dataset-in-oil-and-gas-sector_class",
+    "question_v1": "Please complete the following classification task using the data provided, without asking any follow-up questions or requesting additional information. You are given a training file `train_v1.csv` containing pipeline information and a metadata file `metadata.txt` that describes each column. Your goal is to predict the target column `Condition` on the validation set in `val_v1.csv`. Unless otherwise specified, apply default settings for data preprocessing and model training.\n\nFirst, load the training data from `train_v1.csv`, treating only empty strings (\"\") as missing values. Next, filter the training data based on the expected ranges for each column: ensure the diameter of pipe is between 104 and 1999 millimeters; the thickness of pipe is between 3.0 and 30.0 millimeters; the temperature in degrees Celsius is between –40.0 and 120.0; the material of pipe is one of Copper, Cast Iron, Aluminum, Steel, or PVC; the maximum pressure is between 10.0 and 200.0 bar; the thickness loss percentage is between 0.0 and 10.0; the grade of pipe is one of B, A, C, D, E; the material loss percentage is between 0.0 and 10.0; the time in years is between 1 and 24; the strength of pipe is between 201.0 and 800.0 MPa; the corrosion impact percentage is between 0.0 and 20.0; and the pipe size is between 53 and 1499 millimeters. Retain any rows with missing values in these columns, excluding only those rows that have known values outside the specified ranges.\n\nFor training the model, restrict the dataset to the following features in their listed order: thickness loss percentage, maximum pressure, temperature in degrees Celsius, grade of pipe, strength of pipe, corrosion impact percentage, time in years, and material loss percentage. Treat thickness loss percentage, maximum pressure, temperature in degrees Celsius, strength of pipe, corrosion impact percentage, time in years, and material loss percentage as numeric features in the specified order, and treat grade of pipe as a categorical feature in the specified order. Handle missing values by replacing missing values in numeric features with the mean of each feature and replacing missing values in categorical features with the most frequent category.\n\nPreprocess the dataset by applying a standard scaler to the numeric features and by applying one-hot encoding to the categorical feature with handle_unknown set to ignore and sparse_output set to False. Use scikit-learn’s DecisionTreeClassifier with random_state set to 77 to train a single model on the processed training data. Finally, apply the trained model to predict `Condition` for each row in the validation set provided in `val_v1.csv` and save the predictions to a file named `prediction.csv`, including the original row_id from `val_v1.csv` alongside its predicted `Condition` so that performance can be evaluated correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.csv` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.csv` to generate a prediction for `Condition` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.csv` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-05-29T12:17:12.000Z",
+    "needed_files_v1": [
+      "train_v1.csv",
+      "val_v1.csv",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.csv",
+      "val_v2.csv",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "prekshad2166_food-expiry-tracker_class",
+    "question_v1": "Please complete the following task without requesting any additional information. Proceed as if all necessary information has been provided. You have access to a training database named `train_v1.sqlite`, which contains multiple tables sharing the key column `row_id`. Your first step is to join all of these tables on `row_id` to reconstruct the full training dataset. You are also provided with the metadata file `metadata.txt`, which describes each column in the original dataset.\n\nYour objective is to train a classification model to predict whether an item was consumed before its expiration date (the target column `used_before_expiry`) and then apply that model to the validation set stored in `val_v1.sqlite`. Unless stated otherwise, use default parameters for all preprocessing and model training steps.\n\nAfter joining the tables, filter the reconstructed training data so that the number of days until expiry is between 0.0 and 1.0 inclusive and the purchase quantity is between 0.0 and 1.0 inclusive. Retain any rows where these values are missing, and only exclude rows where a known non-missing value falls outside its specified range.\n\nFor model training, use only two features: the number of days until expiry and the purchase quantity. Treat these as numeric features in the specified order—first the number of days until expiry, then the purchase quantity—and there are no categorical features to include (maintain the empty categorical feature list in its original order). Handle missing values by imputing the median for numeric features and the most frequent category for categorical features. Preprocess the numeric features with a standard scaler and apply one-hot encoding to any categorical features with unknown categories ignored and dense output (handle_unknown=ignore, sparse_output=False).\n\nTrain a single DecisionTreeClassifier using scikit-learn with random_state set to 67, and use default parameters for all other steps. Finally, generate predictions on the validation set and save them in a file named `prediction.csv`, which must contain each `row_id` from `val_v1.sqlite` alongside its predicted `used_before_expiry` value, ensuring each prediction aligns correctly with its row_id for downstream evaluation.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.sqlite` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.sqlite` to generate a prediction for `used_before_expiry` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.sqlite` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-05-17T16:51:00.623Z",
+    "needed_files_v1": [
+      "train_v1.sqlite",
+      "val_v1.sqlite",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.sqlite",
+      "val_v2.sqlite",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "sahideseker_fraud-detection-in-transactions-dataset_class",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training Parquet file named `train_v1.parquet`, which contains a single table, and a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your task is to perform classification using this data and predict the target column `label` for the validation set located at `val_v1.parquet`. Unless stated otherwise, use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training data from `train_v1.parquet`. Then filter the training dataset to include only those transactions whose type of merchant is one of “travel,” “groceries,” “others,” “electronics,” or “clothing,” whose device used for the transaction is one of “tablet,” “desktop,” or “mobile,” and whose transaction amount in USD lies between 0.0 and 818.0; however, retain any rows with missing values in these columns and exclude only those rows that violate these expected ranges with known (non-missing) values. Next, select only the features Device used for the transaction and Transaction amount in USD for training the model. Treat Transaction amount in USD as the numeric feature and Device used for the transaction as the categorical feature, and use the numeric and categorical features in the specified order. Handle missing values by imputing the numeric feature using the most frequent strategy and the categorical feature using the most frequent strategy. Preprocess the data by applying a standard scaler to the numeric feature and one-hot encoding to the categorical feature with unknown categories ignored and sparse output disabled. Train a single model using MLPClassifier from scikit-learn with random_state set to 43, using default parameters for all other settings. Finally, apply the trained model to the validation set from `val_v1.parquet` and save the predictions to a CSV file named `prediction.csv`, including the column row_id from the original validation data and the corresponding predictions aligned by row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.parquet` to generate a prediction for `label` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-04-01T01:55:06.733Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "samikshadalvi_pcos-diagnosis-dataset_class",
+    "question_v1": "Please complete the classification task as follows. You have access to a training Parquet file named `train_v1.parquet`, which contains a single table, and a metadata file `metadata.txt` describing each column. Your goal is to train a model to predict the binary indicator `PCOS_Diagnosis` on the validation set at `val_v1.parquet`. Unless stated otherwise, use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training data from `train_v1.parquet`. Then filter it so that any record whose known values fall outside the expected ranges is excluded, while retaining any record with missing values in those fields. The expected ranges are as follows: the patient’s age in years between 18 and 45, Body Mass Index in kg/m² between 18.0 and 35.0, number of antral follicles detected during an ultrasound between 5 and 29, and blood testosterone level in nanograms per deciliter between 20.0 and 100.0.\n\nNext, select only the following features for model training: the level of testosterone in the patient’s blood in nanograms per deciliter, the Body Mass Index in kilograms per square meter, and the number of antral follicles detected during an ultrasound. Treat these as numeric features in the specified order: first the testosterone level, then BMI, and finally the antral follicle count. There are no categorical features to include.\n\nHandle missing values by imputing numeric features with the most frequent value and imputing categorical features with \"most_frequent\". Then apply a standard scaler to the numeric features and perform one-hot encoding on categorical features with handle_unknown set to ignore and sparse_output set to False.\n\nTrain a single LinearSVC model from scikit-learn with random_state set to 76. Finally, apply the trained model to the validation set in `val_v1.parquet` and save the predictions alongside the original row identifiers to `prediction.csv`. The output file must contain the column row_id as provided in the validation set and the corresponding predictions for `PCOS_Diagnosis`, aligned correctly for performance evaluation.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.parquet` to generate a prediction for `PCOS_Diagnosis` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-02-19T23:03:44.693Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "shankar3234_ping-pong-game-playing-dataset_class",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training SQLite file named `train_v1.sqlite`, which contains multiple tables. These tables share a common key column `row_id` and must be joined on that column to reconstruct the full training dataset. You are also provided with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your objective is to perform a classification using this data and to predict the target column `action` for the validation set stored in `val_v1.sqlite`. Unless specified otherwise, you should apply default parameters for all steps, including model training and preprocessing. First, join all the tables in `train_v1.sqlite` on the column `row_id` to reconstruct the full training dataset. Next, filter this dataset by enforcing the expected ranges defined as follows: the horizontal velocity of the ball should lie between –4 and 4, the vertical position of the ball should lie between –3 and 593, the vertical position of the paddle should lie between 0 and 500, the vertical velocity of the ball should lie between –4 and 4, and the horizontal position of the ball should lie between 0 and 792. When applying these filters, you must retain any rows where a relevant value is missing, excluding only those rows that contain known (non-missing) values outside of these ranges. Then, select only the following features for training the model: the horizontal velocity of the ball, the vertical position of the paddle, and the vertical position of the ball. These three features must be treated as numeric features in the specified order: horizontal velocity of the ball, vertical position of the paddle, and vertical position of the ball. There are no categorical features to include, and the order for categorical features should be maintained as an empty list. To handle missing values, impute numeric features using the mean and categorical features using the “most_frequent” strategy. For preprocessing, apply a standard scaler to the numeric features and one-hot encoding to the categorical features with handle_unknown set to ignore and sparse_output set to False. Use scikit-learn to train a single GaussianNB model with its default settings. After training, apply the model to the validation set in `val_v1.sqlite` to generate predictions, and save the results in a CSV file at `prediction.csv`. The output file must contain the column `row_id` as provided in the original `val_v1.sqlite` and the corresponding predictions, aligned correctly so that performance can be computed accurately.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.sqlite` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.sqlite` to generate a prediction for `action` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.sqlite` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-07-20T02:42:47.000Z",
+    "needed_files_v1": [
+      "train_v1.sqlite",
+      "val_v1.sqlite",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.sqlite",
+      "val_v2.sqlite",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "willianoliveiragibin_europe-mothers_class",
+    "question_v1": "Please complete the following classification task using the provided data and metadata. You have a Parquet file named `train_v1.parquet` that contains the training table and a metadata file `metadata.txt` describing the dataset and its columns. Your objective is to train a model that predicts the target column `country` on the validation set stored in `val_v1.parquet`. Unless otherwise specified, use default parameters for every step, including preprocessing and model training.\n\nBegin by loading `train_v1.parquet`. Then filter the training data so that only rows with the year between 1950 and 2023 inclusive are retained; however, keep any rows where the year is missing and exclude only those rows where a non-missing year falls outside this range. Next, select only the column representing the year as the feature for model training. The numeric features should consist of the year in exactly the order listed. There are no categorical features, and the categorical feature list should remain empty in its specified order.\n\nTo handle missing values, impute the most frequent value for the numeric features and apply the “most_frequent” strategy for the categorical features. After imputation, apply a standard scaler to the numeric features and perform one-hot encoding on the categorical features with handle_unknown set to ignore and sparse_output set to False. Then train a single GaussianNB model using the scikit-learn package.\n\nFinally, apply the trained model to the validation set in `val_v1.parquet` to predict `country` for each row. Save the results in a file named `prediction.csv`, which must include the column `row_id` exactly as provided in the original validation file alongside the corresponding predicted `country` values, ensuring that each prediction aligns with its `row_id` for accurate performance evaluation.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a classification model on this training data. Then use `val_v2.parquet` to generate a prediction for `country` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "classification",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-03-27T00:08:11.273Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "adilshamim8_predict-calorie-expenditure_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information, proceeding under the assumption that all required information is provided. You are given access to a training CSV file named `train_v1.csv`, which contains a single table, and a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your task is to perform regression using this data and predict the target column `Calories` for the validation set located at `val_v1.csv`. Unless stated otherwise, you should use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training file directly, treating only empty strings as missing values. Then filter the training dataset by excluding rows whose known values fall outside the expected ranges for Weight of the individual in kilograms (between 36.0 and 132.0), Age of the individual in years (between 20 and 79), Height of the individual in centimeters (between 126.0 and 222.0), Duration of physical activity or exercise in minutes (between 1.0 and 30.0), Biological sex of the individual (must be either male or female), Heart rate recorded during the activity in beats per minute (between 67.0 and 128.0), and Body temperature during the activity in degrees Celsius (between 37.0 and 42.0), while retaining any rows that have missing values in those columns.\n\nNext, select only the following features for training the model, preserving their order: Weight of the individual in kilograms, Height of the individual in centimeters, Body temperature during the activity in degrees Celsius, Biological sex of the individual, and Age of the individual in years. Treat the first four of these features—Weight of the individual in kilograms, Height of the individual in centimeters, Body temperature during the activity in degrees Celsius, and Age of the individual in years—as numeric features in the listed order, and treat the last feature—Biological sex of the individual—as a categorical feature in the listed order. Handle missing values by imputing the median for the numeric features and using the most frequent category for the categorical feature.\n\nThen preprocess the data by applying a standard scaler to the numeric features and by applying one-hot encoding to the categorical feature with handle_unknown set to ignore and sparse_output set to False. Train a single Ridge regression model using the scikit-learn package with random_state set to 35.\n\nFinally, make predictions on the validation set and save the results to a CSV file at `prediction.csv`. The output file must include the original row identifier column as provided in `val_v1.csv` and the corresponding predictions so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.csv` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.csv` to generate a prediction for `Calories` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.csv` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-07-29T03:50:11.923Z",
+    "needed_files_v1": [
+      "train_v1.csv",
+      "val_v1.csv",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.csv",
+      "val_v2.csv",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "ayushmanyashaswi_car-data-small-dataset-good-for-learning_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information, proceeding under the assumption that all required information is provided. You are given access to a training SQLite file named `train_v1.sqlite`, which contains multiple tables sharing a common key column row_id; these tables must be joined on row_id to reconstruct the full training dataset. You are also provided with a metadata file `metadata.txt` that describes the original dataset and each of its columns.\n\nYour task is to perform regression using this data and predict the target column `Selling_Price` for the validation set located at `val_v1.sqlite`. Unless stated otherwise, use default parameters for all steps, including model training and preprocessing.\n\nFirst, join all tables in the training database on row_id to reconstruct the full training dataset. Then filter the training dataset so that the year in which it was manufactured is between 2003 and 2018 inclusive, the distance travelled by the vehicle is between 500 and 500 000 inclusive, the owner type is between 0 and 3 inclusive, the seller type is either Dealer or Individual, the fuel type is either Petrol, Diesel, or CNG, the current price of the car in the market is between 0.0 and 93.0 inclusive, and the transmission type is either Manual or Automatic. When filtering, only exclude rows that violate these expected ranges when a known (non-missing) value is present; if a value is missing, retain the row.\n\nNext, select only the following features for training the model, in this order: fuel type, seller type, current price of the car in the market, year in which it was manufactured, and transmission type. The current price of the car in the market and the year in which it was manufactured should be treated as numeric features, also maintaining their listed order. The fuel type, seller type, and transmission type should be treated as categorical features, also maintaining their listed order.\n\nHandle missing values by imputing the mean for numeric features and using the most frequent category for categorical features. Preprocess the data by applying a standard scaler to the numeric features and one-hot encoding to the categorical features with unknown categories ignored and sparse output disabled.\n\nTrain a single DecisionTreeRegressor model using the scikit-learn package with random_state set to 50. Finally, apply the trained model to the validation dataset in `val_v1.sqlite` to generate predictions, and save the results to a CSV file at `prediction.csv`. This file must contain the column row_id and its corresponding predictions, aligned so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.sqlite` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.sqlite` to generate a prediction for `Selling_Price` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.sqlite` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-05-17T07:39:52.217Z",
+    "needed_files_v1": [
+      "train_v1.sqlite",
+      "val_v1.sqlite",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.sqlite",
+      "val_v2.sqlite",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "ayushmanyashaswi_gold-price-2000-rows-of-data-yashaswi_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information, proceeding under the assumption that all required information is provided. You are given access to a training Parquet file named `train_v1.parquet`, which contains a single table, and you are also provided with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your task is to perform a regression analysis using this data and predict the target column `SPDR Gold ETF price` for the validation set located at `val_v1.parquet`. Unless stated otherwise, use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training file directly. Next, filter the training dataset by applying the following expected ranges, while retaining any rows that have missing values in those fields: first, the S&P 500 Index closing value should range from 676.0 to 2873.0; second, the iShares Silver Trust (silver prices) should range from 8.0 to 48.0; third, the Euro to USD exchange rate should range from 1.0 to 2.0; and finally, the United States Oil Fund (oil price proxy) should range from 7.0 to 118.0. Only exclude rows where the value is present and outside the specified range.\n\nThen, select only the following features for training the model, in the order listed: Euro to USD exchange rate, iShares Silver Trust (silver prices), and S&P 500 Index closing value. Treat these same features as numeric features, maintaining the listed order, and use the provided empty list of categorical features, preserving its order as specified.\n\nFor missing value handling, impute numeric features using the mean and categorical features using the most frequent value. Then preprocess the data by applying a standard scaler to the numeric features and one-hot encoding to the categorical features with the setting to ignore unknown categories and output a dense matrix.\n\nTrain a single model using the DecisionTreeRegressor from scikit-learn with random_state set to 12. Finally, make predictions on the validation set and save the results to a CSV file at `prediction.csv`. The output file must contain the column row_id as provided in the original `val_v1.parquet` and the corresponding predictions, ensuring that each prediction is aligned with its row_id for correct performance evaluation.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.parquet` to generate a prediction for `GLD` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-06-26T17:57:15.000Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "brsahan_extensive-used-car-price-for-predictive-modeling_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training CSV file named `train_v1.csv` containing a single table, and to a metadata file `metadata.txt` that describes the dataset and each of its columns. Your task is to perform regression using this data and predict the target column `Selling_Price` for the validation set located at `val_v1.csv`. Unless stated otherwise, use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training file directly, treating only empty strings (\"\") as missing values. Next, filter the training data to include cars whose manufacturing year of the car is between 2003 and 2018, whose total kilometers driven by the car falls between 500 and 500000, whose number of previous owners is between 0 and 3, whose type of seller is either Dealer or Individual, whose type of fuel used by the car is either Petrol, Diesel, or CNG, whose current showroom price of the car (in Lakh INR) is between 0.0 and 93.0, and whose transmission type of the car is either Manual or Automatic, while retaining any rows that contain missing values in these columns rather than excluding them.\n\nThen, select the following attributes for model training in this order: the type of fuel used by the car, the current showroom price of the car (in Lakh INR), the transmission type of the car, the manufacturing year of the car, and the number of previous owners. Treat the current showroom price of the car, the manufacturing year of the car, and the number of previous owners as numeric features in this specified order, and treat the type of fuel used by the car and the transmission type of the car as categorical features in this listed order. Handle missing values by imputing the mean for numeric features and the most frequent category for categorical features. Preprocess the numeric features using a standard scaler and apply one-hot encoding to the categorical features with handle_unknown set to ignore and sparse_output set to False. Train a single model using MLPRegressor from scikit-learn with random_state=13, and then make predictions on the validation set. Finally, save the results to a CSV file at `prediction.csv`, including the column row_id as provided in the original `val_v1.csv` alongside the predicted values for `Selling_Price`, ensuring that each prediction is properly aligned with its row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.csv` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.csv` to generate a prediction for `Selling_Price` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.csv` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-04-03T12:39:18.000Z",
+    "needed_files_v1": [
+      "train_v1.csv",
+      "val_v1.csv",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.csv",
+      "val_v2.csv",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "cyberevil545_youtube-videos-data-for-ml-and-trend-analysis_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information, assuming all required information is provided. You are given access to a training SQLite file named `train_v1.sqlite`, which contains multiple tables that share a common key column `row_id`. Join these tables on `row_id` to reconstruct the full training dataset. You are also provided with a metadata file `metadata.txt` that describes the original dataset and each of its columns.\n\nOnce the tables are joined on `row_id`, filter the reconstructed training dataset by retaining only those rows in which known, non-missing values for each column fall within the following expected ranges in the given order: the Actual frame rate of the video (FPS) should be between 3.0 and 60.0 frames per second; the Overall video bitrate in kbps should be between 0 and 22421; the Video resolution height in pixels should be between 108 and 2592; the YouTube category of the video must be one of the following values: 'News & Politics', 'Gaming', 'Comedy', 'People & Blogs', 'Entertainment', 'Music', 'Education', 'Nonprofits & Activis', 'Sports', 'Autos & Vehicles', 'Howto & Style', 'Travel & Events', 'Film & Animation', 'Science & Technology', 'Pets & Animals', 'Shows'; the Video encoding format used must be one of 'h264', 'vp8', 'flv1', or 'mpeg4'; the Length of the video in seconds should be between 1 and 25845; the Estimated frame rate based on analysis should be between 0.0 and 30.0; the Bitrate of the video stream only (kbps) should be between 0 and 22229; and the Video resolution width in pixels should be between 88 and 1944. Any rows that have missing (`null`) values in these columns must be retained; only rows with known, non-missing values that violate these ranges should be excluded.\n\nAfter filtering, select only the following features for model training in the specified order: Overall video bitrate in kbps, Actual frame rate of the video (FPS), Length of the video in seconds, Estimated frame rate based on analysis, Video encoding format used, and Video resolution width in pixels. Treat the numeric features as Overall video bitrate in kbps, Actual frame rate of the video (FPS), Length of the video in seconds, Estimated frame rate based on analysis, and Video resolution width in pixels, maintaining this listed order. Treat the categorical features as Video encoding format used, also maintaining this listed order.\n\nHandle missing values by imputing the mean for the numeric features and using the \"most_frequent\" strategy for the categorical feature. Preprocess the data by applying a standard scaler to the numeric features and performing one-hot encoding on the categorical feature with handle_unknown set to ignore and sparse_output set to False.\n\nTrain a single regression model using the LinearRegression class from the scikit-learn package with default parameters. Finally, apply the trained model to the validation set located at `val_v1.sqlite` to generate predictions for the target columns `views`, `comments`, and `likes`. Save the results to a CSV file at `prediction.csv`, ensuring that the file contains the column `row_id` as provided in the original validation data and that each prediction is correctly aligned with its `row_id` so that performance can be computed accurately.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.sqlite` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.sqlite` to generate a prediction for `views`, `comments`, `likes` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.sqlite` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-08-13T07:07:12.393Z",
+    "needed_files_v1": [
+      "train_v1.sqlite",
+      "val_v1.sqlite",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.sqlite",
+      "val_v2.sqlite",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "digantabhattacharya_usa-house-price-index-and-macroeconomic-variables_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training Parquet file named `train_v1.parquet`, which contains a single table. You are also provided with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your task is to perform regression using this data and predict the target column `MedianSalesPriceofHousesSold` for the validation set located at `val_v1.parquet`. Unless stated otherwise, you should use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training file directly. Then filter the training dataset using the expected ranges defined for each feature: Total Shipment of Homes must fall between 40.0 and 390.0; Homeownership Rate must fall between 62.0 and 70.0; Economic Policy Indicator USA must fall between 10.0 and 627.0; Median Days on Market must fall between 6.0 and 88.0; Unemployment Rate must fall between 3.0 and 15.0; Renter Occupied must fall between 29287.0 and 46149.0; Vacant Housing Units 2 must fall between 4900.0 and 7758.0; Occupied Housing Units 2 must fall between 91916.0 and 132404.0; Median Listing Price Per Square Feet must fall between 21.0 and 233.0; Vacant Housing Units 3 must fall between 1988.0 and 4144.0; Vacant Housing Units 1 must fall between 1728.0 and 2461.0; Monthly Supply of Homes must fall between 3.0 and 13.0; Avg Sales Price for New Homes must fall between 137700.0 and 541200.0; Vacant Housing Units 4 must fall between 606.0 and 1386.0; Total Housing Units must fall between 104973.0 and 147807.0; Vacant Housing Units 5 must fall between 650.0 and 2286.0; and New 1 Family Homes must fall between 270.0 and 1389.0. When filtering, retain any rows that have missing values in these columns; only exclude rows where a known (non-missing) value violates the defined range.\n\nNext, select only the features listed in this specific order for training the model: Occupied Housing Units 2, Homeownership Rate, Economic Policy Indicator USA, Vacant Housing Units 3, New 1 Family Homes, Unemployment Rate, Renter Occupied, Vacant Housing Units 4, Total Housing Units, Vacant Housing Units 1, and Total Shipment of Homes. The following features should be treated as numeric features, also maintaining their listed order: Occupied Housing Units 2, Homeownership Rate, Economic Policy Indicator USA, Vacant Housing Units 3, New 1 Family Homes, Unemployment Rate, Renter Occupied, Vacant Housing Units 4, Total Housing Units, Vacant Housing Units 1, and Total Shipment of Homes. The following features should be treated as categorical features, also maintaining their listed order: none. Preserve the numeric and categorical features in the specified order.\n\nHandle missing values by imputing the median for numeric features and using most_frequent for categorical features. Preprocess the data by applying a standard scaler to the numeric features and applying one-hot encoding to the categorical features with handle_unknown set to ignore and sparse_output set to False.\n\nTrain only one model using Lasso from the scikit-learn package with random_state set to 85. Finally, make predictions on the validation set and save the results to a csv file at `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v1.parquet`) and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.parquet` to generate a prediction for `MedianSalesPriceofHousesSold` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-06-19T00:31:02.167Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "electromarine_steam-alternator-generator-log-2005-synthetic_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training SQLite file named `train_v1.sqlite`, which contains multiple tables. These tables share a common key column `row_id` and must be joined using this column to reconstruct the full training dataset. You are also provided with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your task is to perform regression using this data and predict the target column `W` for the validation set located at `val_v1.sqlite`. Unless stated otherwise, you should use default parameters for all steps including model training and preprocessing.\n\nFirst, join all the tables in the training database on `row_id` to reconstruct the full training dataset. Then, filter the training dataset using the expected ranges defined in Current between 738.0 and 10 522.0, Non-drive-end alternator bearing temperature between 50.0 and 110.0, Voltage equal to 440.0, Mechanical load between 30.0 and 120.0, Drive-end alternator bearing temperature between 50.0 and 120.0, Power factor between 0.0 and 1.0, Frequency between 48.0 and 52.0, Non-drive-end generator bearing temperature between 50.0 and 110.0, and Drive-end generator bearing temperature between 50.0 and 120.0, but make sure to retain any rows that have missing values in these columns. In other words, only exclude rows that violate the expected range with a known (non-missing) value—if a value is missing (`null`), keep the row.\n\nSelect only the features listed in order—Drive-end generator bearing temperature, Power factor, Drive-end alternator bearing temperature, Non-drive-end generator bearing temperature, Voltage, and Mechanical load—for training the model. The following features should be treated as numeric features, also maintaining their listed order: Drive-end generator bearing temperature, Power factor, Drive-end alternator bearing temperature, Non-drive-end generator bearing temperature, Voltage, and Mechanical load. The following features should be treated as categorical features, also maintaining their listed order: none. Handle missing values by using the mean for numeric features and “most_frequent” for categorical ones. Preprocess the data by applying a standard scaler to numeric features and applying one-hot encoding to categorical features with `handle_unknown` set to ignore and `sparse_output` set to False. Train only one model using Lasso from the scikit-learn package with `random_state=84`. Finally, make predictions on the validation set and save the results to a CSV file at `prediction.csv`. The file must contain the column `row_id` (as provided in the original `val_v1.sqlite`) and the corresponding predictions, each aligned with its `row_id` so that performance can be computed correctly. Ensure that the numeric and categorical features are used in the specified order.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.sqlite` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.sqlite` to generate a prediction for `W` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.sqlite` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-04-19T06:43:45.697Z",
+    "needed_files_v1": [
+      "train_v1.sqlite",
+      "val_v1.sqlite",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.sqlite",
+      "val_v2.sqlite",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "jacopoferretti_wages-and-education-of-young-males-dataset_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training Parquet file named `train_v1.parquet` which contains a single table. You are also provided with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your task is to perform regression using this data to predict the target column `wage` for the validation set located at `val_v1.parquet`. Unless stated otherwise, you should use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training file directly. Then, filter the training dataset so that for each of the following variables and their expected values, rows with known (non-missing) values that fall outside these specifications are excluded, while any rows that have missing values in these variables are retained. In order, for the industry sector the allowed values are Business_and_Repair_Service, Personal_Service, Trade, Construction, Manufacturing, Transportation, Professional_and_Related Service, Finance, Entertainment, Public_Administration, Agricultural and Mining. For years of schooling the allowed range is from 3 to 16 inclusive. For marital status the allowed values are \"no\" and \"yes\". For place of residence the allowed values are north_east, south, nothern_central and rural_area. For years of experience the allowed range is from 0 to 18 inclusive. For health issues indicator the allowed values are \"no\" and \"yes\". For occupation category the allowed values are Service_Workers, Craftsmen, Foremen_and_kindred, Managers, Officials_and_Proprietors, Laborers_and_farmers, Clerical_and_kindred, Sales_Workers, Operatives_and_kindred, Professional, Technical_and_kindred and Farm_Laborers_and_Foreman. For ethnicity the allowed values are other, black and hisp. For year of observation the allowed range is from 1980 to 1987 inclusive. For union membership indicator the allowed values are \"no\" and \"yes\".\n\nNext, select only the features in the following order for training the model: years of schooling, marital status, year of observation, health issues indicator, industry sector and occupation category. The numeric features, in the specified order, are years of schooling and year of observation. The categorical features, in the specified order, are marital status, health issues indicator, industry sector and occupation category.\n\nHandle missing values by imputing the most frequent value for the numeric features and by imputing the most frequent value for the categorical features. Preprocess the data by applying a standard scaler to the numeric features and by applying one-hot encoding to the categorical features with handle_unknown set to ignore and sparse_output set to False. Train a single model using Ridge from the scikit-learn package with random_state set to 57. Finally, make predictions on the validation set and save the results to a csv file at `prediction.csv`. The file must contain the column `row_id` as provided in the original `val_v1.parquet` and the corresponding predictions, aligned with each row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.parquet` to generate a prediction for `wage` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-06-03T02:17:47.000Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "nicolsvrancovich_el-ateneo-marketplace-books_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information, proceeding under the assumption that all required information is provided. You are given access to a training CSV file named `train_v1.csv`, which contains a single table, and a metadata file `metadata.txt` that describes the original dataset and each of its columns. Your task is to perform regression using this data to predict the target column `precio` for the validation set located at `val_v1.csv`, using default parameters for all steps unless stated otherwise.\n\nBegin by loading the training file and treating only empty strings (\"\") as missing values. Then filter the dataset according to the expected ranges: for the language the book is written in, include only known values of Español, Inglés, German, or Portuguese; for the total number of pages in the book, include only known values between 1.0 and 3872.0; for the main category or classification of the book, include only known values among INFANTIL Y JUVENIL, FICCIÓN Y LITERATURA, GASTRONOMIA  Y COSTUMBRES, HUMANIDADES, ESOTERISMO, DERECHO Y CIENCIAS SOCIALES, ARTE, ARQUITECTURA Y DISEÑO, AUTOAYUDA, CIENCIAS DE LA SALUD, NATURALES Y DIVULGACION CIENTIFICA, NEGOCIOS Y CS. ECONOMICAS, INGENIERIA, TECNICA Y CIENCIAS EXACTAS, HOGAR, JUEGOS, DEPORTES Y RECREACION, ENCICLOPEDIAS, DICCIONARIOS, LINGÜÍSTICA, VISUALES, HOTELERIA Y TURISMO, COMPUTACIÓN Y SISTEMAS, GUIAS Y MAPAS, or TEXTOS; and for the type of book binding or format, include only known values of Tapa Blanda, Espiralado, Tapa Dura, or Otro. Retain any rows with missing values in these columns and exclude only those rows that violate these constraints with non-missing values.\n\nNext, select for training only the features corresponding to the language the book is written in, the main category or classification of the book, and the total number of pages in the book, preserving the original ordering of these features. Treat the total number of pages in the book as the sole numeric feature, maintaining its position in the numeric feature list, and handle missing values by imputing with the median followed by a standard scaler. Treat the language the book is written in and the main category or classification of the book as categorical features, in that listed order, and handle missing values by imputing with the most frequent value followed by one-hot encoding with unknown categories ignored and sparse output disabled.\n\nUse scikit-learn’s MLPRegressor with random_state set to 44 and default settings to train a single model on the preprocessed features. Finally, make predictions on the validation set from `val_v1.csv` and save the results in a CSV file at `prediction.csv`, including the row_id column as provided in the original `val_v1.csv` alongside the corresponding predictions so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.csv` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.csv` to generate a prediction for `precio` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.csv` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-05-24T20:35:43.000Z",
+    "needed_files_v1": [
+      "train_v1.csv",
+      "val_v1.csv",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.csv",
+      "val_v2.csv",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "rohansardar_linear-regression-synthetic-data_reg",
+    "question_v1": "Please complete the following task without asking any follow-up questions, assuming that all required information has been provided. You have access to a training Parquet file at `train_v1.parquet` containing a single table and a metadata file at `metadata.txt` that describes the dataset and its columns. Your objective is to build a regression model that predicts the target column `y` on the validation set stored in `val_v1.parquet`. Unless specified otherwise, use default parameters for all data processing and model training steps.\n\nBegin by loading the training data directly from `train_v1.parquet`. Next, filter the dataset so that any row with a non-missing value for the feature “the value of x” falls within the range 0.0 to 100.0 inclusive; if the feature is missing, retain the row. After filtering, select only the feature “the value of x” for model training. Treat “the value of x” as a numeric feature and use it in the specified order. There are no categorical features to include.\n\nHandle missing values by imputing numeric features with the most frequent value and categorical features (if any) with the most frequent value. Then apply a standard scaler to the numeric feature(s), and apply one-hot encoding to categorical feature(s) with handle_unknown set to ignore and sparse_output set to False. Train a single Ridge regression model from the scikit-learn library with random_state set to 55. Finally, generate predictions on the validation data in `val_v1.parquet` and save the results to a CSV file at `prediction.csv`. The output file must include the column row_id as provided in the original validation file and the corresponding predicted values so that performance can be evaluated correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.parquet` to generate a prediction for `y` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-08-05T11:53:52.000Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "sautkin_cleaned-supercon-from-nims-rdf-1-2_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training Parquet file named `train_v1.parquet`, which contains a single table, and a metadata file `metadata.txt` describing the original dataset and each of its columns. Your task is to perform regression using this data in order to predict the target column `critical_temp_K` for the validation set located at `val_v1.parquet`. Unless stated otherwise, use default parameters for all steps including model training and preprocessing.\n\nFirst, load the training file directly from `train_v1.parquet`. Then filter the training dataset so that for each of the following properties you retain any row with a missing value but exclude rows where a known measurement falls outside the specified interval: thermoelectric power at 300 K in microvolts per kelvin between –62900.0 and 2000.0; pressure dependence of the critical temperature in kelvin per gigapascal between –61.0 and 25.0; ozone concentration between 0.0 and 42.0; second transition temperature between 0.0 and 323.0; susceptibility-based transition temperature between 0.0 and 340.0; room-temperature electrical resistivity in microohm-centimeters between 0.0 and 9600000000.0; penetration depth (value) between 0.0 and 20000.0; Néel temperature in kelvin between 0.0 and 832.0; coherence length (value) between 1.0 and 9400.0; third transition temperature between 0.0 and 333.0; normal-state electrical resistivity in microohm-centimeters between 0.0 and 35900000.0; superconducting energy gap in meV between 0.0 and 88.0; Hall coefficient at 300 K between –95.0 and 15.0; n-type critical temperature (value) between 0.0 and 108.0; Curie temperature in kelvin between 0.0 and 659.0; material density in grams per cubic centimeter between 1.0 and 19.0; magnetic moment (value) between 0.0 and 12.0; extrapolated upper critical field at zero kelvin (value) between 0.0 and 3034.0; first transition temperature between 0.0 and 310.0; and slope of the upper critical field versus temperature near the superconducting transition in tesla per kelvin between –7.0 and 73.0.\n\nNext, select only the following features for training the model, preserving their original order: pressure dependence of the critical temperature in kelvin per gigapascal; n-type critical temperature (value); magnetic moment (value); room-temperature electrical resistivity in microohm-centimeters; extrapolated upper critical field at zero kelvin (value); Hall coefficient at 300 K; superconducting energy gap in meV; second transition temperature; coherence length (value); normal-state electrical resistivity in microohm-centimeters; slope of the upper critical field versus temperature near the superconducting transition in tesla per kelvin; and material density in grams per cubic centimeter. Treat these exact features, in the listed order, as numeric features. There are no categorical features to include.\n\nHandle missing values by imputing the median for numeric features and the most frequent value for categorical features. Preprocess the data by applying a standard scaler to the numeric features and one-hot encoding to the (empty) categorical features with unknown categories ignored and dense output.\n\nTrain a single model using scikit-learn’s LinearRegression with its default settings. Finally, make predictions on the validation set in `val_v1.parquet` and save the results to a CSV file named `prediction.csv`. This output file must include the `row_id` column as provided in the original validation file and the corresponding predicted values for `critical_temp_K`, aligned correctly so that performance can be computed.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.parquet` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.parquet` to generate a prediction for `critical_temp_K` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.parquet` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-04-14T07:10:54.723Z",
+    "needed_files_v1": [
+      "train_v1.parquet",
+      "val_v1.parquet",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.parquet",
+      "val_v2.parquet",
+      "metadata.txt"
+    ]
+  },
+  {
+    "file_path": "shahriarkabir_linear-performance-pricing-lpp-pricing-dataset_reg",
+    "question_v1": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Proceed under the assumption that all required information is provided. You are given access to a training SQLite file named `train_v1.sqlite`, which contains multiple tables with a common key column row_id that you must join to reconstruct the full training dataset. You are also provided with a metadata file `metadata.txt` that describes the dataset and each column. Your goal is to perform regression using this data and predict the best-practice benchmark price and the market price for the validation set located at `val_v1.sqlite`. Unless stated otherwise, use default parameters for all steps, including model training and preprocessing. First, join all tables in the training database on the row_id column to reconstruct the complete training dataset. Next, filter the resulting dataset based on the expected ranges for Length of the pipe in meters, which should be between 1.0 and 10.0, and for Supplier ID, which should be one of S1, S4, S2, and S3, but ensure that rows with null values in these columns are retained—only remove rows where a non-missing value violates the specified range or allowed categories. Then select only the features Length of the pipe in meters and Supplier ID for training the model, using them in the specified order. Treat Length of the pipe in meters as a numeric feature and Supplier ID as a categorical feature, also preserving the listed order. Handle missing values by imputing the median for the numeric feature and the most frequent category for the categorical feature. Preprocess the data by applying a standard scaler to the numeric feature and one-hot encoding to the categorical feature with handle_unknown set to ignore and sparse_output set to False. Train a single model using scikit-learn’s MLPRegressor with random_state set to 24. Finally, make predictions on the validation set and save the results to a csv file at `prediction.csv`, including the row_id and the corresponding predictions aligned by row_id so that performance can be computed correctly.",
+    "question_v2": "Please complete the task as described below without asking any follow-up questions or requesting additional information. Your task is to achieve good performance while balancing training time and accuracy in the sandbox. You are provided with a processed dataset, along with a metadata file `metadata.txt` that describes the original dataset and each of its columns. Load data in `train_v2.sqlite` as your full training set. Once that's done, using only CPU resources, train a regression model on this training data. Then use `val_v2.sqlite` to generate a prediction for `target_price_benchmark`, `target_price_market` for each `row_id`. The model should output a file named `prediction.csv`. The file must contain the column row_id (as provided in the original `val_v2.sqlite` and the corresponding predictions. Each prediction should be aligned with its row_id so that performance can be computed correctly.",
+    "available_tools": [
+      "python_executor"
+    ],
+    "task": "regression",
+    "usability_rating": 1.0,
+    "lastUpdated": "2025-05-01T15:50:03.773Z",
+    "needed_files_v1": [
+      "train_v1.sqlite",
+      "val_v1.sqlite",
+      "metadata.txt"
+    ],
+    "needed_files_v2": [
+      "train_v2.sqlite",
+      "val_v2.sqlite",
+      "metadata.txt"
+    ]
+  }
+]

@@ -1,0 +1,4 @@
+provider,model,model_snapshot,stratum,comparison,n_paired_tasks,mean_task_success_rate_difference,median_task_success_rate_difference,ci95_low,ci95_high,tasks_improved,tasks_declined,tasks_tied,inference_note
+openai,gpt-4.1-mini-2025-04-14,gpt-4.1-mini-2025-04-14,classification,turns_5_minus_turns_3,12,0.21666666666666665,0.0,0.03333333333333335,0.4166666666666667,5,1,6,"paired task-bootstrap interval; descriptive, not a significance claim"
+openai,gpt-4.1-mini-2025-04-14,gpt-4.1-mini-2025-04-14,overall,turns_5_minus_turns_3,24,0.15833333333333335,0.0,0.05000000000000002,0.27499999999999997,9,2,13,"paired task-bootstrap interval; descriptive, not a significance claim"
+openai,gpt-4.1-mini-2025-04-14,gpt-4.1-mini-2025-04-14,regression,turns_5_minus_turns_3,12,0.10000000000000002,0.0,4.625929269271485e-18,0.21666666666666667,4,1,7,"paired task-bootstrap interval; descriptive, not a significance claim"

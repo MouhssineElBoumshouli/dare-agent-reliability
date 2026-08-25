@@ -107,9 +107,11 @@ def main() -> int:
                 evaluation = official_score(evaluator, task, prediction)
                 rescored = evaluation.get("final_score")
                 evaluation_error = evaluation.get("error")
+                evaluation_exception = None
             except Exception as exc:
                 rescored = None
-                evaluation_error = f"{type(exc).__name__}: {exc}"
+                evaluation_error = None
+                evaluation_exception = f"{type(exc).__name__}: {exc}"
 
             stored_score = metadata.get("official_score")
             if stored_score is not None and rescored is not None:
@@ -135,6 +137,7 @@ def main() -> int:
                     "success": bool(rescored == 1.0),
                     "status": metadata["status"],
                     "evaluation_error": evaluation_error,
+                    "evaluation_exception": evaluation_exception,
                     "runtime_seconds": metadata.get("runtime_seconds"),
                     "tool_calls": metadata.get("tool_call_count"),
                     "token_usage": metadata.get("token_usage"),

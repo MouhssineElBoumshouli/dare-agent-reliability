@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-25T21:12:36.199951+00:00",
+  "scope": "final",
+  "frozen_study_commit": "94d1fe40d4a6569dcdb664c3e3f64f5738d49271",
+  "frozen_tag": "phase1-execution-freeze-v2",
+  "execution_config_sha256": "E24EE3E63A894AEEB58DF16E390DC9784D54C8B339ACFA385AFF34E0F87BBB64",
+  "expected_identity_count": 240,
+  "terminal_identity_count": 240,
+  "unique_recorded_identity_count": 240,
+  "duplicate_identities": [],
+  "missing_identities": [],
+  "unexpected_identities": [],
+  "status_counts": {
+    "completed": 240
+  },
+  "prediction_file_count": 145,
+  "prediction_hash_verified_count": 145,
+  "token_artifact_verified_count": 240,
+  "cost_artifact_verified_count": 240,
+  "provider_request_count": 873,
+  "provider_returned_model_counts": {
+    "gpt-4.1-mini-2025-04-14": 873
+  },
+  "provider_sdk_retry_setting_counts": {
+    "2": 873
+  },
+  "token_totals": {
+    "prompt_tokens": 1781519,
+    "completion_tokens": 479091,
+    "total_tokens": 2260610,
+    "cached_prompt_tokens": 1061120
+  },
+  "actual_api_cost_usd": {
+    "by_condition": {
+      "turns_3": 0.4977360000000001,
+      "turns_5": 0.6630812000000003
+    },
+    "total": 1.1608172000000003
+  },
+  "independent_official_rescore": {
+    "run_table": "results/derived/runs.csv",
+    "run_table_sha256": "EA32E76BF3E886D82E031853DD096A5FA9985442A19ED4BF21C081EAB595BDD9",
+    "row_count": 240,
+    "duplicate_identity_row_count": 0,
+    "official_evaluator_diagnostic_count": 2,
+    "rescore_exception_count": 0,
+    "collection_report": "results/derived/run_collection_report.json",
+    "collection_complete": true
+  },
+  "artifact_validation_errors": [],
+  "checks": {
+    "expected_identity_count": true,
+    "terminal_metadata_count": true,
+    "unique_recorded_identity_count": true,
+    "duplicate_recorded_identity_count": true,
+    "missing_identity_count": true,
+    "unexpected_identity_count": true,
+    "artifact_validation_errors": true,
+    "all_statuses_terminal": true,
+    "prediction_hashes_verified": true,
+    "token_artifacts_verified": true,
+    "cost_artifacts_verified": true,
+    "returned_model_ids_exact": true,
+    "sdk_retry_configuration_exact": true,
+    "study_commit_exact": true,
+    "execution_config_hash_exact": true,
+    "independent_collection_complete": true,
+    "independent_rescore_row_count": true,
+    "independent_rescore_duplicate_count": true,
+    "independent_rescore_exception_count": true
+  },
+  "all_integrity_checks_passed": true
+}

@@ -1,0 +1,11 @@
+condition,task_type,failure_category,count
+turns_3,classification,code_error,31
+turns_3,classification,wrong_prediction_unclassified,5
+turns_3,regression,code_error,34
+turns_3,regression,max_turn_or_token_limit,1
+turns_3,regression,wrong_prediction_unclassified,8
+turns_5,classification,code_error,12
+turns_5,classification,wrong_prediction_unclassified,11
+turns_5,regression,code_error,17
+turns_5,regression,malformed_prediction,2
+turns_5,regression,wrong_prediction_unclassified,18

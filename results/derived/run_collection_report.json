@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "scope": "final",
+  "execution_config": "configs/execution.yaml",
+  "expected_identity_count": 240,
+  "collected_identity_count": 240,
+  "missing_identity_count": 0,
+  "missing_identities": [],
+  "validation_error_count": 0,
+  "validation_errors": [],
+  "complete": true
+}

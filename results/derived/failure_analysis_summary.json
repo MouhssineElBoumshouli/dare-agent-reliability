@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-25T21:14:40.810211+00:00",
+  "source_run_table": "results/derived/runs.csv",
+  "taxonomy": "docs/failure_taxonomy.md",
+  "total_runs": 240,
+  "official_passes": 101,
+  "official_failures": 139,
+  "failure_category_counts": {
+    "code_error": 94,
+    "wrong_prediction_unclassified": 42,
+    "malformed_prediction": 2,
+    "max_turn_or_token_limit": 1
+  },
+  "mechanical_classification_only": true,
+  "fallback_rule": "wrong_prediction_unclassified when evidence is insufficient",
+  "summary": [
+    {
+      "condition": "turns_3",
+      "task_type": "classification",
+      "failure_category": "code_error",
+      "count": 31
+    },
+    {
+      "condition": "turns_3",
+      "task_type": "classification",
+      "failure_category": "wrong_prediction_unclassified",
+      "count": 5
+    },
+    {
+      "condition": "turns_3",
+      "task_type": "regression",
+      "failure_category": "code_error",
+      "count": 34
+    },
+    {
+      "condition": "turns_3",
+      "task_type": "regression",
+      "failure_category": "max_turn_or_token_limit",
+      "count": 1
+    },
+    {
+      "condition": "turns_3",
+      "task_type": "regression",
+      "failure_category": "wrong_prediction_unclassified",
+      "count": 8
+    },
+    {
+      "condition": "turns_5",
+      "task_type": "classification",
+      "failure_category": "code_error",
+      "count": 12
+    },
+    {
+      "condition": "turns_5",
+      "task_type": "classification",
+      "failure_category": "wrong_prediction_unclassified",
+      "count": 11
+    },
+    {
+      "condition": "turns_5",
+      "task_type": "regression",
+      "failure_category": "code_error",
+      "count": 17
+    },
+    {
+      "condition": "turns_5",
+      "task_type": "regression",
+      "failure_category": "malformed_prediction",
+      "count": 2
+    },
+    {
+      "condition": "turns_5",
+      "task_type": "regression",
+      "failure_category": "wrong_prediction_unclassified",
+      "count": 18
+    }
+  ]
+}

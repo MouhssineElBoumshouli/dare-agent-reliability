@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-08-25T17:08:28.712378+00:00",
+  "provider": "openai",
+  "credential_environment_variable": "OPENAI_API_KEY",
+  "credential_present": true,
+  "credential_value_recorded": false,
+  "model_access": true,
+  "requested_model_id": "gpt-4.1-mini-2025-04-14",
+  "returned_model_id": "gpt-4.1-mini-2025-04-14",
+  "owned_by": "system",
+  "created": 1744317547
+}

@@ -11,6 +11,7 @@ max_tokens: 16384
 max_think_tokens: 0
 api_mode: chat_completions
 tool_choice: provider_default_auto
+parallel_tool_calls: provider_default
 reasoning_effort: null
 reasoning_summary: null
 provider_sdk_request_max_retries: 2

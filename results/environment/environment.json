@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "captured_at_utc": "2026-08-25T14:31:08.605068+00:00",
+  "captured_at_utc": "2026-08-25T17:09:02.326437+00:00",
   "timezone": "Morocco Summer Time",
   "os": {
     "platform": "Windows-11-10.0.22631-SP0",
@@ -14,7 +14,7 @@
     "logical_cpu_count": 12,
     "total_memory_bytes": 16473231360,
     "disk_total_bytes": 511188135936,
-    "disk_free_bytes": 13555490816
+    "disk_free_bytes": 13756698624
   },
   "study_python": {
     "executable": "C:\\Users\\Mouhssine\\Documents\\dare-agent-reliability\\.venv\\Scripts\\python.exe",
@@ -36,22 +36,17 @@
     }
   },
   "git": {
-    "study_commit": "22a7a8f4989ee6b1f17412a2be3e9ad57205ff1a",
+    "study_commit": "7355da0aa66b2a476da75f5d53b953256f84b512",
     "study_dirty": true,
     "study_status_porcelain": [
-      "M .gitignore",
-      "?? configs/execution.example.yaml",
-      "?? docker/",
-      "?? requirements-agent.txt",
-      "?? results/environment/",
-      "?? results/pilot/",
-      "?? results/validation/",
-      "?? src/capture_environment.py",
-      "?? src/dare_runtime.py",
-      "?? src/generate_references.py",
-      "?? src/study_runner.py",
-      "?? src/validate_tasks.py",
-      "?? tests/"
+      "M configs/execution.example.yaml",
+      " M results/validation/sandbox_contract.json",
+      " M src/study_runner.py",
+      "?? configs/execution.yaml",
+      "?? results/validation/model_access.json",
+      "?? results/validation/pilot_validation.json",
+      "?? src/check_model_access.py",
+      "?? src/validate_pilot.py"
     ],
     "dare_bench_commit": "01447145304c67b861a004ada6d86f29640de61a",
     "dare_bench_dirty": false

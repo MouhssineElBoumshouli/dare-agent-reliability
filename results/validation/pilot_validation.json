@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-25T17:08:50.228438+00:00",
+  "purpose": "separated_pre_final_pipeline_pilot",
+  "counts_as_final_experiment": false,
+  "pilot_identity": {
+    "scope": "pilot",
+    "provider": "openai",
+    "model_id": "gpt-4.1-mini-2025-04-14",
+    "model_snapshot": "gpt-4.1-mini-2025-04-14",
+    "condition": "turns_5",
+    "task_id": "aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class",
+    "task_type": "classification",
+    "repeat": 1
+  },
+  "pilot_directory": "results/pilot/openai__gpt-4.1-mini-2025-04-14/turns_5/aaryanmavaninew_hyperparameter-tuned-crop-yield-ml-dataset_class/repeat_01",
+  "study_git_commit": "7355da0aa66b2a476da75f5d53b953256f84b512",
+  "execution_config_sha256": "082076DC56A5101FB5F89D6261B1F4D1E22A6AE26A1D24580B6E42BB06B4E1C1",
+  "prediction_sha256": "2C5DBF5065379A7DDACD28FF431BF1B2922ED4E9BEBCB64789D8EF5877AA5EB1",
+  "prediction_rows": 1969,
+  "prediction_columns": [
+    "row_id",
+    "State"
+  ],
+  "official_evaluation": {
+    "prediction_exist": 1.0,
+    "final_score": 0.0,
+    "per_target_scores": {
+      "State": 0.0
+    },
+    "id_columns": [
+      "row_id"
+    ]
+  },
+  "runtime_seconds": 41.5,
+  "tool_call_count": 3,
+  "raw_trace_preserved": true,
+  "official_prompt_verified": true,
+  "secret_scan_passed": true,
+  "resume_no_overwrite_verified": true,
+  "final_run_file_count": 0,
+  "gate_passed": true
+}

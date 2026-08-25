@@ -1,0 +1,49 @@
+# Frozen Phase-1 execution configuration. Do not edit after the freeze commit;
+# version any consequential change as a new experiment.
+schema_version: 1
+experiment_scope: final
+planned_run_count: 240
+freeze_git_ref: "phase1-execution-freeze"
+
+provider: openai
+model_id: "gpt-4.1-mini-2025-04-14"
+model_snapshot: "gpt-4.1-mini-2025-04-14"
+api_mode: chat_completions
+temperature: 0.001
+top_p: 0.8
+top_k: 20
+max_tokens: 16384
+max_think_tokens: 0
+reasoning_effort: null
+reasoning_summary: null
+tool_choice: provider_default_auto
+parallel_tool_calls: provider_default
+provider_sdk: "openai==1.86.0"
+provider_sdk_request_max_retries: 2
+
+tool_mode: function_call
+append_tool_output: true
+add_tool_hint: false
+executor_connection_retries: 0
+sandbox_url: "http://localhost:8080/run_code"
+sandbox_image: "dare-bench/sandbox-fusion:server-20250609-pyarrow20"
+sandbox_image_digest: "sha256:fb4d7c91fa957391b331b4bc29377ddd2d04395fcb56e86db992e5b3519cb0fb"
+sandbox_base_digest: "sha256:dd7ff53d16132a8acad6d5da7f15154bb4a331381567a4cb21b3e97ce581f5f9"
+
+question_version: v1
+force_simulate: false
+clean_cache: false
+dare_bench_commit: "01447145304c67b861a004ada6d86f29640de61a"
+task_subset_sha256: "2FA2F54C22265E04F3A39F2B8CFFA3DB12B58B508F2DF0C12940780ACA03C77E"
+repeats: 5
+conditions:
+  turns_3:
+    max_turn: 3
+    executor_timeout_seconds: 200
+  turns_5:
+    max_turn: 5
+    executor_timeout_seconds: 200
+
+pilot_validation_report: "results/validation/pilot_validation.json"
+model_access_report: "results/validation/model_access.json"
+environment_manifest: "results/environment/environment.json"

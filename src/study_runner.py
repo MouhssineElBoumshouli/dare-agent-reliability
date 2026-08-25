@@ -149,6 +149,64 @@ def verify_frozen_inputs(config: dict[str, Any]) -> None:
         raise FileNotFoundError("Reduced benchmark workspace is missing question_list.json")
 
 
+def verify_final_execution_gate(config: dict[str, Any], config_path: Path) -> None:
+    if config.get("experiment_scope") != "final" or int(config.get("planned_run_count", 0)) != 240:
+        raise RuntimeError("Final execution config must declare final scope and 240 planned runs")
+    config_relative = config_path.resolve().relative_to(REPO_ROOT).as_posix()
+    tracked = git_output(REPO_ROOT, "ls-files", "--error-unmatch", config_relative)
+    if not tracked:
+        raise RuntimeError("Final execution config is not tracked in Git")
+
+    freeze_ref = str(config.get("freeze_git_ref", "phase1-execution-freeze"))
+    try:
+        freeze_commit = git_output(REPO_ROOT, "rev-parse", f"{freeze_ref}^{{commit}}")
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(f"Final execution freeze ref is missing: {freeze_ref}") from exc
+    current_commit = git_output(REPO_ROOT, "rev-parse", "HEAD")
+    if current_commit != freeze_commit:
+        raise RuntimeError(
+            f"Final runs require HEAD at {freeze_ref} ({freeze_commit}); current HEAD is {current_commit}"
+        )
+    if git_output(REPO_ROOT, "status", "--porcelain"):
+        raise RuntimeError("Final runs require a clean study worktree")
+
+    required_reports = {
+        "results/validation/task_assets.json": "all_valid",
+        "results/validation/reference_generation.json": "all_successful",
+        "results/validation/sandbox_contract.json": "all_successful",
+        "results/validation/pilot_validation.json": "gate_passed",
+        "results/validation/model_access.json": "model_access",
+    }
+    for relative, success_key in required_reports.items():
+        path = REPO_ROOT / relative
+        if not path.is_file():
+            raise RuntimeError(f"Required final-gate report is missing: {relative}")
+        report = json.loads(path.read_text(encoding="utf-8"))
+        if report.get(success_key) is not True:
+            raise RuntimeError(f"Required final-gate report did not pass: {relative}")
+
+    access = json.loads(
+        (REPO_ROOT / "results" / "validation" / "model_access.json").read_text(encoding="utf-8")
+    )
+    if access.get("returned_model_id") != config["model_id"]:
+        raise RuntimeError("Model access report does not match the frozen model ID")
+    pilot = json.loads(
+        (REPO_ROOT / "results" / "validation" / "pilot_validation.json").read_text(encoding="utf-8")
+    )
+    if pilot["pilot_identity"]["model_id"] != config["model_id"]:
+        raise RuntimeError("Pilot validation report does not match the frozen model ID")
+
+    inspect = json.loads(
+        subprocess.check_output(
+            ["docker", "image", "inspect", config["sandbox_image"]],
+            text=True,
+            encoding="utf-8",
+        )
+    )[0]
+    if inspect["Id"] != config["sandbox_image_digest"]:
+        raise RuntimeError("Local sandbox image digest differs from the frozen final configuration")
+
+
 def credential_environment(provider: str) -> dict[str, bool]:
     provider = provider.lower()
     if provider == "openai":
@@ -477,6 +535,14 @@ def execute_identity(
             "api_mode": str(execution.get("api_mode", "chat_completions")),
             "tool_mode": "function_call",
             "tool_choice": str(execution.get("tool_choice", "provider_default_auto")),
+            "parallel_tool_calls": str(
+                execution.get("parallel_tool_calls", "provider_default")
+            ),
+            "append_tool_output": True,
+            "add_tool_hint": False,
+            "question_version": "v1",
+            "force_simulate": False,
+            "clean_cache": False,
             "reasoning_effort": execution.get("reasoning_effort"),
             "provider_sdk": "openai==1.86.0",
             "provider_sdk_request_max_retries": int(
@@ -523,6 +589,8 @@ def main() -> int:
     load_dotenv(REPO_ROOT / ".env", override=False)
     execution = load_execution_config(config_path)
     verify_frozen_inputs(execution)
+    if args.scope == "final":
+        verify_final_execution_gate(execution, config_path)
     credentials = credential_environment(str(execution["provider"]))
     conditions = normalized_conditions(execution)
     subset = load_subset()

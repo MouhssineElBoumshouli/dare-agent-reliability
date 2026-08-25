@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-08-25T14:32:05.912212+00:00",
+  "generated_at_utc": "2026-08-25T17:08:58.042884+00:00",
   "endpoint": "http://localhost:8080/run_code",
   "image_tag": "dare-bench/sandbox-fusion:server-20250609-pyarrow20",
   "image_id": "sha256:fb4d7c91fa957391b331b4bc29377ddd2d04395fcb56e86db992e5b3519cb0fb",
@@ -13,7 +13,7 @@
       "success": true,
       "status": "Finished",
       "stdout": "sandbox-ok",
-      "wall_seconds": 0.06300000002374873
+      "wall_seconds": 0.0779999999795109
     },
     "file_supply_and_fetch": {
       "success": true,
@@ -25,7 +25,7 @@
       "success": true,
       "status": "TimeLimitExceeded",
       "requested_run_timeout_seconds": 1,
-      "wall_seconds": 1.0149999999557622
+      "wall_seconds": 1.0619999999762513
     }
   },
   "all_successful": true

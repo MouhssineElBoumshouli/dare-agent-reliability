@@ -17,7 +17,8 @@
     "disk_free_bytes": 13756698624
   },
   "study_python": {
-    "executable": "C:\\Users\\Mouhssine\\Documents\\dare-agent-reliability\\.venv\\Scripts\\python.exe",
+    "executable": "<repository>/.venv/Scripts/python.exe",
+    "path_redaction": "Repository-local absolute prefix removed for public release.",
     "version": "3.12.3",
     "implementation": "CPython",
     "packages": {

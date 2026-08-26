@@ -16,6 +16,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 DERIVED_DIR = REPO_ROOT / "results" / "derived"
 README_PATH = REPO_ROOT / "README.md"
 SUMMARY_PATH = REPO_ROOT / "docs" / "research_summary.md"
+RELEASE_NOTES_PATH = REPO_ROOT / "docs" / "releases" / "v1.0.0-phase1.md"
 ROBUSTNESS_PATH = DERIVED_DIR / "robustness_checks.json"
 
 
@@ -125,7 +126,9 @@ def render_readme(ctx: dict[str, Any]) -> str:
 
     return f"""# Beyond Average Score: Repeatability of LLM Data-Science Agents on DARE-Bench
 
-An independent reliability study built on [DARE-Bench](https://github.com/Snowflake-Labs/dare-bench). This repository is not a new benchmark, is not affiliated with Snowflake, and is not produced or endorsed by the DARE-Bench authors.
+A reproducible {execution['planned_run_count']}-run study of exact-match performance and repeatability for an LLM data-science agent on a fixed DARE-Bench subset.
+
+This is an independent reliability study built on [DARE-Bench](https://github.com/Snowflake-Labs/dare-bench). This repository is not a new benchmark, is not affiliated with Snowflake, and is not produced or endorsed by the DARE-Bench authors.
 
 > **Research question:** When the same deterministic DARE-Bench instruction-following task is given to the same LLM agent repeatedly, how consistently does it succeed?
 
@@ -291,6 +294,10 @@ The explicit UTF-8 mode is needed on Windows because the pinned upstream loader 
 - Failure taxonomy assignment is mechanical and evidence-limited. `wrong_prediction_unclassified` deliberately avoids unsupported causal attribution.
 - Raw traces are locally preserved but are not part of the lightweight Git history, so the committed integrity and run tables are the public audit layer.
 
+## License
+
+The original code and documentation in this repository are licensed under the [Apache License 2.0](LICENSE). DARE-Bench remains governed by its [upstream license and dataset-specific licensing](https://github.com/Snowflake-Labs/dare-bench#license). No upstream benchmark databases or source datasets are redistributed here.
+
 ## Relationship to DARE-Bench
 
 [DARE-Bench](https://openreview.net/forum?id=eJV3JhJvZF) evaluates modeling and instruction fidelity for LLM data-science agents using verifiable ground truth. This project uses its released tasks, reference-generation path, agent implementation, and official evaluator at pinned revision `{execution['dare_bench_commit']}`. The contribution here is narrower: repeated execution of a preregistered subset to characterize run-to-run reliability under two turn budgets.
@@ -311,6 +318,38 @@ Please cite the original DARE-Bench paper alongside this repository:
 ```
 
 Repository citation metadata is provided in [`CITATION.cff`](CITATION.cff).
+"""
+
+
+def render_release_notes(ctx: dict[str, Any]) -> str:
+    execution = ctx["execution"]
+    integrity = ctx["integrity"]
+    t3 = ctx["condition_records"]["turns_3"]["overall"]
+    t5 = ctx["condition_records"]["turns_5"]["overall"]
+    return f"""# Phase 1 — DARE-Bench Agent Reliability Study
+
+First public release of the independent study *Beyond Average Score: Repeatability of LLM Data-Science Agents on DARE-Bench*.
+
+## Included
+
+- Frozen {len(ctx['subset'])}-task Classification-IF and Regression-IF subset.
+- {execution['repeats']} repetitions under {execution['conditions']['turns_3']['max_turn']}-turn and {execution['conditions']['turns_5']['max_turn']}-turn budgets, totaling {execution['planned_run_count']} immutable run identities.
+- Independently rescored run table, raw-run integrity audit, reliability statistics, task-bootstrap confidence intervals, failure analysis, and publication figures.
+- Deterministic documentation and figure generators with drift-detection tests.
+
+## Headline result
+
+Official exact-match success increased from {pct(t3['run_success_rate'])} to {pct(t5['run_success_rate'])}; flaky-task rate and pairwise disagreement also increased. The README reports the complete result with descriptive task-bootstrap intervals and limitations.
+
+## Provenance
+
+- Frozen execution commit: `{integrity['frozen_study_commit']}`
+- Frozen execution tag: `{integrity['frozen_tag']}`
+- DARE-Bench commit: `{execution['dare_bench_commit']}`
+- Task subset SHA-256: `{ctx['subset_hash']}`
+- Exact model snapshot: `{execution['model_snapshot']}`
+
+This release does not redistribute upstream benchmark databases or source datasets. It is independent of Snowflake and the DARE-Bench authors.
 """
 
 
@@ -383,6 +422,7 @@ def main() -> int:
         ROBUSTNESS_PATH: report_text,
         README_PATH: render_readme(ctx),
         SUMMARY_PATH: render_summary(ctx),
+        RELEASE_NOTES_PATH: render_release_notes(ctx),
     }
     if args.check:
         drift = [path for path, text in rendered.items() if not path.is_file() or path.read_text(encoding="utf-8") != text]

@@ -1,6 +1,8 @@
 # Beyond Average Score: Repeatability of LLM Data-Science Agents on DARE-Bench
 
-An independent reliability study built on [DARE-Bench](https://github.com/Snowflake-Labs/dare-bench). This repository is not a new benchmark, is not affiliated with Snowflake, and is not produced or endorsed by the DARE-Bench authors.
+A reproducible 240-run study of exact-match performance and repeatability for an LLM data-science agent on a fixed DARE-Bench subset.
+
+This is an independent reliability study built on [DARE-Bench](https://github.com/Snowflake-Labs/dare-bench). This repository is not a new benchmark, is not affiliated with Snowflake, and is not produced or endorsed by the DARE-Bench authors.
 
 > **Research question:** When the same deterministic DARE-Bench instruction-following task is given to the same LLM agent repeatedly, how consistently does it succeed?
 
@@ -189,6 +191,10 @@ The explicit UTF-8 mode is needed on Windows because the pinned upstream loader 
 - Bootstrap intervals are descriptive task-resampling intervals. No formal significance claim is made.
 - Failure taxonomy assignment is mechanical and evidence-limited. `wrong_prediction_unclassified` deliberately avoids unsupported causal attribution.
 - Raw traces are locally preserved but are not part of the lightweight Git history, so the committed integrity and run tables are the public audit layer.
+
+## License
+
+The original code and documentation in this repository are licensed under the [Apache License 2.0](LICENSE). DARE-Bench remains governed by its [upstream license and dataset-specific licensing](https://github.com/Snowflake-Labs/dare-bench#license). No upstream benchmark databases or source datasets are redistributed here.
 
 ## Relationship to DARE-Bench
 

@@ -13,7 +13,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from publication_data import load_publication_data, robustness_report  # noqa: E402
-from render_publication_docs import load_context, render_readme, render_summary  # noqa: E402
+from render_publication_docs import (  # noqa: E402
+    load_context,
+    render_readme,
+    render_release_notes,
+    render_summary,
+)
 
 
 class PublicationArtifactTests(unittest.TestCase):
@@ -67,6 +72,12 @@ class PublicationArtifactTests(unittest.TestCase):
         self.assertEqual(
             (REPO_ROOT / "docs" / "research_summary.md").read_text(encoding="utf-8"),
             render_summary(self.context),
+        )
+        self.assertEqual(
+            (REPO_ROOT / "docs" / "releases" / "v1.0.0-phase1.md").read_text(
+                encoding="utf-8"
+            ),
+            render_release_notes(self.context),
         )
         self.assertIn("| 3 turns | 5/24 (20.8%)", render_readme(self.context))
 

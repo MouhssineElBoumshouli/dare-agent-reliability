@@ -5,8 +5,9 @@ type: software
 authors:
   - family-names: "El Boumshouli"
     given-names: "Mouhssine"
-version: 0.1.0
-date-released: 2026-08-25
+version: 1.0.0
+date-released: 2026-08-26
+license: Apache-2.0
 references:
   - type: conference-paper
     title: "DARE-Bench: Evaluating Modeling and Instruction Fidelity of LLMs in Data Science"

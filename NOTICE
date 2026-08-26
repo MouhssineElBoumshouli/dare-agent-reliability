@@ -1,0 +1,13 @@
+DARE-Bench Agent Reliability Study
+Copyright 2026 Mouhssine El Boumshouli
+
+This independent reliability study is built on DARE-Bench but is not
+affiliated with, produced by, or endorsed by Snowflake or the DARE-Bench
+authors.
+
+DARE-Bench is a separate upstream project with its own license and
+dataset-specific licensing terms:
+https://github.com/Snowflake-Labs/dare-bench
+
+No upstream benchmark databases or source datasets are redistributed in
+this repository.

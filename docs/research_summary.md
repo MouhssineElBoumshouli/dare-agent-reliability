@@ -20,13 +20,13 @@ All 240 expected identities were present with no missing or duplicate identities
 
 Classification success rose from 40.0% to 61.7%, while regression rose from 28.3% to 38.3%. Classification contributed 13 of 19 additional passes (68.4%); regression contributed 6. This concentration is descriptive because each family contains only 12 tasks.
 
-Reliability did not move uniformly with average performance. Always-pass tasks increased from 20.8% to 29.2%, and never-pass tasks decreased from 50.0% to 29.2%. However, flaky tasks increased from 29.2% to 41.7%, while mean pairwise disagreement increased from 15.0% to 21.7%.
+The repeatability results were mixed. Always-pass tasks increased from 20.8% to 29.2%, and never-pass tasks decreased from 50.0% to 29.2%. At the same time, flaky tasks increased from 29.2% to 41.7%, and mean pairwise disagreement increased from 15.0% to 21.7%.
 
 Among 139 official failures, mechanically supported labels were 94 code errors, 42 wrong predictions without stronger causal evidence, 2 malformed predictions, and 1 turn/token-limit failure. Recorded API usage totaled 2,260,610 tokens at $1.160817.
 
 ## Interpretation
 
-Increasing the turn budget improved mean capability and converted some never-pass tasks into successful or intermittently successful tasks. It did not make outcomes uniformly more stable. The simultaneous increase in flaky-task prevalence and pairwise disagreement indicates that a higher success rate can coexist with lower repeatability among tasks near the agent's capability boundary. Average score and reliability therefore answer different evaluation questions and should be reported together.
+Five turns produced more passes, including on tasks that never passed with three turns. The runs were not simply more stable: flakiness and pairwise disagreement both rose. On this fixed sample, average success and repeatability moved in different directions, so the mean score alone would miss part of the result.
 
 ## Limitations
 

@@ -88,7 +88,7 @@ Classification improved by **+21.7 percentage points** (descriptive 95% CI: +3.3
 
 ### Paired task movements
 
-Across the 24 tasks, 9 improved, 2 declined, and 13 tied. The median task-level change was 0.0 percentage points because more than half the tasks tied. Individual movements ranged from -20 percentage points to +80 percentage points. These extremes illustrate heterogeneity and are not treated as representative cases.
+Across the 24 tasks, 9 improved, 2 declined, and 13 tied. The median task-level change was 0.0 percentage points because more than half the tasks tied. Individual movements ranged from -20 percentage points to +80 percentage points. The largest changes are listed for completeness, not as representative examples.
 
 ![Paired movement of all fixed tasks](results/figures/figure_05_task_movements.png)
 
@@ -139,7 +139,7 @@ Of 240 runs, 101 passed and 139 failed official exact match. Failure labels were
 - `malformed_prediction`: **2**
 - `max_turn_or_token_limit`: **1**
 
-`wrong_prediction_unclassified` is the conservative fallback when a structurally valid prediction scored zero and no stronger cause was demonstrated. The two malformed predictions were official evaluator row-count mismatch diagnostics. Category counts should be read as an evidence-based diagnostic description, not a causal decomposition of model behavior.
+`wrong_prediction_unclassified` is the fallback when a structurally valid prediction scored zero and the logs did not support a more specific label. The two malformed predictions were official evaluator row-count mismatch diagnostics. These counts describe what the saved evidence supports; they do not establish why the model failed.
 
 ![Failure categories by turn condition](results/figures/figure_06_failure_categories.png)
 
@@ -149,7 +149,7 @@ The 873 recorded provider requests used 2,260,610 tokens: 1,781,519 prompt token
 
 ## Reproducibility
 
-The public, lightweight provenance chain is:
+The main public audit files are:
 
 - [`configs/task_subset.json`](configs/task_subset.json): frozen task identities and questions;
 - [`configs/execution.yaml`](configs/execution.yaml): frozen provider, model, decoding, tool, timeout, sandbox, and pricing configuration;
@@ -198,7 +198,7 @@ The original code and documentation in this repository are licensed under the [A
 
 ## Relationship to DARE-Bench
 
-[DARE-Bench](https://openreview.net/forum?id=eJV3JhJvZF) evaluates modeling and instruction fidelity for LLM data-science agents using verifiable ground truth. This project uses its released tasks, reference-generation path, agent implementation, and official evaluator at pinned revision `01447145304c67b861a004ada6d86f29640de61a`. The contribution here is narrower: repeated execution of a preregistered subset to characterize run-to-run reliability under two turn budgets.
+[DARE-Bench](https://openreview.net/forum?id=eJV3JhJvZF) evaluates modeling and instruction fidelity for LLM data-science agents using verifiable ground truth. This project uses its released tasks, reference-generation path, agent implementation, and official evaluator at pinned revision `01447145304c67b861a004ada6d86f29640de61a`. This study asks a narrower question: how repeatable is one agent on the same fixed tasks under two turn budgets?
 
 This is an independent analysis. It does not modify or supersede DARE-Bench, does not constitute a new benchmark, and does not imply affiliation with Snowflake or the original authors.
 

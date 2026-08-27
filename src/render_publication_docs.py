@@ -214,7 +214,7 @@ Classification improved by **{pp(class_pair['mean_task_success_rate_difference']
 
 ### Paired task movements
 
-Across the {int(overall_pair['n_paired_tasks'])} tasks, {int(overall_pair['tasks_improved'])} improved, {int(overall_pair['tasks_declined'])} declined, and {int(overall_pair['tasks_tied'])} tied. The median task-level change was {pp(overall_pair['median_task_success_rate_difference'], sign=False)} because more than half the tasks tied. Individual movements ranged from {pp(float(ctx['movement']['difference'].min()), 0, sign=False)} to {pp(float(ctx['movement']['difference'].max()), 0)}. These extremes illustrate heterogeneity and are not treated as representative cases.
+Across the {int(overall_pair['n_paired_tasks'])} tasks, {int(overall_pair['tasks_improved'])} improved, {int(overall_pair['tasks_declined'])} declined, and {int(overall_pair['tasks_tied'])} tied. The median task-level change was {pp(overall_pair['median_task_success_rate_difference'], sign=False)} because more than half the tasks tied. Individual movements ranged from {pp(float(ctx['movement']['difference'].min()), 0, sign=False)} to {pp(float(ctx['movement']['difference'].max()), 0)}. The largest changes are listed for completeness, not as representative examples.
 
 ![Paired movement of all fixed tasks](results/figures/figure_05_task_movements.png)
 
@@ -241,7 +241,7 @@ Of {failures['total_runs']} runs, {failures['official_passes']} passed and {fail
 
 {failure_lines}
 
-`wrong_prediction_unclassified` is the conservative fallback when a structurally valid prediction scored zero and no stronger cause was demonstrated. The two malformed predictions were official evaluator row-count mismatch diagnostics. Category counts should be read as an evidence-based diagnostic description, not a causal decomposition of model behavior.
+`wrong_prediction_unclassified` is the fallback when a structurally valid prediction scored zero and the logs did not support a more specific label. The two malformed predictions were official evaluator row-count mismatch diagnostics. These counts describe what the saved evidence supports; they do not establish why the model failed.
 
 ![Failure categories by turn condition](results/figures/figure_06_failure_categories.png)
 
@@ -251,7 +251,7 @@ The {integrity['provider_request_count']} recorded provider requests used {token
 
 ## Reproducibility
 
-The public, lightweight provenance chain is:
+The main public audit files are:
 
 - [`configs/task_subset.json`](configs/task_subset.json): frozen task identities and questions;
 - [`configs/execution.yaml`](configs/execution.yaml): frozen provider, model, decoding, tool, timeout, sandbox, and pricing configuration;
@@ -300,7 +300,7 @@ The original code and documentation in this repository are licensed under the [A
 
 ## Relationship to DARE-Bench
 
-[DARE-Bench](https://openreview.net/forum?id=eJV3JhJvZF) evaluates modeling and instruction fidelity for LLM data-science agents using verifiable ground truth. This project uses its released tasks, reference-generation path, agent implementation, and official evaluator at pinned revision `{execution['dare_bench_commit']}`. The contribution here is narrower: repeated execution of a preregistered subset to characterize run-to-run reliability under two turn budgets.
+[DARE-Bench](https://openreview.net/forum?id=eJV3JhJvZF) evaluates modeling and instruction fidelity for LLM data-science agents using verifiable ground truth. This project uses its released tasks, reference-generation path, agent implementation, and official evaluator at pinned revision `{execution['dare_bench_commit']}`. This study asks a narrower question: how repeatable is one agent on the same fixed tasks under two turn budgets?
 
 This is an independent analysis. It does not modify or supersede DARE-Bench, does not constitute a new benchmark, and does not imply affiliation with Snowflake or the original authors.
 
@@ -390,13 +390,13 @@ All {integrity['expected_identity_count']} expected identities were present with
 
 Classification success rose from {pct(class3['run_success_rate'])} to {pct(class5['run_success_rate'])}, while regression rose from {pct(reg3['run_success_rate'])} to {pct(reg5['run_success_rate'])}. Classification contributed {added['classification']} of {added['total']} additional passes ({pct(added['classification_share'])}); regression contributed {added['regression']}. This concentration is descriptive because each family contains only {ctx['classification_count']} tasks.
 
-Reliability did not move uniformly with average performance. Always-pass tasks increased from {pct(t3['always_pass_task_rate'])} to {pct(t5['always_pass_task_rate'])}, and never-pass tasks decreased from {pct(t3['never_pass_task_rate'])} to {pct(t5['never_pass_task_rate'])}. However, flaky tasks increased from {pct(t3['flaky_task_rate'])} to {pct(t5['flaky_task_rate'])}, while mean pairwise disagreement increased from {pct(t3['mean_pairwise_disagreement'])} to {pct(t5['mean_pairwise_disagreement'])}.
+The repeatability results were mixed. Always-pass tasks increased from {pct(t3['always_pass_task_rate'])} to {pct(t5['always_pass_task_rate'])}, and never-pass tasks decreased from {pct(t3['never_pass_task_rate'])} to {pct(t5['never_pass_task_rate'])}. At the same time, flaky tasks increased from {pct(t3['flaky_task_rate'])} to {pct(t5['flaky_task_rate'])}, and mean pairwise disagreement increased from {pct(t3['mean_pairwise_disagreement'])} to {pct(t5['mean_pairwise_disagreement'])}.
 
 Among {failures['official_failures']} official failures, mechanically supported labels were {failures['failure_category_counts']['code_error']} code errors, {failures['failure_category_counts']['wrong_prediction_unclassified']} wrong predictions without stronger causal evidence, {failures['failure_category_counts']['malformed_prediction']} malformed predictions, and {failures['failure_category_counts']['max_turn_or_token_limit']} turn/token-limit failure. Recorded API usage totaled {integrity['token_totals']['total_tokens']:,} tokens at ${integrity['actual_api_cost_usd']['total']:.6f}.
 
 ## Interpretation
 
-Increasing the turn budget improved mean capability and converted some never-pass tasks into successful or intermittently successful tasks. It did not make outcomes uniformly more stable. The simultaneous increase in flaky-task prevalence and pairwise disagreement indicates that a higher success rate can coexist with lower repeatability among tasks near the agent's capability boundary. Average score and reliability therefore answer different evaluation questions and should be reported together.
+Five turns produced more passes, including on tasks that never passed with three turns. The runs were not simply more stable: flakiness and pairwise disagreement both rose. On this fixed sample, average success and repeatability moved in different directions, so the mean score alone would miss part of the result.
 
 ## Limitations
 

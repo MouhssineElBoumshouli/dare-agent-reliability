@@ -1,6 +1,6 @@
 # Phase-1 model selection
 
-Status: pilot candidate; not yet frozen for final execution.
+Status: selected for Phase 1 and frozen before final execution.
 
 The pilot uses the exact OpenAI snapshot `gpt-4.1-mini-2025-04-14` through the
 Chat Completions API. OpenAI describes GPT-4.1 mini as an instruction-following
@@ -20,6 +20,8 @@ benchmark agent implementation. The pilot uses temperature 0.001 because the
 pinned generation code replaces a numeric zero with 0.7 via a truthiness
 fallback. This compatibility detail is recorded rather than silently patched.
 
-Provider account access and quota remain unverified until a credential is
-supplied. A successful pilot is required before this model can be frozen for the
-240 final runs.
+A separate one-task pilot verified API access, tool calling, sandbox execution,
+usage accounting, and official scoring before the model was frozen for the 240
+final runs. The final execution settings are recorded in
+`configs/execution.yaml` and freeze commit
+`94d1fe40d4a6569dcdb664c3e3f64f5738d49271`.

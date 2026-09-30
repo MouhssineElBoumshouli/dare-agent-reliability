@@ -92,6 +92,18 @@ def load_context() -> dict[str, Any]:
     }
 
 
+FAILURE_DESCRIPTIONS = {
+    "code_error": "no answer file, and a Python error shows up in the log",
+    "wrong_prediction_unclassified": "a valid answer file with wrong predictions",
+    "malformed_prediction": "an answer file the grader could not line up with the reference",
+    "max_turn_or_token_limit": "the agent ran out of turns or tokens",
+    "execution_timeout": "the code ran past the time limit",
+    "tool_call_error": "a broken tool call",
+    "instruction_deviation": "valid output, but a required step was skipped or changed",
+    "infrastructure_error": "a problem outside the agent, like the sandbox going down",
+}
+
+
 def render_readme(ctx: dict[str, Any]) -> str:
     condition = ctx["condition_records"]
     paired = ctx["paired_records"]
@@ -112,114 +124,155 @@ def render_readme(ctx: dict[str, Any]) -> str:
     overall_pair = paired["overall"]
     class_pair = paired["classification"]
     reg_pair = paired["regression"]
-    added = ctx["added_passes"]
     costs = integrity["actual_api_cost_usd"]
     tokens = integrity["token_totals"]
     env_packages = environment["sandbox"]["packages"]
+    turns3 = execution["conditions"]["turns_3"]
+    turns5 = execution["conditions"]["turns_5"]
+    repeats = int(execution["repeats"])
+    n_tasks = len(ctx["subset"])
+
+    runs = ctx["runs"]
+    no_file = runs[runs["prediction_path"].isna()].groupby("condition").size()
+    modes = ctx["failure_modes"]
+    wrong = (
+        modes[modes["failure_category"] == "wrong_prediction_unclassified"]
+        .groupby("condition")["count"]
+        .sum()
+    )
+    movement = ctx["movement"]
+    rescued = movement[(movement["turns_3"] == 0) & (movement["turns_5"] > 0)]
+    rescued_flaky = int((rescued["turns_5"] < 1).sum())
+    rescued_flaky_text = (
+        "all of them" if rescued_flaky == len(rescued) else f"{rescued_flaky} of them"
+    )
+    score_steps = ", ".join(f"{round(100 * i / repeats)}%" for i in range(repeats + 1))
 
     failure_lines = "\n".join(
-        f"- `{name}`: **{count}**"
+        f"- `{name}` (**{count}**): {FAILURE_DESCRIPTIONS.get(name, 'see docs/failure_taxonomy.md')}"
         for name, count in sorted(
             failures["failure_category_counts"].items(), key=lambda item: (-item[1], item[0])
         )
     )
 
+    def counts(row: dict[str, Any]) -> str:
+        return (
+            f"{whole_count(row['run_success_rate'], row['n_runs'])}/{int(row['n_runs'])}; "
+            f"CI {ci(row, 'mean_task_success_rate')}"
+        )
+
+    def group(row: dict[str, Any], rate: str) -> str:
+        return f"{whole_count(row[rate], row['n_tasks'])}/{int(row['n_tasks'])} ({pct(row[rate])})"
+
     return f"""# Beyond Average Score: Repeatability of LLM Data-Science Agents on DARE-Bench
 
-A reproducible {execution['planned_run_count']}-run study of exact-match performance and repeatability for an LLM data-science agent on a fixed DARE-Bench subset.
+[![analysis](https://github.com/MouhssineElBoumshouli/dare-agent-reliability/actions/workflows/analysis.yml/badge.svg)](https://github.com/MouhssineElBoumshouli/dare-agent-reliability/actions/workflows/analysis.yml)
 
-This is an independent reliability study built on [DARE-Bench](https://github.com/Snowflake-Labs/dare-bench). This repository is not a new benchmark, is not affiliated with Snowflake, and is not produced or endorsed by the DARE-Bench authors.
+If you give an AI agent the same task {repeats} times, does it get the same result every time? This project tests that. It runs one AI agent on {n_tasks} data-science tasks from DARE-Bench, {repeats} times each, under two different turn limits. That's {execution['planned_run_count']} runs in total.
 
-> **Research question:** When the same deterministic DARE-Bench instruction-following task is given to the same LLM agent repeatedly, how consistently does it succeed?
+This is an independent reliability study built on [DARE-Bench](https://github.com/Snowflake-Labs/dare-bench). It is not a new benchmark, and it is not made or endorsed by Snowflake or the DARE-Bench authors.
 
-## Key result
+## The short version
 
-Increasing the agent turn budget from three to five raised mean official exact-match success from **{pct(t3['run_success_rate'])}** to **{pct(t5['run_success_rate'])}** on this fixed {len(ctx['subset'])}-task subset. At the same time, flaky tasks increased from **{pct(t3['flaky_task_rate'])}** to **{pct(t5['flaky_task_rate'])}**, and mean pairwise disagreement rose from **{pct(t3['mean_pairwise_disagreement'])}** to **{pct(t5['mean_pairwise_disagreement'])}**. Additional turns improved average capability without uniformly improving repeatability.
+Most AI benchmarks run each task once and report an average score. That score can hide a lot. A 50% score could mean the agent always solves half the tasks and never solves the rest. Or it could mean the agent solves every task about half the time. If you rely on the agent, those are very different.
+
+So I gave the same agent the same tasks over and over. Think of a student who gets the same problem {repeats} times and starts fresh each time. First the student gets a short time limit ({turns3['max_turn']} turns). Then a longer one ({turns5['max_turn']} turns).
+
+With more turns, the agent passed more often: **{pct(t3['run_success_rate'])}** of runs passed with {turns3['max_turn']} turns, and **{pct(t5['run_success_rate'])}** with {turns5['max_turn']}. But it also got less predictable. Tasks with mixed results, where some tries pass and some fail, went from **{whole_count(t3['flaky_task_rate'], t3['n_tasks'])} to {whole_count(t5['flaky_task_rate'], t5['n_tasks'])}** out of {n_tasks}. More turns made the agent better on average, but not more consistent.
 
 ![Success and variability on a shared percentage scale](results/figures/figure_07_main_result.png)
 
-The paired task-level mean difference was **{pp(overall_pair['mean_task_success_rate_difference'])}** (task-bootstrap 95% CI: {pp(overall_pair['ci95_low'])} to {pp(overall_pair['ci95_high'])}). This interval is descriptive; no formal significance claim is made.
+## How the study worked
 
-## Study design
+- **The tasks.** {ctx['classification_count']} classification tasks (predict a category) and {ctx['regression_count']} regression tasks (predict a number), picked at random from DARE-Bench with a fixed seed. These are instruction-following tasks. The instructions spell out every step, so there is exactly one correct answer.
+- **The agent.** DARE-Bench's own agent code, unchanged, running OpenAI's `{execution['model_snapshot']}`. It writes Python, runs it in a locked sandbox, reads the output, and tries again.
+- **Turns.** One turn is one round of writing code, running it, and reading the result. The agent got either {turns3['max_turn']} or {turns5['max_turn']} turns per try. The code timeout was {turns3['executor_timeout_seconds']} seconds in both cases, so more turns didn't also mean more time per step.
+- **Tries.** Each task got {repeats} separate tries per turn limit. Every try started from scratch, with no memory of the others.
+- **Grading.** DARE-Bench's official grader. A try passes only if every prediction exactly matches the correct answer.
+
+That's {n_tasks} tasks × {len(execution['conditions'])} turn limits × {repeats} tries = **{execution['planned_run_count']} runs**.
 
 ```mermaid
 flowchart LR
-    A["Frozen DARE-Bench IF subset<br/>{ctx['classification_count']} classification + {ctx['regression_count']} regression"] --> B{{"Turn budget"}}
-    B --> C["3 turns<br/>{execution['conditions']['turns_3']['executor_timeout_seconds']} s executor timeout"]
-    B --> D["5 turns<br/>{execution['conditions']['turns_5']['executor_timeout_seconds']} s executor timeout"]
-    C --> E["{execution['repeats']} independent repeats per task"]
+    A["{n_tasks} fixed tasks<br/>{ctx['classification_count']} classification + {ctx['regression_count']} regression"] --> B{{"Turn limit"}}
+    B --> C["{turns3['max_turn']} turns"]
+    B --> D["{turns5['max_turn']} turns"]
+    C --> E["{repeats} fresh tries per task"]
     D --> E
-    E --> F["{execution['planned_run_count']} immutable run identities"]
-    F --> G["Pinned official evaluator<br/>exact match"]
-    G --> H["Task-level reliability<br/>task-bootstrap intervals"]
+    E --> F["{execution['planned_run_count']} runs"]
+    F --> G["Official grader<br/>exact match"]
+    G --> H["Consistency per task"]
 ```
 
-| Design element | Frozen value |
+I wrote the plan and picked the tasks before running anything, and saved both to Git first. The code for the runs was locked at one commit, and the runner refused to start from any other version. Each run was saved to its own folder that can't be overwritten. Failed runs were never re-run. Afterwards, every run was graded a second time from the saved files.
+
+<details>
+<summary>Exact settings</summary>
+
+| Setting | Value |
 |---|---|
-| DARE-Bench revision | `{execution['dare_bench_commit']}` |
-| Execution freeze | `{integrity['frozen_study_commit']}` / `{integrity['frozen_tag']}` |
-| Task variant | `question_{execution['question_version']}` (IF) |
-| Task sample | {ctx['classification_count']} Classification-IF + {ctx['regression_count']} Regression-IF |
-| Selection seed | `{experiment['benchmark']['task_selection_seed']}` |
-| Subset SHA-256 | `{ctx['subset_hash']}` |
-| Model snapshot | `{execution['model_snapshot']}` |
-| Provider/API | `{execution['provider']}` / `{execution['api_mode']}` |
-| Agent conditions | {execution['conditions']['turns_3']['max_turn']} turns and {execution['conditions']['turns_5']['max_turn']} turns; {execution['conditions']['turns_3']['executor_timeout_seconds']} s executor timeout in both |
-| Repetitions | {execution['repeats']} per task-condition |
-| Planned and recorded runs | {len(ctx['subset'])} × {execution['repeats']} × {len(execution['conditions'])} = {execution['planned_run_count']} |
+| DARE-Bench version | `{execution['dare_bench_commit']}` |
+| Frozen study code | `{integrity['frozen_study_commit']}` / tag `{integrity['frozen_tag']}` |
+| Task variant | `question_{execution['question_version']}` (instruction-following) |
+| Task selection seed | `{experiment['benchmark']['task_selection_seed']}` |
+| Task list SHA-256 | `{ctx['subset_hash']}` |
+| Model | `{execution['model_snapshot']}` via `{execution['provider']}` `{execution['api_mode']}` |
+| Decoding | temperature `{execution['temperature']}`, top-p `{execution['top_p']}`, max output tokens `{execution['max_tokens']}` |
+| Tools | function calls, provider-default tool choice |
+| SDK retries | `{execution['provider_sdk_request_max_retries']}` per request, inside the same run |
+| Sandbox | `{execution['sandbox_image']}` at `{execution['sandbox_image_digest']}` |
+| Sandbox Python | Python {env_packages['python']}, pandas {env_packages['pandas']}, NumPy {env_packages['numpy']}, scikit-learn {env_packages['scikit_learn']}, pyarrow {env_packages['pyarrow']} |
 
-The decoding and tool configuration was frozen before final execution: temperature `{execution['temperature']}`, top-p `{execution['top_p']}`, maximum output tokens `{execution['max_tokens']}`, provider-default automatic tool choice, and function-call tool mode. Provider SDK retries remained at `{execution['provider_sdk_request_max_retries']}`; failed or incomplete study identities were never silently replaced.
+The temperature is {execution['temperature']} and not 0 because DARE-Bench's code treats 0 as "not set" and switches to 0.7. Using {execution['temperature']} keeps it as close to 0 as possible without changing their code. More detail is in [`docs/model_selection.md`](docs/model_selection.md) and [`docs/protocol.md`](docs/protocol.md).
 
-## Method
+</details>
 
-### Tasks and agent
+## What I found
 
-The sample was selected once from the pinned DARE-Bench evaluation release using seed `{experiment['benchmark']['task_selection_seed']}`. Only `question_{execution['question_version']}` Classification-IF and Regression-IF tasks were included. Each task was executed five times under each turn budget using `{execution['model_snapshot']}` with the same prompt variant, sandbox, timeout, and decoding configuration.
+### How often the agent passed
 
-The code sandbox was `{execution['sandbox_image']}` at digest `{execution['sandbox_image_digest']}`. Its relevant runtime was Python {env_packages['python']}, pandas {env_packages['pandas']}, NumPy {env_packages['numpy']}, scikit-learn {env_packages['scikit_learn']}, and pyarrow {env_packages['pyarrow']}. Captured host and container provenance is in [`results/environment/environment.json`](results/environment/environment.json). That manifest was recorded during preflight, so its embedded study-Git subsection predates the final execution freeze; the freeze commit and raw-run integrity report are authoritative for the code revision used by the final runs.
-
-### Official evaluation
-
-Reference outputs were generated locally with the pinned DARE-Bench `reference_solution.py` in the agent-compatible sandbox environment. Every produced `prediction.csv` was independently rescored with the pinned official `evaluation.py`. IF exact match is binary: a run passes only when the official final score is `1.0`. The integrity audit found {integrity['expected_identity_count']} expected identities, {integrity['unique_recorded_identity_count']} unique recorded identities, no missing or duplicate identities, {integrity['prediction_file_count']} produced prediction files, and {integrity['prediction_hash_verified_count']} verified prediction hashes. Runs that completed without producing a valid passing prediction remain failures.
-
-### Reliability measures
-
-For each task-condition, `always pass` means {execution['repeats']} passes, `never pass` means zero passes, and `flaky` means a mixture of pass and fail outcomes. Pairwise disagreement is the fraction of the {execution['repeats'] * (execution['repeats'] - 1) // 2} unordered repeat pairs with different binary outcomes. Confidence intervals resample tasks, not runs: {bootstrap['samples']:,} bootstrap resamples, seed `{bootstrap['seed']}`, and percentile {bootstrap['interval'].split('_')[1]} intervals.
-
-## Results
-
-### Official exact-match success
-
-| Condition | Overall | Classification-IF | Regression-IF |
+| Turn limit | All tasks | Classification | Regression |
 |---|---:|---:|---:|
-| 3 turns | **{pct(t3['run_success_rate'])}** ({whole_count(t3['run_success_rate'], t3['n_runs'])}/{int(t3['n_runs'])}); 95% CI {ci(t3, 'mean_task_success_rate')} | {pct(class3['run_success_rate'])} ({whole_count(class3['run_success_rate'], class3['n_runs'])}/{int(class3['n_runs'])}); CI {ci(class3, 'mean_task_success_rate')} | {pct(reg3['run_success_rate'])} ({whole_count(reg3['run_success_rate'], reg3['n_runs'])}/{int(reg3['n_runs'])}); CI {ci(reg3, 'mean_task_success_rate')} |
-| 5 turns | **{pct(t5['run_success_rate'])}** ({whole_count(t5['run_success_rate'], t5['n_runs'])}/{int(t5['n_runs'])}); 95% CI {ci(t5, 'mean_task_success_rate')} | {pct(class5['run_success_rate'])} ({whole_count(class5['run_success_rate'], class5['n_runs'])}/{int(class5['n_runs'])}); CI {ci(class5, 'mean_task_success_rate')} | {pct(reg5['run_success_rate'])} ({whole_count(reg5['run_success_rate'], reg5['n_runs'])}/{int(reg5['n_runs'])}); CI {ci(reg5, 'mean_task_success_rate')} |
+| {turns3['max_turn']} turns | **{pct(t3['run_success_rate'])}** ({counts(t3)}) | {pct(class3['run_success_rate'])} ({counts(class3)}) | {pct(reg3['run_success_rate'])} ({counts(reg3)}) |
+| {turns5['max_turn']} turns | **{pct(t5['run_success_rate'])}** ({counts(t5)}) | {pct(class5['run_success_rate'])} ({counts(class5)}) | {pct(reg5['run_success_rate'])} ({counts(reg5)}) |
+
+"CI" is a 95% confidence interval. It shows the range the true value probably falls in. The ranges are wide because there are only {n_tasks} tasks. They come from resampling tasks {bootstrap['samples']:,} times (seed `{bootstrap['seed']}`).
 
 ![Overall exact-match success with task-bootstrap intervals](results/figures/figure_01_success_rate_ci.png)
 
-Classification improved by **{pp(class_pair['mean_task_success_rate_difference'])}** (descriptive 95% CI: {pp(class_pair['ci95_low'])} to {pp(class_pair['ci95_high'])}); regression improved by **{pp(reg_pair['mean_task_success_rate_difference'])}** (CI: {pp(reg_pair['ci95_low'], sign=False)} to {pp(reg_pair['ci95_high'])}). Classification contributed {added['classification']} of the {added['total']} additional exact-match passes ({pct(added['classification_share'])}), compared with {added['regression']} additional regression passes. With only {ctx['classification_count']} tasks per family, this is a descriptive concentration, not evidence of a general task-family interaction.
+### How consistent the agent was
 
-![Classification and regression success by condition](results/figures/figure_02_task_type_success.png)
+For each task, I looked at its {repeats} tries and put it in one of three groups:
 
-### Repeatability
+- **Always pass:** all {repeats} tries passed.
+- **Never pass:** no tries passed.
+- **Flaky:** some tries passed and some failed. You can't predict what you'll get.
 
-| Condition | Always-pass tasks | Flaky tasks | Never-pass tasks | Mean pairwise disagreement |
+I also measured **pairwise disagreement**. With {repeats} tries there are {repeats * (repeats - 1) // 2} ways to pick two of them. Disagreement is the share of those pairs where one try passed and the other failed.
+
+| Turn limit | Always pass | Flaky | Never pass | Pairwise disagreement |
 |---|---:|---:|---:|---:|
-| 3 turns | {whole_count(t3['always_pass_task_rate'], t3['n_tasks'])}/{int(t3['n_tasks'])} ({pct(t3['always_pass_task_rate'])}) | {whole_count(t3['flaky_task_rate'], t3['n_tasks'])}/{int(t3['n_tasks'])} ({pct(t3['flaky_task_rate'])}) | {whole_count(t3['never_pass_task_rate'], t3['n_tasks'])}/{int(t3['n_tasks'])} ({pct(t3['never_pass_task_rate'])}) | {pct(t3['mean_pairwise_disagreement'])} |
-| 5 turns | {whole_count(t5['always_pass_task_rate'], t5['n_tasks'])}/{int(t5['n_tasks'])} ({pct(t5['always_pass_task_rate'])}) | {whole_count(t5['flaky_task_rate'], t5['n_tasks'])}/{int(t5['n_tasks'])} ({pct(t5['flaky_task_rate'])}) | {whole_count(t5['never_pass_task_rate'], t5['n_tasks'])}/{int(t5['n_tasks'])} ({pct(t5['never_pass_task_rate'])}) | {pct(t5['mean_pairwise_disagreement'])} |
+| {turns3['max_turn']} turns | {group(t3, 'always_pass_task_rate')} | {group(t3, 'flaky_task_rate')} | {group(t3, 'never_pass_task_rate')} | {pct(t3['mean_pairwise_disagreement'])} |
+| {turns5['max_turn']} turns | {group(t5, 'always_pass_task_rate')} | {group(t5, 'flaky_task_rate')} | {group(t5, 'never_pass_task_rate')} | {pct(t5['mean_pairwise_disagreement'])} |
 
 ![Always-pass, flaky, and never-pass composition](results/figures/figure_03_reliability_composition.png)
 
 ![Pairwise disagreement by condition](results/figures/figure_04_pairwise_disagreement.png)
 
-### Paired task movements
+### Where the extra turns went
 
-Across the {int(overall_pair['n_paired_tasks'])} tasks, {int(overall_pair['tasks_improved'])} improved, {int(overall_pair['tasks_declined'])} declined, and {int(overall_pair['tasks_tied'])} tied. The median task-level change was {pp(overall_pair['median_task_success_rate_difference'], sign=False)} because more than half the tasks tied. Individual movements ranged from {pp(float(ctx['movement']['difference'].min()), 0, sign=False)} to {pp(float(ctx['movement']['difference'].max()), 0)}. The largest changes are listed for completeness, not as representative examples.
+With {turns3['max_turn']} turns, {int(no_file.get('turns_3', 0))} of {int(t3['n_runs'])} runs ended without the agent ever saving an answer file. With {turns5['max_turn']} turns, that dropped to {int(no_file.get('turns_5', 0))}. But wrong answers went up from {int(wrong.get('turns_3', 0))} to {int(wrong.get('turns_5', 0))}. The extra turns mostly helped the agent finish, and many of the runs that finished were still wrong.
+
+### Task by task
+
+Out of {int(overall_pair['n_paired_tasks'])} tasks, {int(overall_pair['tasks_improved'])} did better with {turns5['max_turn']} turns, {int(overall_pair['tasks_declined'])} did worse, and {int(overall_pair['tasks_tied'])} stayed the same. The average change per task was {pp(overall_pair['mean_task_success_rate_difference'])} (95% CI: {pp(overall_pair['ci95_low'])} to {pp(overall_pair['ci95_high'])}). Classification changed by {pp(class_pair['mean_task_success_rate_difference'])} and regression by {pp(reg_pair['mean_task_success_rate_difference'])}. With only {ctx['classification_count']} tasks of each type, that gap is a hint, not proof.
 
 ![Paired movement of all fixed tasks](results/figures/figure_05_task_movements.png)
 
+![Classification and regression success by condition](results/figures/figure_02_task_type_success.png)
+
 <details>
-<summary>All paired task movements, grouped by outcome</summary>
+<summary>Every task, grouped by how it changed</summary>
 
 #### Improved ({len(movements['improved'])})
 
@@ -229,84 +282,85 @@ Across the {int(overall_pair['n_paired_tasks'])} tasks, {int(overall_pair['tasks
 
 {task_list(movements['declined'])}
 
-#### Tied ({len(movements['tied'])})
+#### No change ({len(movements['tied'])})
 
 {task_list(movements['tied'])}
 
 </details>
 
-### Failure analysis
+## What this does and doesn't show
 
-Of {failures['total_runs']} runs, {failures['official_passes']} passed and {failures['official_failures']} failed official exact match. Failure labels were assigned only when mechanically supported by preserved evaluator or log evidence:
+- **Part of the rise in flakiness is built into the measure.** A task that never passes can't be flaky. {len(rescued)} tasks went from never passing to passing sometimes, and {rescued_flaky_text} ended up flaky. So some of the rise comes from tasks getting better, not from the agent getting less stable. For someone using the agent, the result is the same: with {turns5['max_turn']} turns, {whole_count(t5['flaky_task_rate'], t5['n_tasks'])} of {n_tasks} tasks give unpredictable results.
+- **It doesn't explain why tries differ.** The temperature was almost zero, and results still changed from try to try. Small differences probably add up over several turns, but this study didn't test the cause.
+- **The gain is not claimed as statistically significant.** The confidence intervals describe the data. No formal significance claim is made.
+
+## Why runs failed
+
+Of {failures['total_runs']} runs, {failures['official_passes']} passed and {failures['official_failures']} failed. Each failure got a label from simple rules based on the saved logs and the grader's output:
 
 {failure_lines}
 
-`wrong_prediction_unclassified` is the fallback when a structurally valid prediction scored zero and the logs did not support a more specific label. The two malformed predictions were official evaluator row-count mismatch diagnostics. These counts describe what the saved evidence supports; they do not establish why the model failed.
+These labels are rough. A run counts as a `code_error` if a Python error shows up anywhere in its log. Many of those runs probably hit an error, fixed it, and then ran out of turns. A better rule would separate those cases. The rules are in [`docs/failure_taxonomy.md`](docs/failure_taxonomy.md).
 
 ![Failure categories by turn condition](results/figures/figure_06_failure_categories.png)
 
-## API usage and cost
+## Cost
 
-The {integrity['provider_request_count']} recorded provider requests used {tokens['total_tokens']:,} tokens: {tokens['prompt_tokens']:,} prompt tokens, including {tokens['cached_prompt_tokens']:,} cached prompt tokens, and {tokens['completion_tokens']:,} completion tokens. Recorded API cost was **${costs['total']:.6f}**: ${costs['by_condition']['turns_3']:.6f} for three turns and ${costs['by_condition']['turns_5']:.6f} for five turns. Cost is a study-execution measurement under the frozen pricing metadata, not a general cost estimate.
-
-## Reproducibility
-
-The main public audit files are:
-
-- [`configs/task_subset.json`](configs/task_subset.json): frozen task identities and questions;
-- [`configs/execution.yaml`](configs/execution.yaml): frozen provider, model, decoding, tool, timeout, sandbox, and pricing configuration;
-- [`results/derived/runs.csv`](results/derived/runs.csv): one independently rescored row per immutable identity;
-- [`results/derived/raw_run_integrity.json`](results/derived/raw_run_integrity.json): identity, hash, token, cost, model-ID, and rescore checks;
-- [`results/derived/robustness_checks.json`](results/derived/robustness_checks.json): documentation claim cross-checks and all paired task movements;
-- [`results/figures/manifest.json`](results/figures/manifest.json): figure inputs, source hashes, and generator version.
-
-Raw provider traces and run directories remain preserved in the study archive under `results/raw/` and are intentionally excluded from Git by the repository policy. They were not altered during publication preparation.
-
-To regenerate the statistical tables, robustness checks, figures, and documentation from the committed run table:
-
-```powershell
-python -m pip install -r requirements-analysis.txt
-
-python src/reliability_metrics.py `
-  --runs results/derived/runs.csv `
-  --subset configs/task_subset.json `
-  --out-dir results/derived `
-  --expected-repeats {execution['repeats']} `
-  --bootstrap-samples {bootstrap['samples']} `
-  --seed {bootstrap['seed']}
-
-python src/render_publication_docs.py
-python src/generate_figures.py
-python src/render_publication_docs.py --check
-python -X utf8 -m unittest discover -s tests -v
-```
-
-The explicit UTF-8 mode is needed on Windows because the pinned upstream loader otherwise inherits the system text encoding for a UTF-8 task file. The benchmark workspace and pinned upstream code can be restored with `scripts/bootstrap.ps1` or `scripts/bootstrap.sh`. Re-running the paid benchmark is neither required nor performed by the publication pipeline.
+The whole study made {integrity['provider_request_count']} API calls and used {tokens['total_tokens']:,} tokens. It cost **${costs['total']:.2f}**: ${costs['by_condition']['turns_3']:.2f} for {turns3['max_turn']} turns and ${costs['by_condition']['turns_5']:.2f} for {turns5['max_turn']} turns, at the prices saved in [`configs/execution.yaml`](configs/execution.yaml).
 
 ## Limitations
 
-- The study evaluates one model snapshot: `{execution['model_snapshot']}`.
-- The sample contains {len(ctx['subset'])} fixed IF tasks, not the complete DARE-Bench evaluation set.
-- Each task-condition has {execution['repeats']} repetitions, limiting precision for task-specific reliability.
-- Only Classification-IF and Regression-IF are included; modeling and time-series families are outside scope.
-- Results should not automatically generalize to other models, agent architectures, decoding configurations, execution environments, or DARE-Bench task families.
-- Bootstrap intervals are descriptive task-resampling intervals. No formal significance claim is made.
-- Failure taxonomy assignment is mechanical and evidence-limited. `wrong_prediction_unclassified` deliberately avoids unsupported causal attribution.
-- Raw traces are locally preserved but are not part of the lightweight Git history, so the committed integrity and run tables are the public audit layer.
+- One model: `{execution['model_snapshot']}`.
+- {n_tasks} tasks, not the whole DARE-Bench set, and only instruction-following classification and regression tasks.
+- {repeats} tries per task, so a task's success rate can only be {score_steps}.
+- The results might not hold for other models, agents, settings, or task types.
+- The failure labels are rough, as explained above.
+- The raw agent logs are too large for this repo. The run table and integrity report in `results/derived/` are the public record.
+
+## Check the numbers yourself
+
+You don't need an API key or Docker to check the results. Every table, figure, and this README are built from [`results/derived/runs.csv`](results/derived/runs.csv), which has one row per run. The tests fail if any published number stops matching the data. GitHub runs these checks on Linux and Windows after every change.
+
+```
+python -m pip install -r requirements-analysis.txt
+python -X utf8 src/render_publication_docs.py --check
+python -X utf8 -m unittest tests.test_reliability_metrics tests.test_publication_artifacts -v
+```
+
+To rebuild everything from the run table instead:
+
+```
+python src/reliability_metrics.py --runs results/derived/runs.csv --subset configs/task_subset.json --out-dir results/derived --expected-repeats {repeats} --bootstrap-samples {bootstrap['samples']} --seed {bootstrap['seed']}
+python src/render_publication_docs.py
+python src/generate_figures.py
+```
+
+The published SHA-256 hashes were taken on Windows. [`.gitattributes`](.gitattributes) makes Git check out those files with the same line endings on every system, so the hashes match anywhere.
+
+Key files:
+
+- [`configs/task_subset.json`](configs/task_subset.json): the {n_tasks} tasks and their full instructions.
+- [`configs/execution.yaml`](configs/execution.yaml): the frozen model, settings, and prices.
+- [`results/derived/runs.csv`](results/derived/runs.csv): one re-graded row per run.
+- [`results/derived/raw_run_integrity.json`](results/derived/raw_run_integrity.json): proof that all {integrity['expected_identity_count']} runs are there, with no duplicates.
+- [`results/derived/robustness_checks.json`](results/derived/robustness_checks.json): cross-checks of the numbers in this README.
+- [`results/figures/manifest.json`](results/figures/manifest.json): which data each figure was drawn from.
+
+To rerun the agent itself, you need Docker, an OpenAI API key, and the pinned DARE-Bench code. [`scripts/bootstrap.sh`](scripts/bootstrap.sh) or [`scripts/bootstrap.ps1`](scripts/bootstrap.ps1) sets that up.
+
+## About DARE-Bench
+
+[DARE-Bench](https://openreview.net/forum?id=eJV3JhJvZF) tests how well AI agents do data-science work, using tasks with answers that can be checked exactly. This project uses its tasks, reference answers, agent code, and official grader at version `{execution['dare_bench_commit']}`. It asks a narrower question: how consistent is one agent on the same tasks?
+
+This is an independent analysis. It does not change or replace DARE-Bench, is not a new benchmark, and does not imply affiliation with Snowflake or the original authors.
 
 ## License
 
-The original code and documentation in this repository are licensed under the [Apache License 2.0](LICENSE). DARE-Bench remains governed by its [upstream license and dataset-specific licensing](https://github.com/Snowflake-Labs/dare-bench#license). No upstream benchmark databases or source datasets are redistributed here.
+The code and docs in this repo are under the [Apache License 2.0](LICENSE). DARE-Bench has its own [license and dataset licenses](https://github.com/Snowflake-Labs/dare-bench#license). No DARE-Bench databases or source datasets are copied here.
 
-## Relationship to DARE-Bench
+## Citation
 
-[DARE-Bench](https://openreview.net/forum?id=eJV3JhJvZF) evaluates modeling and instruction fidelity for LLM data-science agents using verifiable ground truth. This project uses its released tasks, reference-generation path, agent implementation, and official evaluator at pinned revision `{execution['dare_bench_commit']}`. This study asks a narrower question: how repeatable is one agent on the same fixed tasks under two turn budgets?
-
-This is an independent analysis. It does not modify or supersede DARE-Bench, does not constitute a new benchmark, and does not imply affiliation with Snowflake or the original authors.
-
-### Citation
-
-Please cite the original DARE-Bench paper alongside this repository:
+If you use this work, please cite the DARE-Bench paper too:
 
 ```bibtex
 @inproceedings{{shu{ctx['citation']['references'][0]['year']}darebench,
@@ -317,7 +371,7 @@ Please cite the original DARE-Bench paper alongside this repository:
 }}
 ```
 
-Repository citation metadata is provided in [`CITATION.cff`](CITATION.cff).
+Citation details for this repo are in [`CITATION.cff`](CITATION.cff).
 """
 
 

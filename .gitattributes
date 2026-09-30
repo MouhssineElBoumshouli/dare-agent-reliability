@@ -1,0 +1,13 @@
+# Published SHA-256 values were computed on the Windows study host, so each
+# hashed file must check out with the line endings it had when it was hashed.
+# Git still stores LF; these rules only fix the working-tree bytes so the
+# committed hashes verify on every operating system.
+
+# Hashed with CRLF endings.
+configs/task_subset.json text eol=crlf
+results/derived/*.csv text eol=crlf
+results/derived/*.json text eol=crlf
+results/validation/api_cost_calibration_usage.json text eol=crlf
+
+# Hashed with LF endings.
+configs/execution.yaml text eol=lf

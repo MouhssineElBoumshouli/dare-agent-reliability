@@ -3,7 +3,7 @@ Set-StrictMode -Version Latest
 
 $Repo = "https://github.com/Snowflake-Labs/dare-bench.git"
 $Commit = "01447145304c67b861a004ada6d86f29640de61a"
-$Vendor = "vendor\dare-bench"
+$Vendor = "vendor\DARE-Bench"
 
 function Invoke-Native {
     param(
@@ -70,7 +70,7 @@ if (-not (Test-Path ".venv\Scripts\python.exe")) {
 }
 
 Invoke-Native ".\.venv\Scripts\python.exe" -m pip install --upgrade pip
-Invoke-Native ".\.venv\Scripts\python.exe" -m pip install -r requirements-analysis.txt
+Invoke-Native ".\.venv\Scripts\python.exe" -m pip install -r requirements-analysis.txt -r requirements-agent.txt
 
 $PythonVersion = & ".\.venv\Scripts\python.exe" -c "import sys; print(sys.version)"
 if ($LASTEXITCODE -ne 0) {

@@ -1,0 +1,59 @@
+name: analysis
+
+# Rebuilds the published statistics from the committed run table and checks
+# that every derived number, hash, figure manifest, and generated document
+# still matches. Needs no API key, Docker sandbox, or DARE-Bench checkout.
+# tests/test_study_runner.py needs the pinned upstream clone and task data,
+# so it runs only on a bootstrapped study host.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  reproduce:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install analysis dependencies
+        run: python -m pip install -r requirements-analysis.txt
+
+      - name: Recompute statistics and compare with committed results
+        shell: bash
+        run: |
+          out="$RUNNER_TEMP/derived"
+          python src/reliability_metrics.py \
+            --runs results/derived/runs.csv \
+            --subset configs/task_subset.json \
+            --out-dir "$out" \
+            --expected-repeats 5 \
+            --bootstrap-samples 10000 \
+            --seed 20260825
+          python - "$out" <<'EOF'
+          import sys
+          from pathlib import Path
+
+          import pandas as pd
+
+          fresh = Path(sys.argv[1])
+          for name in ("task_reliability.csv", "condition_summary.csv", "paired_condition_comparison.csv"):
+              pd.testing.assert_frame_equal(
+                  pd.read_csv(fresh / name), pd.read_csv(Path("results/derived") / name)
+              )
+              print(f"{name}: matches")
+          EOF
+
+      - name: Check generated documentation
+        run: python -X utf8 src/render_publication_docs.py --check
+
+      - name: Run analysis tests
+        run: python -X utf8 -m unittest tests.test_reliability_metrics tests.test_publication_artifacts -v

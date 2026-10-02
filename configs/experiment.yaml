@@ -1,3 +1,6 @@
+# Study plan committed before the model was chosen (commit 22a7a8f), so the
+# model fields below were still TBD at that point. The model picked after the
+# pilot is frozen in configs/execution.yaml, which the final runs used.
 study:
   name: dare-agent-reliability
   title: "Beyond Average Score: Repeatability of LLM Data-Science Agents on DARE-Bench"

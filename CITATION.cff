@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: "El Boumshouli"
     given-names: "Mouhssine"
-version: 1.0.0
-date-released: 2026-08-26
+version: 1.0.1
+date-released: 2026-10-02
 license: Apache-2.0
 references:
   - type: conference-paper

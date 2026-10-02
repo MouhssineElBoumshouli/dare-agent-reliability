@@ -4,7 +4,7 @@ name: analysis
 # that every derived number, hash, figure manifest, and generated document
 # still matches. Needs no API key, Docker sandbox, or DARE-Bench checkout.
 # tests/test_study_runner.py needs the pinned upstream clone and task data,
-# so it runs only on a bootstrapped study host.
+# so it skips itself here and runs only on a bootstrapped study host.
 
 on:
   push:
@@ -56,4 +56,4 @@ jobs:
         run: python -X utf8 src/render_publication_docs.py --check
 
       - name: Run analysis tests
-        run: python -X utf8 -m unittest tests.test_reliability_metrics tests.test_publication_artifacts -v
+        run: python -X utf8 -m unittest discover -s tests -v

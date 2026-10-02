@@ -59,6 +59,8 @@ I wrote the plan and picked the tasks before running anything, and saved both to
 
 The temperature is 0.001 and not 0 because DARE-Bench's code treats 0 as "not set" and switches to 0.7. Using 0.001 keeps it as close to 0 as possible without changing their code. More detail is in [`docs/model_selection.md`](docs/model_selection.md) and [`docs/protocol.md`](docs/protocol.md).
 
+The machine and software record in [`results/environment/environment.json`](results/environment/environment.json) was saved during setup, before the final freeze. That's why its Git section shows an earlier commit with uncommitted changes. For the final runs, the record is the freeze commit above and [`results/derived/raw_run_integrity.json`](results/derived/raw_run_integrity.json), which checks that all 240 runs used it.
+
 </details>
 
 ## What I found
@@ -182,7 +184,7 @@ You don't need an API key or Docker to check the results. Every table, figure, a
 ```
 python -m pip install -r requirements-analysis.txt
 python -X utf8 src/render_publication_docs.py --check
-python -X utf8 -m unittest tests.test_reliability_metrics tests.test_publication_artifacts -v
+python -X utf8 -m unittest discover -s tests -v
 ```
 
 To rebuild everything from the run table instead:

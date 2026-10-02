@@ -10,6 +10,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+# These tests exercise the pinned upstream agent and the prepared task data,
+# which are not in Git. Skip the module on a plain clone instead of crashing.
+if not (REPO_ROOT / "vendor" / "DARE-Bench" / "scripts").is_dir():
+    raise unittest.SkipTest(
+        "needs the pinned DARE-Bench checkout; run scripts/bootstrap.sh or scripts/bootstrap.ps1"
+    )
+
 from dare_runtime import import_upstream  # noqa: E402
 from study_runner import (  # noqa: E402
     EXPECTED_SUBSET_SHA256,
